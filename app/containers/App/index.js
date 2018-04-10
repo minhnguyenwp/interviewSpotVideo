@@ -17,23 +17,24 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
+
 const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
-  margin: 0 auto;
-  display: flex;
-  min-height: 100%;
-  padding: 0 16px;
-  flex-direction: column;
+  // max-width: calc(768px + 16px * 2);
+  // margin: 0 auto;
+  // display: flex;
+  // min-height: 100%;
+  // padding: 0 16px;
+  // flex-direction: column;
 `;
 
 export default function App() {
   return (
     <AppWrapper>
       <Helmet
-        titleTemplate="%s - React.js Boilerplate"
-        defaultTitle="React.js Boilerplate"
+        titleTemplate="%s - Central Test"
+        defaultTitle="Central Test"
       >
-        <meta name="description" content="A React.js Boilerplate application" />
+        <meta name="description" content="Central Test" />
       </Helmet>
       <Header />
       <Switch>
@@ -41,7 +42,6 @@ export default function App() {
         <Route path="/features" component={FeaturePage} />
         <Route path="" component={NotFoundPage} />
       </Switch>
-      <Footer />
     </AppWrapper>
   );
 }

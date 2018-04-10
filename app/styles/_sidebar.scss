@@ -1,0 +1,60 @@
+.sidebar {
+    width: $lg-sidebar-width;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: $white;
+    font-size: $lg-font-size;
+
+    .head-side {
+        padding: 15px 10px;
+        border-bottom: 1px solid #377099;
+
+        a {
+            color: $white;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .icon {
+            padding-right: 20px;
+        }
+
+        .sign-out {
+            position: relative;
+            top: 5px;
+        }
+    }
+
+    .list-side {
+        padding: 0;
+        padding-top: 10px;
+
+        a {
+            color: $white;
+
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .item {
+            padding: 10px;
+
+            &:hover {
+                background-color: $blue;
+            }
+        }
+
+        .icon {
+            padding-right: 20px;
+        }
+
+        .val {
+            text-transform: uppercase;
+        }
+    }
+}

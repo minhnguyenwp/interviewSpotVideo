@@ -1,0 +1,49 @@
+// Font size
+$main-font-size: 14px;
+$sm-font-size: 12px;
+$m-font-size: 14px;
+$lg-font-size: 16px;
+$huge-font-size: 24px;
+
+// Colors
+$black: #000000;
+$white: #FFFFFF;
+$grey: #5C6670;
+$light-grey: #B3B2B0;
+$blue: #019BDE;
+$dark-blue: #275B80;
+$red: #C94B2B;
+$green: #92B143;
+$yellow: #e79536;
+$mid-night: #2e3b4d;
+
+$colors: (
+    'black': $black,
+    'white': $white,
+    'grey': $grey,
+    'light-grey': $light-grey,
+    'blue': $blue,
+    'dark-blue': $dark-blue,
+    'red': $red,
+    'green': $green,
+    'yellow': $yellow,
+    'mid-night': $mid-night
+);
+
+// Render color class
+@each $color_name, $color in $colors {
+    .#{$color_name} {
+        background-color: $color !important;
+    }
+
+    .#{$color_name}-text {
+        color: $color !important;
+    }
+
+    .#{$color_name}-br {
+        color: $color !important;
+    }
+}
+
+// Sidebar size
+$lg-sidebar-width: 240px;

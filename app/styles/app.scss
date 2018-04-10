@@ -1,2 +1,19 @@
+// Components
+@import "reset";
+
+// Fonts
+@import 'fonts/font-awesome';
+
 //- APP CSS
 @import "setting";
+@import "global";
+@import "header";
+@import "footer";
+@import "breadcrumb";
+@import "sidebar";
+@import "applications";
+
+
+// Pages
+@import "home";
+@import "dashboard";

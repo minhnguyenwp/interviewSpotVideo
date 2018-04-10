@@ -29,7 +29,25 @@ import { makeSelectUsername } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+// Sy - Sub-Components
+import { Alert, Tooltip } from 'reactstrap';
+
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor(props) {
+    super(props);
+
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      tooltipOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      tooltipOpen: !this.state.tooltipOpen
+    });
+  }
+
   /**
    * when initial state username is not null, submit the form to load repos
    */
@@ -37,7 +55,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     if (this.props.username && this.props.username.trim().length > 0) {
       this.props.onSubmitForm();
     }
+
+    // DEMO: If using Jquery in React Comp.
+    $('.jq-demo-color').css({ color: 'red' });
   }
+
+
 
   render() {
     const { loading, error, repos } = this.props;
@@ -50,7 +73,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <article>
         <Helmet>
-          <title>Home Page</title>
+          <title>Dashboard</title>
           <meta name="description" content="A React.js Boilerplate application homepage" />
         </Helmet>
         <div>
@@ -83,6 +106,46 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
             </Form>
             <ReposList {...reposListProps} />
           </Section>
+          <div className="demo-bt">
+              <p>
+                <span className="jq-demo-color">
+                  jQuery - demo - changed color.
+                </span>
+              </p>
+              <div className="demo-tooltip">
+                <p>Somewhere in here is a <a href="#" id="TooltipExample">tooltip</a>.</p>
+                <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="TooltipExample" toggle={this.toggle}>
+                  Hello world!
+                </Tooltip>
+              </div>
+              <Alert color="primary">
+                This is a primary alert — check it out!
+              </Alert>
+              <Alert color="secondary">
+                This is a secondary alert — check it out!
+              </Alert>
+              <Alert color="success">
+                This is a success alert — check it out!
+              </Alert>
+              <Alert color="danger">
+                This is a danger alert — check it out!
+              </Alert>
+              <Alert color="warning">
+                This is a warning alert — check it out!
+              </Alert>
+              <Alert color="info">
+                This is a info alert — check it out!
+              </Alert>
+              <Alert color="light">
+                This is a light alert — check it out!
+              </Alert>
+              <Alert color="dark">
+                This is a dark alert — check it out!
+              </Alert>
+              <div className="main-component">
+              DEMO-DEMO class in styles folder
+              </div>
+          </div>
         </div>
       </article>
     );

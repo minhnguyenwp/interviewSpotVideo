@@ -1,0 +1,46 @@
+.main-component {
+    background-color: #2f658c;
+    color: $white;
+    padding: 40px;
+
+    .description-block {
+        padding-right: 80px;
+    }
+
+    .login-block {
+        .title {
+            font-size: $lg-font-size;
+            margin-bottom: 20px;
+        }
+
+        .help-text,
+        .forgot-link {
+            margin-bottom: 10px;
+        }
+
+        .forgot-link {
+            color: #d1a545;
+            display: block;
+        }
+
+        .new-user {
+            display: block;
+            margin-bottom: 20px;
+            color: #d1a545;
+        }
+
+    }
+}
+
+.component {
+    padding: 20px 0;
+    color: #808991;
+
+    .sign-in-actions {
+        margin-left: 100px;
+
+        .action {
+            margin-bottom: 20px;
+        }
+    }
+}

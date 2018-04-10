@@ -11,18 +11,16 @@ import messages from './messages';
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     return (
-      <div>
-        <A href="https://twitter.com/mxstbr">
-          <Img src={Banner} alt="react-boilerplate - Logo" />
+      <div className="header-wrap">
+        <A href="#" className="hd-logo">
+          <Img src={'assets/images/logo.png'} alt="" />
         </A>
-        <NavBar>
-          <HeaderLink to="/">
-            <FormattedMessage {...messages.home} />
-          </HeaderLink>
-          <HeaderLink to="/features">
-            <FormattedMessage {...messages.features} />
-          </HeaderLink>
-        </NavBar>
+        <div className="blk-lang">
+          <div className="lang-choose">
+            <span>English (US)</span>
+            <i className="fa fa-caret-down"></i>
+          </div>
+        </div>
       </div>
     );
   }

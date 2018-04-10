@@ -1,0 +1,77 @@
+.applications {
+    margin-top: 50px;
+
+    .application-item {
+        padding: 20px 0;
+        border-bottom: 1px solid $light-grey;
+    }
+
+    .item-body {
+        display: table;
+        width: 100%;
+
+        .title,
+        .risk,
+        .score,
+        .actions {
+            display: table-cell;
+            vertical-align: top;
+            width: 15%;
+        }
+
+        .title {
+            width: 55%;
+            color: $blue;
+        }
+
+        .risk,
+        .score {
+            text-align: center;
+
+            .number {
+                font-size: 40px;
+            }
+
+            .desc {
+                text-transform: uppercase;
+                color: $light-grey;
+            }
+        }
+
+        .actions {
+            .icon {
+                color: $light-grey;
+                padding-left: 10px;
+                font-size: $huge-font-size;
+            }
+        }
+    }
+}
+
+.application-paging {
+    text-align: center;
+    margin-top: 40px;
+
+    .paging {
+        display: inline-block;
+        padding: 0 5px;
+
+        .paging-item {
+            display: inline-block;
+            padding: 0 10px;
+
+            .paging-btn {
+                height: 40px;
+                width: 40px;
+                line-height: 40px;
+                border: 1px solid $blue;
+
+                &.active {
+                    border: 0;
+                    background-color: $blue;
+                    color: $white;
+                }
+            }
+        }
+    }
+}

@@ -5,6 +5,16 @@
 const path = require('path');
 const webpack = require('webpack');
 
+// /* Sy-customized -- */
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const extractSass = new ExtractTextPlugin({
+  filename: "[name].[contenthash].css",
+  disable: process.env.NOE_ENV === 'development',
+  allChunks: true
+});
+// - Sy - END ________
+
 // Remove this line once the following warning goes away (it was meant for webpack loader authors not users):
 // 'DeprecationWarning: loaderUtils.parseQuery() received a non-string value which can be problematic,
 // see https://github.com/webpack/loader-utils/issues/56 parseQuery() will be replaced with getOptions()
@@ -31,9 +41,19 @@ module.exports = (options) => ({
         // Preprocess our own .css files
         // This is the place to add your own loaders (e.g. sass/less etc.)
         // for a list of loaders, see https://webpack.js.org/loaders/#styling
-        test: /\.css$/,
-        exclude: /node_modules/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.scss$/,
+        //include: [ /node_modules/ ],
+        use: extractSass.extract({
+          use: [{
+              loader: "css-loader"
+            },
+            {
+              loader: 'sass-loader'
+            }
+          ],
+          // use 'style-loader' in dev
+          fallback: 'style-loader'
+        })
       },
       {
         // Preprocess 3rd party .css files located in node_modules
@@ -86,6 +106,10 @@ module.exports = (options) => ({
     new webpack.ProvidePlugin({
       // make fetch available
       fetch: 'exports-loader?self.fetch!whatwg-fetch',
+      jQuery: 'jquery',
+      $: 'jquery',
+      Tether: 'tether',
+      'window.Tether': 'tether',
     }),
 
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
@@ -97,6 +121,12 @@ module.exports = (options) => ({
       },
     }),
     new webpack.NamedModulesPlugin(),
+    // Sy - add more actions
+    extractSass,
+    new CopyWebpackPlugin([
+      {from: 'assets', to: 'assets' },
+    ])
+    // Sy - End
   ]),
   resolve: {
     modules: ['app', 'node_modules'],
