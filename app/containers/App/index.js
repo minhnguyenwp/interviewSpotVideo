@@ -12,19 +12,15 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
+import UploadFail from 'containers/UploadVideos/Error/Loadable';
+import UploadSuccess from 'containers/UploadVideos/Success/Loadable';
+
 
 const AppWrapper = styled.div`
-  // max-width: calc(768px + 16px * 2);
-  // margin: 0 auto;
-  // display: flex;
-  // min-height: 100%;
-  // padding: 0 16px;
-  // flex-direction: column;
 `;
 
 export default function App() {
@@ -39,7 +35,8 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/features" component={FeaturePage} />
+        <Route path="/upload-fail" component={UploadFail} />
+        <Route path="/upload-success" component={UploadSuccess} />
         <Route path="" component={NotFoundPage} />
       </Switch>
     </AppWrapper>

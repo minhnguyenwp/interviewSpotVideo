@@ -6,7 +6,7 @@
     z-index: 100;
     height: 40px;
     background-image: url('/assets/images/bg-origami.png');
-    background-repeat: repeat-y;
+    background-repeat: repeat;
     background-size: 400px auto;
     background-color: #c52026;
     .hd-logo {
@@ -30,23 +30,59 @@
 }
 .header-wrap {
     .blk-lang {
-        background-color: rgba(0,0,0,0.1);
         position: absolute;
         top: 0;
         right: 0;
         width: 120px;
         z-index: 1;
+        border-left: 1px solid #c52026;
         .lang-choose {
             color: #fff;
             line-height: 40px;
             padding-left: 15px;
+            cursor: pointer;
+            background-color: rgba(0,0,0,0.2);
             span {
-                margin-right: 10px;
+                margin-right: 5px;
             }
         }
         &:hover {
             .lang-choose {
-                background-color: rgba(0,0,0,0);
+                background-color: rgba(0,0,0,0.1);
+            }
+        }
+    }
+}
+.header-wrap {
+    .blk-lang {
+        .lang-list {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            min-width: 160px;
+            padding: 5px 0;
+            margin: 2px 0 0;
+            z-index: 100;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,.15);
+            -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            box-shadow: 0 6px 12px rgba(0,0,0,.175);
+            font-size: 14px;
+            li {
+                a {
+                    display: block;
+                    padding: 3px 20px;
+                    clear: both;
+                    font-weight: normal;
+                    line-height: 1.42857143;
+                    color: #333;
+                    white-space: nowrap;
+                    &:hover {
+                        background-color: #f2f2f2;
+                        text-decoration: none;
+                    }
+                }
             }
         }
     }

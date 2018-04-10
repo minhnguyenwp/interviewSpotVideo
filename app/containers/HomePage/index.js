@@ -74,77 +74,26 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       <article>
         <Helmet>
           <title>Dashboard</title>
-          <meta name="description" content="A React.js Boilerplate application homepage" />
+          <meta name="description" content="Central Test" />
         </Helmet>
-        <div>
-          <CenteredSection>
-            <H2>
-              <FormattedMessage {...messages.startProjectHeader} />
-            </H2>
-            <p>
-              <FormattedMessage {...messages.startProjectMessage} />
-            </p>
-          </CenteredSection>
-          <Section>
-            <H2>
-              <FormattedMessage {...messages.trymeHeader} />
-            </H2>
-            <Form onSubmit={this.props.onSubmitForm}>
-              <label htmlFor="username">
-                <FormattedMessage {...messages.trymeMessage} />
-                <AtPrefix>
-                  <FormattedMessage {...messages.trymeAtPrefix} />
-                </AtPrefix>
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="mxstbr"
-                  value={this.props.username}
-                  onChange={this.props.onChangeUsername}
-                />
-              </label>
-            </Form>
-            <ReposList {...reposListProps} />
-          </Section>
-          <div className="demo-bt">
+        <div className="container">
+          <div className="content-wrapper">
+            <h2 className="page-ttl uppercase">php dev interview</h2>
+            <div className="page-desc">
               <p>
-                <span className="jq-demo-color">
-                  jQuery - demo - changed color.
-                </span>
+              In an video interview, you would be given 30 secs to read each question. When the countdown timer reaches "0", the system will automatically begin recording your response. And you'll be given a maximum of 3 minutes per question to complete your response. Please note that there are no re-takes for Video Interviews and it will be  a one-time through recording.
               </p>
-              <div className="demo-tooltip">
-                <p>Somewhere in here is a <a href="#" id="TooltipExample">tooltip</a>.</p>
-                <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="TooltipExample" toggle={this.toggle}>
-                  Hello world!
-                </Tooltip>
+              <p>
+              Your could try a Practice Interview before taking an actual interview.
+              </p>
+            </div>
+            <div className="btn-wrap">
+              <div className="time-submiss">
+                Submission Deadline: 30-12-2017
               </div>
-              <Alert color="primary">
-                This is a primary alert — check it out!
-              </Alert>
-              <Alert color="secondary">
-                This is a secondary alert — check it out!
-              </Alert>
-              <Alert color="success">
-                This is a success alert — check it out!
-              </Alert>
-              <Alert color="danger">
-                This is a danger alert — check it out!
-              </Alert>
-              <Alert color="warning">
-                This is a warning alert — check it out!
-              </Alert>
-              <Alert color="info">
-                This is a info alert — check it out!
-              </Alert>
-              <Alert color="light">
-                This is a light alert — check it out!
-              </Alert>
-              <Alert color="dark">
-                This is a dark alert — check it out!
-              </Alert>
-              <div className="main-component">
-              DEMO-DEMO class in styles folder
-              </div>
+              <a href="#" className="btn btn-blue">Try a Practice Interview</a>
+              <a href="#" className="btn btn-red">Begin Interview</a>
+            </div>
           </div>
         </div>
       </article>
