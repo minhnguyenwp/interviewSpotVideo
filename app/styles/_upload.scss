@@ -1,0 +1,47 @@
+.upload-control {
+    width: 600px;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+.upload-percent {
+    padding: 2px;
+    border: 1px solid $red;
+    border-radius: 0.25rem;
+    position: relative;
+    margin-bottom: 50px;
+    .progress-bar {
+        background-color: $red;
+    }
+    .num {
+        position: absolute;
+        top: 0;
+        left: 0;
+        color: #fff;
+        font-size: 11px;
+        z-index: 1;
+    }
+}
+
+.upload-list {
+    .upload-item {
+        border-bottom: 1px solid #ddd;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+        &:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+    }
+    .upload-col-right {
+        .inner {
+            padding: 2px;
+            border: 1px solid $green;
+            border-radius: 0.25rem;
+            position: relative;
+            .progress-bar {
+                background-color: $green;
+            }
+        }
+    }
+}

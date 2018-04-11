@@ -11,7 +11,7 @@ export default class UploadSuccess extends React.Component {
     return (
         <div>
             <Helmet>
-                <title>Upload Success Page</title>
+                <title>Upload Success</title>
                 <meta name="description" content="Central Test" />
             </Helmet>
             <div className="container">

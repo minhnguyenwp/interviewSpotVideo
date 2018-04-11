@@ -18,6 +18,7 @@ import Footer from 'components/Footer';
 
 import UploadFail from 'containers/UploadVideos/Error/Loadable';
 import UploadSuccess from 'containers/UploadVideos/Success/Loadable';
+import UploadProgress from 'containers/UploadVideos/Progress/Loadable';
 
 
 const AppWrapper = styled.div`
@@ -35,8 +36,12 @@ export default function App() {
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
+
+        {/* route upload*/}
         <Route path="/upload-fail" component={UploadFail} />
         <Route path="/upload-success" component={UploadSuccess} />
+        <Route path="/upload" component={UploadProgress} />
+
         <Route path="" component={NotFoundPage} />
       </Switch>
     </AppWrapper>
