@@ -27,7 +27,7 @@ export default class UploadSuccess extends React.Component {
                             </p>
                         </div>
                         <div className="text-center">
-                            <a href="#" className="btn btn-red uppercase rd50 w_auto">close</a>
+                            <a href="#" className="btn btn-red uppercase w_auto">close</a>
                         </div>
                     </div>
                 </div>

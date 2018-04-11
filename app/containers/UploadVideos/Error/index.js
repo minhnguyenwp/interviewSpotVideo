@@ -26,7 +26,7 @@ export default class UploadFail extends React.Component {
                             </p>
                         </div>
                         <div className="text-center">
-                            <a href="#" className="btn btn-red uppercase rd50 w_auto">retry</a>
+                            <a href="#" className="btn btn-red uppercase w_auto">retry</a>
                         </div>
                     </div>
                 </div>
