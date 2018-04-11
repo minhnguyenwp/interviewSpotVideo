@@ -16,10 +16,15 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 
+// comp upload
 import UploadFail from 'containers/UploadVideos/Error/Loadable';
 import UploadSuccess from 'containers/UploadVideos/Success/Loadable';
 import UploadProgress from 'containers/UploadVideos/Progress/Loadable';
 
+// comp interview
+import InterviewQuestion from 'containers/Interview/Question/Loadable';
+import InterviewPrepare from 'containers/Interview/Prepare/Loadable';
+import InterviewRecording from 'containers/Interview/Recording/Loadable';
 
 const AppWrapper = styled.div`
 `;
@@ -37,10 +42,15 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
 
-        {/* route upload*/}
+        {/* route upload */}
         <Route path="/upload-fail" component={UploadFail} />
         <Route path="/upload-success" component={UploadSuccess} />
         <Route path="/upload" component={UploadProgress} />
+
+        {/* route interview */}
+        <Route path="/question" component={InterviewQuestion} />
+        <Route path="/prepare" component={InterviewPrepare} />
+        <Route path="/recording" component={InterviewRecording} />
 
         <Route path="" component={NotFoundPage} />
       </Switch>
