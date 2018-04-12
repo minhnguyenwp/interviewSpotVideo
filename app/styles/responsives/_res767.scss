@@ -1,0 +1,79 @@
+@media (max-width: 767px) {
+    .page-desc {
+        width: 100%;
+    }
+    .page-ttl {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    .page-desc {
+        margin-bottom: 15px;
+    }
+    .btn-wrap {
+        &.w600 {
+            width: 100%;
+        }
+    }
+    .upload-control {
+        width: 100%;
+    }
+    .content-wrapper {
+        margin-top: 60px;
+        padding: 15px;
+    }
+    .upload-control,
+    .upload-percent,
+    .upload-percent.bt30,
+    .interview-video {
+        margin-bottom: 15px;
+    }
+    .btn.btn-red.w_auto {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    .btn {
+        &.btn-red,&.btn-blue,&.btn-green {
+            font-size: 14px;
+        }
+    }
+}
+@media (max-width: 480px) {
+    .btn-wrap,
+    .interview-video {
+        width: 100%;
+    }
+    .page-ttl {
+        font-size: 20px;
+    }
+    .upload-item {
+        .upload-ttl, .upload-col-right {
+            width: 100%;
+        }
+    }
+    .upload-percent {
+        .num {
+            left: 10px !important;
+        }
+    }
+    .page-ttl {
+        font-size: 18px;
+    }
+}
+@media (max-width: 380px) {
+    .header-wrap {
+        .hd-logo, .blk-lang {
+            width: 50%;
+        }
+        .blk-lang {
+            .lang-choose {
+                text-align: right;
+                padding-right: 10px;
+            }
+        }
+    }
+    .btn-wrap {
+        .time-submiss {
+            font-size: 12px;
+        }
+    }
+}

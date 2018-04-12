@@ -29,10 +29,10 @@ export default class UploadProgress extends React.Component {
                         <div className="upload-list">
                             <div className="upload-item">
                                 <div className="row">
-                                    <div className="col-md-3 col-sm-4 col-xs-12 upload-ttl">
+                                    <div className="col-md-3 col-sm-4 col-xs-3 upload-ttl">
                                         Question 1's Name
                                     </div>
-                                    <div className="col-md-9 col-sm-9 col-xs-12 upload-col-right">
+                                    <div className="col-md-9 col-sm-8 col-xs-9 upload-col-right">
                                         <div className="inner">
                                             <Progress value="50" />
                                         </div>
@@ -41,10 +41,10 @@ export default class UploadProgress extends React.Component {
                             </div>
                             <div className="upload-item">
                                 <div className="row">
-                                    <div className="col-md-3 col-sm-4 col-xs-12 upload-ttl">
+                                    <div className="col-md-3 col-sm-4 col-xs-3 upload-ttl">
                                         Question 2's Name
                                     </div>
-                                    <div className="col-md-9 col-sm-9 col-xs-12 upload-col-right">
+                                    <div className="col-md-9 col-sm-8 col-xs-9 upload-col-right">
                                         <div className="inner">
                                             <Progress value="50" />
                                         </div>
@@ -53,10 +53,10 @@ export default class UploadProgress extends React.Component {
                             </div>
                             <div className="upload-item">
                                 <div className="row">
-                                    <div className="col-md-3 col-sm-4 col-xs-12 upload-ttl">
+                                    <div className="col-md-3 col-sm-4 col-xs-3 upload-ttl">
                                         Question 3's Name
                                     </div>
-                                    <div className="col-md-9 col-sm-9 col-xs-12 upload-col-right">
+                                    <div className="col-md-9 col-sm-8 col-xs-9 upload-col-right">
                                         <div className="inner">
                                             <Progress value="50" />
                                         </div>

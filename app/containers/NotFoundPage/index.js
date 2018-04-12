@@ -13,9 +13,13 @@ import messages from './messages';
 export default function NotFound() {
   return (
     <article>
-      <H1>
-        <FormattedMessage {...messages.header} />
-      </H1>
+      <div className="container">
+          <div className="content-wrapper">
+            <h2 className="page-ttl uppercase no-bt">
+              <FormattedMessage {...messages.header} />
+            </h2>
+          </div>
+      </div>
     </article>
   );
 }

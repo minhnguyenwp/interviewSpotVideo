@@ -3,6 +3,9 @@
     margin: 0 auto;
     margin-bottom: 50px;
 }
+.progress {
+    margin-bottom: 0;
+}
 .upload-percent {
     padding: 2px;
     border: 1px solid $red;
@@ -17,7 +20,7 @@
     }
     .num {
         position: absolute;
-        top: 0;
+        top: 2px;
         left: 0;
         color: #fff;
         font-size: 11px;

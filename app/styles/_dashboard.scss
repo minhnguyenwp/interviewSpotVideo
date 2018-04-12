@@ -20,6 +20,9 @@ body {
     font-size: 40px;
     text-align: center;
     margin-bottom: 20px;
+    &.no-bt {
+        margin-bottom: 0;
+    }
 }
 
 .uppercase {
