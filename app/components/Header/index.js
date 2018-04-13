@@ -46,7 +46,7 @@ class Header extends React.Component {
   render() {
     return (
       <div className="header-wrap">
-        <A href="#" className="hd-logo">
+        <A href="/" className="hd-logo">
           <Img src={'assets/images/logo.png'} alt="" />
         </A>
         <div className="blk-lang">

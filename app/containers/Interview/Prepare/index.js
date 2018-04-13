@@ -9,7 +9,7 @@ export default class InterviewPrepare extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="central-wrap">
             <Helmet>
                 <title>Prepare</title>
                 <meta name="description" content="Central Test" />
@@ -28,7 +28,7 @@ export default class InterviewPrepare extends React.Component {
                             <Img src={'assets/images/video-upload.jpg'} alt="" />
                         </div>
                         <div className="btn-wrap text-center">
-                            <a href="#" className="btn btn-red uppercase w_auto">start</a>
+                            <a href="/recording" className="btn btn-red uppercase w_auto">start</a>
                         </div>
                     </div>
                 </div>

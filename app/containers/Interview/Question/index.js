@@ -9,7 +9,7 @@ export default class InterviewQuestion extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="central-wrap">
             <Helmet>
                 <title>Question</title>
                 <meta name="description" content="Central Test" />
@@ -32,7 +32,7 @@ export default class InterviewQuestion extends React.Component {
                         <div className="time-submiss">
                             Submission Deadline: Not Applicable
                         </div>
-                        <a href="#" className="btn btn-green uppercase">next</a>
+                        <a href="/prepare" className="btn btn-green uppercase">next</a>
                     </div>
                 </div>
             </div>

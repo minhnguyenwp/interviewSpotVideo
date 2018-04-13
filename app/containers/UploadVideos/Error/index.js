@@ -8,7 +8,7 @@ export default class UploadFail extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="central-wrap">
             <Helmet>
                 <title>Error Page</title>
                 <meta name="description" content="Central Test" />

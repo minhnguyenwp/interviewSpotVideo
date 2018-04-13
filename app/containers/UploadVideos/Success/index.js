@@ -9,7 +9,7 @@ export default class UploadSuccess extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="central-wrap">
             <Helmet>
                 <title>Upload Success</title>
                 <meta name="description" content="Central Test" />

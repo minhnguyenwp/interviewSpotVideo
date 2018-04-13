@@ -9,7 +9,7 @@ export default class UploadProgress extends React.Component {
 
   render() {
     return (
-        <div>
+        <div className="central-wrap">
             <Helmet>
                 <title>Upload Progress</title>
                 <meta name="description" content="Central Test" />

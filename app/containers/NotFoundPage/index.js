@@ -12,7 +12,7 @@ import messages from './messages';
 
 export default function NotFound() {
   return (
-    <article>
+    <article className="central-wrap">
       <div className="container">
           <div className="content-wrapper">
             <h2 className="page-ttl uppercase no-bt">
