@@ -16,17 +16,24 @@ import injectSaga from 'utils/injectSaga';
 import AtPrefix from './AtPrefix';
 import reducer from './reducer';
 import saga from './saga';
+import { getSession } from './actions';
+import { makeSelectSession, makeSelectSessionLoading, makeSelectSessionError } from './selectors';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   componentDidMount() {
+    this.props.onPageLoad();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    //console.log('nextProps', nextProps);
   }
 
   render() {
-
+    console.log('render', this.props)
     return (
       <article className="central-wrap">
         <Helmet>
@@ -59,15 +66,32 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
+  loading: PropTypes.bool,
+  error: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  session: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  onPageLoad: PropTypes.func,
 };
 
 export function mapDispatchToProps(dispatch) {
   return {
+    onPageLoad: () => {
+      dispatch(getSession());
+    },
   };
 }
 
 const mapStateToProps = createStructuredSelector({
+  session: makeSelectSession(),
+  loading: makeSelectSessionLoading(),
+  error: makeSelectSessionError()
 });
+
 
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 

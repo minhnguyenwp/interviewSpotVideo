@@ -16,19 +16,46 @@
  */
 
 import {
-  CHANGE_USERNAME,
+  GET_SESSION,
+  GET_SESSION_SUCCESS,
+  GET_SESSION_FAILURE,
 } from './constants';
 
 /**
- * Changes the input field of the form
+ * Load the repositories, this action starts the request saga
  *
- * @param  {name} name The new text of the input field
- *
- * @return {object}    An action object with a type of CHANGE_USERNAME
+ * @return {object} An action object with a type of GET_SESSION
  */
-export function changeUsername(name) {
+export function getSession() {
   return {
-    type: CHANGE_USERNAME,
-    name,
+    type: GET_SESSION,
+  };
+}
+
+/**
+ * Dispatched when the repositories are loaded by the request saga
+ *
+ * @param  {object} session The session data
+ *
+ * @return {object}      An action object with a type of GET_SESSION_SUCCESS passing the repos
+ */
+export function getSessionSuccess(session) {
+  return {
+    type: GET_SESSION_SUCCESS,
+    session: session
+  };
+}
+
+/**
+ * Dispatched when loading the repositories fails
+ *
+ * @param  {object} error The error
+ *
+ * @return {object}       An action object with a type of GET_SESSION_FAILURE passing the error
+ */
+export function getSessionFailure(error) {
+  return {
+    type: GET_SESSION_FAILURE,
+    error: error
   };
 }
