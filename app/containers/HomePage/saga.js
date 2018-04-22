@@ -23,9 +23,10 @@ export function* getSessionData() {
     const response = yield call(request, requestURL, { 
                   headers: {
                     "Content-Type": "application/json",
-                    'Access-Control-Allow-Origin':'*'
+                    'Access-Control-Allow-Origin':'*',
                   },
-                  mode: "cors"
+                  mode: "cors",
+                  credentials: 'include'
                 });
     console.log('getSession', response);
     yield put(getSessionSuccess(response));
