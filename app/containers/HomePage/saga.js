@@ -20,14 +20,7 @@ export function* getSessionData() {
   const requestURL = `${BASE_API_URL}/api?code=${code}&object=session&societe=${societe}`;
   try {
     // Call our request helper (see 'utils/request')
-    const response = yield call(request, requestURL, { 
-                  headers: {
-                    "Content-Type": "application/json",
-                    'Access-Control-Allow-Origin':'*',
-                  },
-                  mode: "cors",
-                  credentials: 'include'
-                });
+    const response = yield call(request, requestURL);
     console.log('getSession', response);
     yield put(getSessionSuccess(response));
   } catch (err) {

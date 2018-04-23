@@ -3,10 +3,19 @@
  */
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { getStd } from 'utils/helper';
 import Img from '../../../components/Img';
 
-export default class InterviewQuestion extends React.Component { 
-
+export default class InterviewQuestion extends React.Component {
+  constructor(props) {
+    super(props)
+    let std = getStd(props);
+    let anwsers = JSON.parse(localStorage.getItem('interviewAnwsers'));
+    console.log(anwsers[std]);
+  }
+  componentDidMount() {
+    
+  }
   render() {
     return (
         <div className="central-wrap">
