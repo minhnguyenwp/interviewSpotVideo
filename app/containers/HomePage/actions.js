@@ -19,6 +19,9 @@ import {
   GET_SESSION,
   GET_SESSION_SUCCESS,
   GET_SESSION_FAILURE,
+  GET_QUESTION,
+  GET_QUESTION_SUCCESS,
+  GET_QUESTION_FAILURE,
 } from './constants';
 
 /**
@@ -26,9 +29,11 @@ import {
  *
  * @return {object} An action object with a type of GET_SESSION
  */
-export function getSession() {
+export function getSession(code, societe) {
   return {
     type: GET_SESSION,
+    code: code,
+    societe: societe
   };
 }
 
@@ -56,6 +61,42 @@ export function getSessionSuccess(session) {
 export function getSessionFailure(error) {
   return {
     type: GET_SESSION_FAILURE,
+    error: error
+  };
+}
+
+
+export function getQuestion(url) {
+  return {
+    type: GET_QUESTION,
+    url: url
+  };
+}
+
+/**
+ * Dispatched when the repositories are loaded by the request saga
+ *
+ * @param  {object} question The question data
+ *
+ * @return {object}      An action object with a type of GET_SESSION_SUCCESS passing the repos
+ */
+export function getQuestionSuccess(question) {
+  return {
+    type: GET_QUESTION_SUCCESS,
+    question: question
+  };
+}
+
+/**
+ * Dispatched when loading the repositories fails
+ *
+ * @param  {object} error The error
+ *
+ * @return {object}       An action object with a type of GET_SESSION_FAILURE passing the error
+ */
+export function getQuestionFailure(error) {
+  return {
+    type: GET_QUESTION_FAILURE,
     error: error
   };
 }

@@ -12,3 +12,7 @@
 export const GET_SESSION = 'iterviewSpost/Home/GET_SESSION';
 export const GET_SESSION_SUCCESS = 'iterviewSpost/Home/GET_SESSION_SUCCESS';
 export const GET_SESSION_FAILURE = 'iterviewSpost/Home/GET_SESSION_FAILURE';
+
+export const GET_QUESTION = 'iterviewSpost/Home/GET_QUESTION';
+export const GET_QUESTION_SUCCESS = 'iterviewSpost/Home/GET_QUESTION_SUCCESS';
+export const GET_QUESTION_FAILURE = 'iterviewSpost/Home/GET_QUESTION_FAILURE';

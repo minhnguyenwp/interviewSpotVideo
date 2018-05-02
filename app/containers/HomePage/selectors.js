@@ -11,19 +11,19 @@ const makeSelectSession = () => createSelector(
   (homeState) => homeState.get('session')
 );
 
-const makeSelectSessionLoading = () => createSelector(
-  selectHome,
-  (homeState) => homeState.get('loading')
-);
-
 const makeSelectSessionError = () => createSelector(
   selectHome,
   (homeState) => homeState.get('error')
 );
 
+const makeSelectQuestion = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('question')
+);
+
 export {
   selectHome,
   makeSelectSession,
-  makeSelectSessionLoading,
+  makeSelectQuestion,
   makeSelectSessionError,
 };

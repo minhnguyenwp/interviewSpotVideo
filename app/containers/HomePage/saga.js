@@ -13,18 +13,31 @@ import request from 'utils/request';
 /**
  * Github repos request/response handler
  */
-export function* getSessionData() {
+export function* getSessionData(action) {
   // Select username from store
-  const code = '6173-7353-8939-2018';
-  const societe = 1;
+  // const code = '6173-7353-8939-2018';
+  // const societe = 1;
+  let code = action.code;
+  let societe = action.societe;
   const requestURL = `${BASE_API_URL}/api?code=${code}&object=session&societe=${societe}`;
   try {
     // Call our request helper (see 'utils/request')
     const response = yield call(request, requestURL);
-    console.log('getSession', response);
     yield put(getSessionSuccess(response));
   } catch (err) {
     yield put(getSessionFailure(err));
+  }
+}
+
+export function* getQuestionData(action) {
+
+  const requestURL = action.url;
+  try {
+    // Call our request helper (see 'utils/request')
+    const response = yield call(request, requestURL);
+    yield put(getQuestionSuccess(response));
+  } catch (err) {
+    yield put(getQuestionFailure(err));
   }
 }
 
@@ -36,5 +49,8 @@ export default function* root() {
   // By using `takeLatest` only the result of the latest API call is applied.
   // It returns task descriptor (just like fork) so we can continue execution
   // It will be cancelled automatically on component unmount
-  yield takeLatest(GET_SESSION, getSessionData);
+  yield all([ 
+    takeLatest(GET_SESSION, getSessionData),
+    takeLatest(GET_QUESTION, getQuestionData),
+  ]);
 }

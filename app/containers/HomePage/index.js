@@ -13,12 +13,12 @@ import { createStructuredSelector } from 'reselect';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
-import { myFormatDate } from 'utils/helper';
+import { myFormatDate, parseQuery } from 'utils/helper';
 import AtPrefix from './AtPrefix';
 import reducer from './reducer';
 import saga from './saga';
 import { getSession } from './actions';
-import { makeSelectSession, makeSelectSessionLoading, makeSelectSessionError } from './selectors';
+import { makeSelectSession, makeSelectSessionError, makeSelectQuestion } from './selectors';
 import InterviewQuestion from 'components/Interview/Question';
 import InterviewPrepare from 'components/Interview/Prepare';
 import InterviewRecording from 'components/Interview/Recording';
@@ -30,12 +30,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.state = {
       qNum : 0,
       qStep : 'Start',
-      anwser: false
+      question: false
     }
   }
 
   componentDidMount() {
-    this.props.onPageLoad();
+    let qs = parseQuery(this.props.location.search)
+    this.props.onPageLoad(qs['code'], qs['societe']);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -44,14 +45,17 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   startInterview(e) {
     e.preventDefault();
+    let qNum = this.state.qNum + 1
+
+
     this.setState({
-      qNum : this.state.qNum + 1,
+      qNum : qNum + 1,
       qStep : 'Question'
     })
   }
 
   render() {
-    const {loading, error, session} = this.props
+    const {error, session, question} = this.props
     const { qNum } = this.state
     console.log(this.state)
     const sessionDesc = 'In an video interview, you would be given %%readingTimeLimit%% secs to read each question. When the countdown timer reaches "0", the system will automatically begin recording your response. And you\'ll be given a maximum of %%answerTimeLimit%% minutes per question to complete your response. Please note that there are no re-takes for Video Interviews and it will be  a one-time through recording.';
@@ -66,12 +70,15 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 }
 
 HomePage.propTypes = {
-  loading: PropTypes.bool,
   error: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
   ]),
   session: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
+  question: PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.bool,
   ]),
@@ -81,16 +88,19 @@ HomePage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onPageLoad: () => {
-      dispatch(getSession());
+    onPageLoad: (code, societe) => {
+      dispatch(getSession(code, societe));
     },
+    getQuestion: (url) => {
+      dispatch(getQuestion(url));
+    }
   };
 }
 
 const mapStateToProps = createStructuredSelector({
   session: makeSelectSession(),
-  loading: makeSelectSessionLoading(),
-  error: makeSelectSessionError()
+  error: makeSelectSessionError(),
+  question: makeSelectQuestion()
 });
 
 

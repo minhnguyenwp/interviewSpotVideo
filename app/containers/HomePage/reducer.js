@@ -15,31 +15,42 @@ import {
   GET_SESSION,
   GET_SESSION_SUCCESS,
   GET_SESSION_FAILURE,
+  GET_QUESTION,
+  GET_QUESTION_SUCCESS,
+  GET_QUESTION_FAILURE,
 } from './constants';
 
 // The initial state of the App
 const initialState = fromJS({
-  loading: false,
   error: false,
-  session: false
+  session: false,
+  question: false
 });
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
     case GET_SESSION:
       return state
-        .set('loading', true)
         .set('error', false)
         .set('session', false);
     case GET_SESSION_SUCCESS:
       return state
         //.setIn(['userData', 'repositories'], action.repos) // for nested object
         .set('session', action.session)
-        .set('loading', false)
     case GET_SESSION_FAILURE:
       return state
         .set('error', action.error)
-        .set('loading', false);
+    case GET_QUESTION:
+      return state
+        .set('error', false)
+        .set('question', false);
+    case GET_QUESTION_SUCCESS:
+      return state
+        //.setIn(['userData', 'repositories'], action.repos) // for nested object
+        .set('question', action.question)
+    case GET_QUESTION_FAILURE:
+      return state
+        .set('error', action.error)
     default:
       return state;
   }
