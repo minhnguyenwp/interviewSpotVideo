@@ -8,7 +8,16 @@ import { Progress } from 'reactstrap';
 
 export default class InterviewRecording extends React.Component { 
 
+    doneRecord(e){
+        e.preventDefault();
+        if(typeof this.props.doneRecord == 'function'){
+            console.log('doneRecord');
+            this.props.doneRecord(e);
+        }
+    }
+
   render() {
+    const { question, qNum } = this.props 
     return (
         <div className="central-wrap">
             <Helmet>
@@ -20,7 +29,9 @@ export default class InterviewRecording extends React.Component {
                     <h2 className="page-ttl">Now Recording</h2>
                     <div className="btn-wrap w600">
                         <div className="page-desc blk-question">
-                            Question 1: Tell us about a project that you have recently worked on. What was your role and was the project a success or failure? And why?
+                            {
+                                'Question ' + qNum + ': ' + question.text
+                            }
                         </div>
                         <div className="upload-percent bt30">
                             <span className="num" style={{'left': '39%'}}>01:30/03:00</span>
@@ -30,7 +41,7 @@ export default class InterviewRecording extends React.Component {
                             <Img src={'assets/images/video-upload.jpg'} alt="" />
                         </div>
                         <div className="btn-wrap text-center">
-                            <a href="/upload" className="btn btn-red uppercase w_auto">done recording</a>
+                            <a onClick={(e) => this.doneRecord(e)} className="btn btn-red uppercase w_auto">done recording</a>
                         </div>
                     </div>
                 </div>

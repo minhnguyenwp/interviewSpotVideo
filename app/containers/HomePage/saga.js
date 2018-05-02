@@ -2,10 +2,10 @@
  * Gets the repositories of the user from Github
  */
 
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 import { BASE_API_URL } from 'containers/App/constants';
-import { GET_SESSION } from './constants';
-import { getSessionSuccess, getSessionFailure } from './actions';
+import { GET_SESSION, GET_QUESTION } from './constants';
+import { getSessionSuccess, getSessionFailure, getQuestionFailure, getQuestionSuccess } from './actions';
 
 import request from 'utils/request';
 //import { makeSelectUsername } from 'containers/HomePage/selectors';
@@ -19,7 +19,7 @@ export function* getSessionData(action) {
   // const societe = 1;
   let code = action.code;
   let societe = action.societe;
-  const requestURL = `${BASE_API_URL}/api?code=${code}&object=session&societe=${societe}`;
+  const requestURL = `${BASE_API_URL}/centraltest/vim/videoInterview/api?code=${code}&object=session&societe=${societe}`;
   try {
     // Call our request helper (see 'utils/request')
     const response = yield call(request, requestURL);
@@ -31,7 +31,7 @@ export function* getSessionData(action) {
 
 export function* getQuestionData(action) {
 
-  const requestURL = action.url;
+  const requestURL = `${BASE_API_URL}/${action.url}`;
   try {
     // Call our request helper (see 'utils/request')
     const response = yield call(request, requestURL);

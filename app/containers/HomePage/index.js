@@ -17,12 +17,19 @@ import { myFormatDate, parseQuery } from 'utils/helper';
 import AtPrefix from './AtPrefix';
 import reducer from './reducer';
 import saga from './saga';
-import { getSession } from './actions';
+import { getSession, getQuestion } from './actions';
 import { makeSelectSession, makeSelectSessionError, makeSelectQuestion } from './selectors';
+
+// comp interview
 import InterviewQuestion from 'components/Interview/Question';
 import InterviewPrepare from 'components/Interview/Prepare';
 import InterviewRecording from 'components/Interview/Recording';
 import InterviewStart from 'components/Interview/Start';
+
+// comp upload
+import UploadProgress from 'components/UploadVideos/UploadProgress';
+import UploadSuccess from 'components/UploadVideos/UploadSuccess';
+import UploadFail from 'components/UploadVideos/UploadFail';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -45,24 +52,69 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   startInterview(e) {
     e.preventDefault();
-    let qNum = this.state.qNum + 1
-
+    let qNum = this.state.qNum
+    let url = this.props.session.answers[qNum].href
+    this.props.getQuestion(url)
 
     this.setState({
-      qNum : qNum + 1,
       qStep : 'Question'
     })
   }
 
+  doPrepare(e){
+    e.preventDefault();
+    this.setState({
+      qStep : 'Prepare'
+    })
+  }
+
+  startRecord(e){
+    e.preventDefault();
+    this.setState({
+      qStep : 'Recording'
+    })
+  }
+
+
+  doneRecord(e){
+    e.preventDefault();
+    let qNum = this.state.qNum + 1
+    if(qNum < this.props.session.answers.length){
+      let url = this.props.session.answers[qNum].href
+      this.props.getQuestion(url)
+      this.setState({
+        qStep : 'Question',
+        qNum : qNum
+      })
+    } else {
+      this.setState({
+        qStep : 'UploadProgress',
+      })
+    }
+    
+  }
+
   render() {
-    const {error, session, question} = this.props
-    const { qNum } = this.state
-    console.log(this.state)
+    const { error, session, question } = this.props
+    const { qNum, qStep } = this.state
+    console.log(this.props)
     const sessionDesc = 'In an video interview, you would be given %%readingTimeLimit%% secs to read each question. When the countdown timer reaches "0", the system will automatically begin recording your response. And you\'ll be given a maximum of %%answerTimeLimit%% minutes per question to complete your response. Please note that there are no re-takes for Video Interviews and it will be  a one-time through recording.';
     return (
       <article>
       {
-        session && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={(e) => this.startInterview(e)} />
+        qStep == 'Start' && session && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={(e) => this.startInterview(e)} />
+      }
+      {
+        qStep == 'Question' && question && <InterviewQuestion question={question} session={session} qNum={qNum + 1} doPrepare={(e) => this.doPrepare(e)} />
+      }
+      {
+        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} session={session} startRecord={(e) => this.startRecord(e)} />
+      }
+      {
+        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum + 1} session={session} doneRecord={(e) => this.doneRecord(e)} />
+      }
+      {
+        qStep == 'UploadProgress' && <UploadProgress />
       }
       </article>
     );
@@ -83,6 +135,7 @@ HomePage.propTypes = {
     PropTypes.bool,
   ]),
   onPageLoad: PropTypes.func,
+  getQuestion: PropTypes.func,
   startInterview: PropTypes.func,
 };
 
