@@ -4,6 +4,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import Img from 'components/Img';
+import ReactCountdownClock from 'components/react-countdown-clock'
 
 export default class InterviewPrepare extends React.Component { 
 
@@ -11,7 +12,14 @@ export default class InterviewPrepare extends React.Component {
     e.preventDefault();
     if(typeof this.props.startRecord == 'function'){
         console.log('startRecord');
-        this.props.startRecord(e);
+        this.props.startRecord();
+    }
+  }
+
+  timeOut(){
+    if(typeof this.props.startRecord == 'function'){
+        console.log('startRecord');
+        this.props.startRecord();
     }
   }
 
@@ -34,7 +42,14 @@ export default class InterviewPrepare extends React.Component {
                         </div>
                         <div className="interview-video">
                             <div className="time-countdown">
-                                <span>{question.readingTimeLimit}</span>
+                                <ReactCountdownClock seconds={question.readingTimeLimit}
+                                                     color="#c52026"
+                                                     alpha={1}
+                                                     size={36}
+                                                     fontSize={16}
+                                                     weight={18}
+                                                     fontColor="#fff"
+                                                     onComplete={() => this.timeOut()} />
                             </div>
                             <Img src={'assets/images/video-upload.jpg'} alt="" />
                         </div>

@@ -50,8 +50,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     //console.log('nextProps', nextProps);
   }
 
-  startInterview(e) {
-    e.preventDefault();
+  startInterview() {
     let qNum = this.state.qNum
     let url = this.props.session.answers[qNum].href
     this.props.getQuestion(url)
@@ -61,23 +60,20 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     })
   }
 
-  doPrepare(e){
-    e.preventDefault();
+  doPrepare(){
     this.setState({
       qStep : 'Prepare'
     })
   }
 
-  startRecord(e){
-    e.preventDefault();
+  startRecord(){
     this.setState({
       qStep : 'Recording'
     })
   }
 
 
-  doneRecord(e){
-    e.preventDefault();
+  doneRecord(){
     let qNum = this.state.qNum + 1
     if(qNum < this.props.session.answers.length){
       let url = this.props.session.answers[qNum].href
@@ -102,16 +98,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <article>
       {
-        qStep == 'Start' && session && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={(e) => this.startInterview(e)} />
+        qStep == 'Start' && session && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} />
       }
       {
-        qStep == 'Question' && question && <InterviewQuestion question={question} session={session} qNum={qNum + 1} doPrepare={(e) => this.doPrepare(e)} />
+        qStep == 'Question' && question && <InterviewQuestion question={question} session={session} qNum={qNum + 1} doPrepare={() => this.doPrepare()} />
       }
       {
-        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} session={session} startRecord={(e) => this.startRecord(e)} />
+        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} session={session} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum + 1} session={session} doneRecord={(e) => this.doneRecord(e)} />
+        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum + 1} session={session} doneRecord={() => this.doneRecord()} />
       }
       {
         qStep == 'UploadProgress' && <UploadProgress />

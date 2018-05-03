@@ -18,7 +18,7 @@ export default class InterviewQuestion extends React.Component {
     e.preventDefault();
     if(typeof this.props.doPrepare == 'function'){
         console.log('doPrepare');
-        this.props.doPrepare(e);
+        this.props.doPrepare();
     }
   }
   render() {

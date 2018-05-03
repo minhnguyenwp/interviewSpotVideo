@@ -11,7 +11,7 @@ export default class InterviewStart extends React.Component {
     e.preventDefault();
     if(typeof this.props.startInterview == 'function'){
         console.log('startInterview');
-        this.props.startInterview(e);
+        this.props.startInterview();
     }
   }
   render() {

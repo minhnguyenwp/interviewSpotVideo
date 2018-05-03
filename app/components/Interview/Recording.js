@@ -12,7 +12,7 @@ export default class InterviewRecording extends React.Component {
         e.preventDefault();
         if(typeof this.props.doneRecord == 'function'){
             console.log('doneRecord');
-            this.props.doneRecord(e);
+            this.props.doneRecord();
         }
     }
 
