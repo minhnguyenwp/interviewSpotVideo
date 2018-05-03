@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import { nth } from 'utils/helper';
+import { nth, myFormatDate } from 'utils/helper';
 import Img from 'components/Img';
 
 export default class InterviewQuestion extends React.Component {
@@ -22,8 +22,8 @@ export default class InterviewQuestion extends React.Component {
     }
   }
   render() {
-    const {question, session, qNum} = this.props
-
+    const {question, session, qNum, practice} = this.props
+    let deadline = practice ? myFormatDate('dd-mm-yyyy', session.practice.deadline) : myFormatDate('dd-mm-yyyy', session.deadline)
     return (
         <div className="central-wrap">
             <Helmet>
@@ -46,7 +46,7 @@ export default class InterviewQuestion extends React.Component {
                     </div>
                     <div className="btn-wrap">
                         <div className="time-submiss">
-                            Submission Deadline: Not Applicable
+                            {'Submission Deadline: ' + deadline} 
                         </div>
                         <a onClick={(e) => this.doPrepare(e)} className="btn btn-green uppercase">next</a>
                     </div>

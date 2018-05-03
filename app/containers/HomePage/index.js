@@ -37,7 +37,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.state = {
       qNum : 0,
       qStep : 'Start',
-      question: false
+      question: false,
+      practice: false
     }
   }
 
@@ -57,6 +58,17 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     this.setState({
       qStep : 'Question'
+    })
+  }
+
+  startPractice() {
+    let qNum = this.state.qNum
+    let url = this.props.session.practice.answers[qNum].href
+    this.props.getQuestion(url)
+
+    this.setState({
+      qStep : 'Question',
+      practice : true
     })
   }
 
@@ -90,27 +102,33 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     
   }
 
+  retryClick(){
+    if (this.state.practice){
+      window.location.reload();
+    }
+  }
+
   render() {
     const { error, session, question } = this.props
-    const { qNum, qStep } = this.state
+    const { qNum, qStep, practice } = this.state
     console.log(this.props)
     const sessionDesc = 'In an video interview, you would be given %%readingTimeLimit%% secs to read each question. When the countdown timer reaches "0", the system will automatically begin recording your response. And you\'ll be given a maximum of %%answerTimeLimit%% minutes per question to complete your response. Please note that there are no re-takes for Video Interviews and it will be  a one-time through recording.';
     return (
       <article>
       {
-        qStep == 'Start' && session && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} />
+        qStep == 'Start' && session && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
       }
       {
-        qStep == 'Question' && question && <InterviewQuestion question={question} session={session} qNum={qNum + 1} doPrepare={() => this.doPrepare()} />
+        qStep == 'Question' && question && <InterviewQuestion question={question} session={session} practice={practice} qNum={qNum + 1} doPrepare={() => this.doPrepare()} />
       }
       {
-        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} session={session} startRecord={() => this.startRecord()} />
+        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} practice={practice} session={session} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum + 1} session={session} doneRecord={() => this.doneRecord()} />
+        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum + 1} practice={practice} session={session} doneRecord={() => this.doneRecord()} />
       }
       {
-        qStep == 'UploadProgress' && <UploadProgress />
+        qStep == 'UploadProgress' && <UploadProgress practice={practice} session={session} />
       }
       </article>
     );

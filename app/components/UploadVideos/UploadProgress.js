@@ -6,8 +6,15 @@ import { Helmet } from 'react-helmet';
 import { Progress } from 'reactstrap';
 
 export default class UploadProgress extends React.Component { 
-
+  retryClick(e){
+    e.preventDefault();
+    if(typeof this.props.retryClick == 'function'){
+        console.log('retryClick');
+        this.props.retryClick();
+    }
+  }
   render() {
+    const {practice} = this.props
     return (
         <div className="central-wrap">
             <Helmet>
@@ -65,11 +72,13 @@ export default class UploadProgress extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="btn-wrap">
-                        <div className="text-center">
-                            <a href="#" className="btn btn-red uppercase w_auto">retry</a>
+                    {practice && 
+                        <div className="btn-wrap">
+                            <div className="text-center">
+                                <a onClick={(e) => this.retryClick(e)} className="btn btn-red uppercase w_auto">retry</a>
+                            </div>
                         </div>
-                    </div>
+                    }
                 </div>
             </div>
         </div>

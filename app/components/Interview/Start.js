@@ -14,6 +14,13 @@ export default class InterviewStart extends React.Component {
         this.props.startInterview();
     }
   }
+  startPractice(e){
+    e.preventDefault();
+    if(typeof this.props.startPractice == 'function'){
+        console.log('startPractice');
+        this.props.startPractice();
+    }
+  }
   render() {
     const {session, sessionDesc} = this.props
     return (
@@ -38,7 +45,7 @@ export default class InterviewStart extends React.Component {
               <div className="time-submiss">
                 {'Submission Deadline: ' + myFormatDate('dd-mm-yyyy', session.deadline)} 
               </div>
-              <a href="/question" className="btn btn-blue">Try a Practice Interview</a>
+              <a onClick={(e) => this.startPractice(e)} className="btn btn-blue">Try a Practice Interview</a>
               <a onClick={(e) => this.startInterview(e)} className="btn btn-red">Begin Interview</a>
             </div>
           </div>
