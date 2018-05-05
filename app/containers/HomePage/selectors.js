@@ -21,9 +21,15 @@ const makeSelectQuestion = () => createSelector(
   (homeState) => homeState.get('question')
 );
 
+const makeSelectNewPractice = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('practice')
+);
+
 export {
   selectHome,
   makeSelectSession,
   makeSelectQuestion,
   makeSelectSessionError,
+  makeSelectNewPractice
 };

@@ -14,7 +14,7 @@ export default class UploadProgress extends React.Component {
     }
   }
   render() {
-    const {practice} = this.props
+    const {isPractice} = this.props
     return (
         <div className="central-wrap">
             <Helmet>
@@ -72,7 +72,7 @@ export default class UploadProgress extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {practice && 
+                    {isPractice && 
                         <div className="btn-wrap">
                             <div className="text-center">
                                 <a onClick={(e) => this.retryClick(e)} className="btn btn-red uppercase w_auto">retry</a>

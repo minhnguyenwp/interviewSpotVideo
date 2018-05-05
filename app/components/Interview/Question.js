@@ -22,23 +22,42 @@ export default class InterviewQuestion extends React.Component {
     }
   }
   render() {
-    const {question, session, qNum, practice} = this.props
-    let deadline = practice ? myFormatDate('dd-mm-yyyy', session.practice.deadline) : myFormatDate('dd-mm-yyyy', session.deadline)
+    const {session, qNum, isPractice, practice} = this.props
+    let number = qNum + 1
+
+    let deadline = myFormatDate('dd-mm-yyyy', session.deadline)
+    let readingTimeLimit = session.answers[qNum].readingTimeLimit
+    let answerTimeLimit = Math.round(session.answers[qNum].answerTimeLimit/60)
+    let title = session.title
+
+    if(isPractice){
+        if(!practice){
+            deadline = myFormatDate('dd-mm-yyyy', session.practice.deadline)
+            readingTimeLimit = session.practice.answers[qNum].readingTimeLimit
+            answerTimeLimit = Math.round(session.practice.answers[qNum].answerTimeLimit/60)
+            title = session.practice.title
+        } else {
+            deadline = myFormatDate('dd-mm-yyyy', practice.deadline)
+            readingTimeLimit = practice.answers[qNum].readingTimeLimit
+            answerTimeLimit = Math.round(practice.answers[qNum].answerTimeLimit/60)
+            title = practice.title
+        }
+    } 
     return (
         <div className="central-wrap">
             <Helmet>
-                <title>{question.name}</title>
-                <meta name="description" content={question.text} />
+                <title>{title}</title>
+                <meta name="description" content={title} />
             </Helmet>
             <div className="container">
                 <div className="content-wrapper">
-                    <h2 className="page-ttl">{question.name}</h2>
+                    <h2 className="page-ttl">{title}</h2>
                     <div className="page-desc">
                         <p>
-                            In the next page, you will be given <span>{question.readingTimeLimit}</span> seconds to read a Pratice Interview Question before your recording begins automatically.
+                            In the next page, you will be given <span>{readingTimeLimit}</span> seconds to read a Pratice Interview Question before your recording begins automatically.
                         </p>
                         <p>
-                            This is your <span>{qNum + nth(qNum)}</span> question and There is a total of <span>{session.answers.length}</span> questions to complete in this interview and you are given <span>{Math.round(question.answerTimeLimit/60)}</span> minutes for this question.
+                            This is your <span>{number + nth(number)}</span> question and There is a total of <span>{session.answers.length}</span> questions to complete in this interview and you are given <span>{answerTimeLimit}</span> minutes for this question.
                         </p>
                         <p>
                             When you are ready, please click "Next"

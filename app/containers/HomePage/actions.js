@@ -22,6 +22,9 @@ import {
   GET_QUESTION,
   GET_QUESTION_SUCCESS,
   GET_QUESTION_FAILURE,
+  GET_NEW_PRACTICE,
+  GET_NEW_PRACTICE_SUCCESS,
+  GET_NEW_PRACTICE_FAILURE,
 } from './constants';
 
 /**
@@ -97,6 +100,42 @@ export function getQuestionSuccess(question) {
 export function getQuestionFailure(error) {
   return {
     type: GET_QUESTION_FAILURE,
+    error: error
+  };
+}
+
+
+export function getNewPractice(url) {
+  return {
+    type: GET_NEW_PRACTICE,
+    url: url
+  };
+}
+
+/**
+ * Dispatched when the repositories are loaded by the request saga
+ *
+ * @param  {object} question The question data
+ *
+ * @return {object}      An action object with a type of GET_SESSION_SUCCESS passing the repos
+ */
+export function getNewPracticeSuccess(practice) {
+  return {
+    type: GET_NEW_PRACTICE_SUCCESS,
+    practice: practice
+  };
+}
+
+/**
+ * Dispatched when loading the repositories fails
+ *
+ * @param  {object} error The error
+ *
+ * @return {object}       An action object with a type of GET_SESSION_FAILURE passing the error
+ */
+export function getNewPracticeFailure(error) {
+  return {
+    type: GET_NEW_PRACTICE_FAILURE,
     error: error
   };
 }

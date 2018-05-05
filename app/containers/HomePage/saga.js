@@ -4,8 +4,8 @@
 
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 import { BASE_API_URL } from 'containers/App/constants';
-import { GET_SESSION, GET_QUESTION } from './constants';
-import { getSessionSuccess, getSessionFailure, getQuestionFailure, getQuestionSuccess } from './actions';
+import { GET_SESSION, GET_QUESTION, GET_NEW_PRACTICE } from './constants';
+import { getSessionSuccess, getSessionFailure, getQuestionFailure, getQuestionSuccess, getNewPracticeSuccess, getNewPracticeFailure } from './actions';
 
 import request from 'utils/request';
 //import { makeSelectUsername } from 'containers/HomePage/selectors';
@@ -41,6 +41,18 @@ export function* getQuestionData(action) {
   }
 }
 
+export function* getNewPracticeData(action) {
+
+  const requestURL = `${BASE_API_URL}/${action.url}`;
+  try {
+    // Call our request helper (see 'utils/request')
+    const response = yield call(request, requestURL, { method: 'POST' });
+    yield put(getNewPracticeSuccess(response));
+  } catch (err) {
+    yield put(getNewPracticeFailure(err));
+  }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -52,5 +64,6 @@ export default function* root() {
   yield all([ 
     takeLatest(GET_SESSION, getSessionData),
     takeLatest(GET_QUESTION, getQuestionData),
+    takeLatest(GET_NEW_PRACTICE, getNewPracticeData),
   ]);
 }

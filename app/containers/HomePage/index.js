@@ -17,8 +17,8 @@ import { myFormatDate, parseQuery } from 'utils/helper';
 import AtPrefix from './AtPrefix';
 import reducer from './reducer';
 import saga from './saga';
-import { getSession, getQuestion } from './actions';
-import { makeSelectSession, makeSelectSessionError, makeSelectQuestion } from './selectors';
+import { getSession, getQuestion, getNewPractice } from './actions';
+import { makeSelectSession, makeSelectSessionError, makeSelectQuestion, makeSelectNewPractice } from './selectors';
 
 // comp interview
 import InterviewQuestion from 'components/Interview/Question';
@@ -38,7 +38,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       qNum : 0,
       qStep : 'Start',
       question: false,
-      practice: false
+      practice: false,
+      isPractice: false
     }
   }
 
@@ -52,27 +53,36 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   startInterview() {
-    let qNum = this.state.qNum
-    let url = this.props.session.answers[qNum].href
-    this.props.getQuestion(url)
-
     this.setState({
-      qStep : 'Question'
+      qStep : 'Question',
+      isPractice : false
     })
   }
 
   startPractice() {
-    let qNum = this.state.qNum
-    let url = this.props.session.practice.answers[qNum].href
-    this.props.getQuestion(url)
+    
+    let url = this.props.session.practice['href-create']
+    this.props.getNewPractice(url)
 
     this.setState({
       qStep : 'Question',
-      practice : true
+      isPractice : true
     })
   }
 
   doPrepare(){
+    let qNum = this.state.qNum
+    let url = this.props.session.answers[qNum].href
+    if (this.state.isPractice){
+      if(this.props.practice){
+        url = this.props.practice.answers[qNum].href
+      } else {
+        url = this.props.session.practice.answers[qNum].href
+
+      }
+    }
+
+    this.props.getQuestion(url)
     this.setState({
       qStep : 'Prepare'
     })
@@ -109,8 +119,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   render() {
-    const { error, session, question } = this.props
-    const { qNum, qStep, practice } = this.state
+    const { error, session, question, getQuestion, practice } = this.props
+    const { qNum, qStep, isPractice } = this.state
     console.log(this.props)
     const sessionDesc = 'In an video interview, you would be given %%readingTimeLimit%% secs to read each question. When the countdown timer reaches "0", the system will automatically begin recording your response. And you\'ll be given a maximum of %%answerTimeLimit%% minutes per question to complete your response. Please note that there are no re-takes for Video Interviews and it will be  a one-time through recording.';
     return (
@@ -119,16 +129,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         qStep == 'Start' && session && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
       }
       {
-        qStep == 'Question' && question && <InterviewQuestion question={question} session={session} practice={practice} qNum={qNum + 1} doPrepare={() => this.doPrepare()} />
+        qStep == 'Question' && session && <InterviewQuestion practice={practice}  session={session} isPractice={isPractice} qNum={qNum} doPrepare={() => this.doPrepare()} />
       }
       {
-        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} practice={practice} session={session} startRecord={() => this.startRecord()} />
+        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} session={session} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum + 1} practice={practice} session={session} doneRecord={() => this.doneRecord()} />
+        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum + 1} isPractice={isPractice} session={session} doneRecord={() => this.doneRecord()} />
       }
       {
-        qStep == 'UploadProgress' && <UploadProgress practice={practice} session={session} />
+        qStep == 'UploadProgress' && <UploadProgress isPractice={isPractice} session={session} />
       }
       </article>
     );
@@ -148,6 +158,10 @@ HomePage.propTypes = {
     PropTypes.object,
     PropTypes.bool,
   ]),
+  practice: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.bool,
+  ]),
   onPageLoad: PropTypes.func,
   getQuestion: PropTypes.func,
   startInterview: PropTypes.func,
@@ -160,6 +174,9 @@ export function mapDispatchToProps(dispatch) {
     },
     getQuestion: (url) => {
       dispatch(getQuestion(url));
+    },
+    getNewPractice: (url) => {
+      dispatch(getNewPractice(url));
     }
   };
 }
@@ -167,7 +184,8 @@ export function mapDispatchToProps(dispatch) {
 const mapStateToProps = createStructuredSelector({
   session: makeSelectSession(),
   error: makeSelectSessionError(),
-  question: makeSelectQuestion()
+  question: makeSelectQuestion(),
+  practice: makeSelectNewPractice()
 });
 
 
