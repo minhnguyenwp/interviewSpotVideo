@@ -4,7 +4,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import Img from 'components/Img';
-import { Progress } from 'reactstrap';
+import VideojsRecordPlayer from 'components/video-record'
 
 export default class InterviewRecording extends React.Component { 
 
@@ -16,8 +16,48 @@ export default class InterviewRecording extends React.Component {
         }
     }
 
+    initVideoPlayer(options){
+        if(typeof this.props.initVideoPlayer == 'function'){
+            console.log('initVideoPlayer');
+            this.props.initVideoPlayer(options);
+        }
+    }
+
+    destroyVideoPlayer(){
+        if(typeof this.props.destroyVideoPlayer == 'function'){
+            console.log('destroyVideoPlayer');
+            this.props.destroyVideoPlayer();
+        }
+    }
+
   render() {
     const { question, qNum } = this.props 
+    let number = qNum + 1
+    const videoJsOptions = {
+        controls: true,
+        width: 400,
+        height: 225,
+        fluid: false,
+        plugins: {
+            record: {
+                audio: true,
+                video: true,
+                maxLength: 20,
+                debug: true,
+                timeSlice: 1000,
+                video: {
+                    // video constraints: set resolution of camera
+                    mandatory: {
+                        minWidth: 400,
+                        minHeight: 225,
+                    },
+                },
+                // dimensions of captured video frames
+                frameWidth: 400,
+                frameHeight: 225
+            }
+        }
+    };
     return (
         <div className="central-wrap">
             <Helmet>
@@ -30,16 +70,10 @@ export default class InterviewRecording extends React.Component {
                     <div className="btn-wrap w600">
                         <div className="page-desc blk-question">
                             {
-                                'Question ' + qNum + ': ' + question.text
+                                'Question ' + number + ': ' + question.text
                             }
                         </div>
-                        <div className="upload-percent bt30">
-                            <span className="num" style={{'left': '39%'}}>01:30/03:00</span>
-                            <Progress value="50" />
-                        </div>
-                        <div className="interview-video">
-                            <Img src={'assets/images/video-upload.jpg'} alt="" />
-                        </div>
+                        <VideojsRecordPlayer videoJsOptions={videoJsOptions} qNum={qNum} />
                         <div className="btn-wrap text-center">
                             <a onClick={(e) => this.doneRecord(e)} className="btn btn-red uppercase w_auto">done recording</a>
                         </div>

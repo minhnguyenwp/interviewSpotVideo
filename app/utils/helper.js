@@ -1,4 +1,5 @@
 export function myFormatDate(strFormat, strDate){
+    if(strDate == '0000-00-00 00:00:00') return 'Not Applicable';
 	var dateFormat = require('dateformat');
 	var now = new Date(strDate);
 	if(now == 'Invalid Date') return 'Not Applicable';

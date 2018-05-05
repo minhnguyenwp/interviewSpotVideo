@@ -39,7 +39,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       qStep : 'Start',
       question: false,
       practice: false,
-      isPractice: false
+      isPractice: false,
+      videoPlayer: false
     }
   }
 
@@ -94,6 +95,42 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     })
   }
 
+  initVideoPlayer(options){
+    console.log('before init', this.state.videoPlayer)
+    // instantiate Video.js
+    this.state.videoPlayer = videojs('myVideo', options, function onPlayerReady(){
+        // print version information at startup
+        videojs.log('Using video.js', videojs.VERSION,
+            'with videojs-record', videojs.getPluginVersion('record'),
+            'and recordrtc', RecordRTC.version);
+    });
+
+    console.log('init', this.state.videoPlayer)
+    // error handling
+    this.state.videoPlayer.on('error', function(error) {
+        console.warn(error);
+    });
+
+    console.log('after init', this.state.videoPlayer)
+    let videoPlayer = this.state.videoPlayer
+    this.state.videoPlayer.on('timestamp', function() {
+        console.log('timestamp', videoPlayer)
+        // timestamps
+        console.log('current timestamp: ', videoPlayer.currentTimestamp);
+        console.log('all timestamps: ', videoPlayer.allTimestamps);
+    });
+
+    this.state.videoPlayer.on('finishRecord', function() {
+        // show save as dialog
+        this.state.videoPlayer.record().saveAs({'video': 'my-video-file-name.webm'});
+    });
+  }
+
+  destroyVideoPlayer(){
+    if (this.state.videoPlayer) {
+        this.state.videoPlayer.dispose();
+    }
+  }
 
   doneRecord(){
     let qNum = this.state.qNum + 1
@@ -135,7 +172,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} session={session} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum + 1} isPractice={isPractice} session={session} doneRecord={() => this.doneRecord()} />
+        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum} isPractice={isPractice} session={session} doneRecord={() => this.doneRecord()} />
       }
       {
         qStep == 'UploadProgress' && <UploadProgress isPractice={isPractice} session={session} />
