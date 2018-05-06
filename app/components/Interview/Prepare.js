@@ -24,12 +24,12 @@ export default class InterviewPrepare extends React.Component {
   }
 
   render() {
-    const { question, qNum } = this.props 
+    const { question, qNum, sessionData } = this.props 
     return (
         <div className="central-wrap">
             <Helmet>
                 <title>Prepare</title>
-                <meta name="description" content="Central Test" />
+                <meta name="description" content={sessionData.title} />
             </Helmet>
             <div className="container">
                 <div className="content-wrapper">

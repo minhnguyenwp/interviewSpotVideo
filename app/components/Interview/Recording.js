@@ -8,33 +8,25 @@ import VideojsRecordPlayer from 'components/video-record'
 
 export default class InterviewRecording extends React.Component { 
 
-    doneRecord(e){
-        e.preventDefault();
+    doneRecord(){
         if(typeof this.props.doneRecord == 'function'){
             console.log('doneRecord');
             this.props.doneRecord();
         }
     }
 
-    initVideoPlayer(options){
-        if(typeof this.props.initVideoPlayer == 'function'){
-            console.log('initVideoPlayer');
-            this.props.initVideoPlayer(options);
+   saveVideoData(videoData){
+        if(typeof this.props.saveVideoData == 'function'){
+            console.log('saveVideoData');
+            this.props.saveVideoData(videoData);
         }
-    }
-
-    destroyVideoPlayer(){
-        if(typeof this.props.destroyVideoPlayer == 'function'){
-            console.log('destroyVideoPlayer');
-            this.props.destroyVideoPlayer();
-        }
-    }
+   }
 
   render() {
-    const { question, qNum } = this.props 
+    const { question, qNum, sessionData } = this.props 
     let number = qNum + 1
     const videoJsOptions = {
-        controls: true,
+        controls: false,
         width: 400,
         height: 225,
         fluid: false,
@@ -42,7 +34,7 @@ export default class InterviewRecording extends React.Component {
             record: {
                 audio: true,
                 video: true,
-                maxLength: 20,
+                maxLength: question.answerTimeLimit,
                 debug: true,
                 timeSlice: 1000,
                 video: {
@@ -62,7 +54,7 @@ export default class InterviewRecording extends React.Component {
         <div className="central-wrap">
             <Helmet>
                 <title>Recording</title>
-                <meta name="description" content="Central Test" />
+                <meta name="description" content={sessionData.title} />
             </Helmet>
             <div className="container">
                 <div className="content-wrapper">
@@ -73,10 +65,8 @@ export default class InterviewRecording extends React.Component {
                                 'Question ' + number + ': ' + question.text
                             }
                         </div>
-                        <VideojsRecordPlayer videoJsOptions={videoJsOptions} qNum={qNum} />
-                        <div className="btn-wrap text-center">
-                            <a onClick={(e) => this.doneRecord(e)} className="btn btn-red uppercase w_auto">done recording</a>
-                        </div>
+                        <VideojsRecordPlayer isRecord={true} saveVideoData={(videoData) => this.saveVideoData(videoData)} doneRecord={() => this.doneRecord()} videoJsOptions={videoJsOptions} maxDuration={question.answerTimeLimit} />
+                        
                     </div>
                 </div>
             </div>

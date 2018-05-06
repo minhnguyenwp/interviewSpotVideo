@@ -25,6 +25,7 @@ import InterviewQuestion from 'components/Interview/Question';
 import InterviewPrepare from 'components/Interview/Prepare';
 import InterviewRecording from 'components/Interview/Recording';
 import InterviewStart from 'components/Interview/Start';
+import InterviewFinish from 'components/Interview/Finish';
 
 // comp upload
 import UploadProgress from 'components/UploadVideos/UploadProgress';
@@ -40,7 +41,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       question: false,
       practice: false,
       isPractice: false,
-      videoPlayer: false
+      videoData: []
     }
   }
 
@@ -82,6 +83,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
       }
     }
+    console.log('question url', url)
 
     this.props.getQuestion(url)
     this.setState({
@@ -95,87 +97,145 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     })
   }
 
-  initVideoPlayer(options){
-    console.log('before init', this.state.videoPlayer)
-    // instantiate Video.js
-    this.state.videoPlayer = videojs('myVideo', options, function onPlayerReady(){
-        // print version information at startup
-        videojs.log('Using video.js', videojs.VERSION,
-            'with videojs-record', videojs.getPluginVersion('record'),
-            'and recordrtc', RecordRTC.version);
-    });
+  // initVideoPlayer(options){
+  //   console.log('before init', this.state.videoPlayer)
+  //   // instantiate Video.js
+  //   this.state.videoPlayer = videojs('myVideo', options, function onPlayerReady(){
+  //       // print version information at startup
+  //       videojs.log('Using video.js', videojs.VERSION,
+  //           'with videojs-record', videojs.getPluginVersion('record'),
+  //           'and recordrtc', RecordRTC.version);
+  //   });
 
-    console.log('init', this.state.videoPlayer)
-    // error handling
-    this.state.videoPlayer.on('error', function(error) {
-        console.warn(error);
-    });
+  //   console.log('init', this.state.videoPlayer)
+  //   // error handling
+  //   this.state.videoPlayer.on('error', function(error) {
+  //       console.warn(error);
+  //   });
 
-    console.log('after init', this.state.videoPlayer)
-    let videoPlayer = this.state.videoPlayer
-    this.state.videoPlayer.on('timestamp', function() {
-        console.log('timestamp', videoPlayer)
-        // timestamps
-        console.log('current timestamp: ', videoPlayer.currentTimestamp);
-        console.log('all timestamps: ', videoPlayer.allTimestamps);
-    });
+  //   console.log('after init', this.state.videoPlayer)
+  //   let videoPlayer = this.state.videoPlayer
+  //   this.state.videoPlayer.on('timestamp', function() {
+  //       console.log('timestamp', videoPlayer)
+  //       // timestamps
+  //       console.log('current timestamp: ', videoPlayer.currentTimestamp);
+  //       console.log('all timestamps: ', videoPlayer.allTimestamps);
+  //   });
 
-    this.state.videoPlayer.on('finishRecord', function() {
-        // show save as dialog
-        this.state.videoPlayer.record().saveAs({'video': 'my-video-file-name.webm'});
-    });
-  }
+  //   this.state.videoPlayer.on('finishRecord', function() {
+  //       // show save as dialog
+  //       this.state.videoPlayer.record().saveAs({'video': 'my-video-file-name.webm'});
+  //   });
+  // }
 
-  destroyVideoPlayer(){
-    if (this.state.videoPlayer) {
-        this.state.videoPlayer.dispose();
+  // destroyVideoPlayer(){
+  //   if (this.state.videoPlayer) {
+  //       this.state.videoPlayer.dispose();
+  //   }
+  // }
+
+  // doneRecord(){
+  //   let qNum = this.state.qNum + 1
+  //   let answers = this.props.session.answers
+  //   if(this.state.isPractice){
+  //     if(practice){
+  //       answers = this.props.practice.answers
+  //     } else {
+  //       answers = this.props.session.practice.answers
+  //     }
+  //   }
+  //   if(qNum < answers.length){
+  //     let url = answers[qNum].href
+  //     this.props.getQuestion(url)
+  //     this.setState({
+  //       qStep : 'Question',
+  //       qNum : qNum
+  //     })
+  //   } else {
+  //     this.setState({
+  //       qStep : 'UploadProgress',
+  //     })
+  //   }
+    
+  // }
+
+  doneRecord(){
+    if(this.state.isPractice){
+      this.setState({
+        qStep : 'UploadSuccess'
+      })
     }
   }
 
-  doneRecord(){
+  nextQuestion(){
     let qNum = this.state.qNum + 1
-    if(qNum < this.props.session.answers.length){
-      let url = this.props.session.answers[qNum].href
+    let answers = this.props.session.answers
+    if(this.state.isPractice){
+      if(this.props.practice){
+        answers = this.props.practice.answers
+      } else {
+        answers = this.props.session.practice.answers
+      }
+    }
+    if(qNum < answers.length){
+      let url = answers[qNum].href
       this.props.getQuestion(url)
       this.setState({
         qStep : 'Question',
         qNum : qNum
       })
-    } else {
-      this.setState({
-        qStep : 'UploadProgress',
-      })
     }
-    
   }
 
   retryClick(){
-    if (this.state.practice){
+    if (this.state.isPractice){
       window.location.reload();
     }
   }
 
+  finishTest(){
+    this.setState({
+        qStep : 'Finish'
+      })
+  }
+
+  saveVideoData(videoData){
+    this.state.videoData[this.state.qNum] = videoData
+  }
+
   render() {
-    const { error, session, question, getQuestion, practice } = this.props
-    const { qNum, qStep, isPractice } = this.state
+    const { error, question, getQuestion, session, practice } = this.props
+    const { qNum, qStep, isPractice, videoData } = this.state
     console.log(this.props)
+    let sessionData = this.props.session
+    if(isPractice){
+      if(practice){
+        sessionData = practice
+      } else {
+        sessionData = session.practice
+      }
+    }
+    
     const sessionDesc = 'In an video interview, you would be given %%readingTimeLimit%% secs to read each question. When the countdown timer reaches "0", the system will automatically begin recording your response. And you\'ll be given a maximum of %%answerTimeLimit%% minutes per question to complete your response. Please note that there are no re-takes for Video Interviews and it will be  a one-time through recording.';
     return (
       <article>
       {
-        qStep == 'Start' && session && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
+        qStep == 'Start' && sessionData && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
       }
       {
-        qStep == 'Question' && session && <InterviewQuestion practice={practice}  session={session} isPractice={isPractice} qNum={qNum} doPrepare={() => this.doPrepare()} />
+        qStep == 'Question' && sessionData && <InterviewQuestion sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
       }
       {
-        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} session={session} startRecord={() => this.startRecord()} />
+        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'Recording' && question && <InterviewRecording question={question} qNum={qNum} isPractice={isPractice} session={session} doneRecord={() => this.doneRecord()} />
+        qStep == 'Recording' && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} />
       }
       {
-        qStep == 'UploadProgress' && <UploadProgress isPractice={isPractice} session={session} />
+        qStep == 'UploadSuccess' && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
+      }
+      {
+        qStep == 'Finish' && <InterviewFinish isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
       }
       </article>
     );

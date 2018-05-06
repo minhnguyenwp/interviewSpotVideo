@@ -22,27 +22,26 @@ export default class InterviewQuestion extends React.Component {
     }
   }
   render() {
-    const {session, qNum, isPractice, practice} = this.props
+    const {sessionData, qNum, isPractice} = this.props
     let number = qNum + 1
 
-    let deadline = myFormatDate('dd-mm-yyyy', session.deadline)
-    let readingTimeLimit = session.answers[qNum].readingTimeLimit
-    let answerTimeLimit = Math.round(session.answers[qNum].answerTimeLimit/60)
-    let title = session.title
+    let deadline = isPractice ? 'Not Applicable' : myFormatDate('dd-mm-yyyy', sessionData.deadline)
+    let readingTimeLimit = sessionData.answers[qNum].readingTimeLimit
+    let answerTimeLimit = Math.round(sessionData.answers[qNum].answerTimeLimit/60)
+    let title = sessionData.title
 
-    if(isPractice){
-        if(!practice){
-            deadline = myFormatDate('dd-mm-yyyy', session.practice.deadline)
-            readingTimeLimit = session.practice.answers[qNum].readingTimeLimit
-            answerTimeLimit = Math.round(session.practice.answers[qNum].answerTimeLimit/60)
-            title = session.practice.title
-        } else {
-            deadline = myFormatDate('dd-mm-yyyy', practice.deadline)
-            readingTimeLimit = practice.answers[qNum].readingTimeLimit
-            answerTimeLimit = Math.round(practice.answers[qNum].answerTimeLimit/60)
-            title = practice.title
-        }
-    } 
+    // if(isPractice){
+    //     deadline = 'Not Applicable'
+    //     if(!practice){       
+    //         readingTimeLimit = session.practice.answers[qNum].readingTimeLimit
+    //         answerTimeLimit = Math.round(session.practice.answers[qNum].answerTimeLimit/60)
+    //         title = session.practice.title
+    //     } else {
+    //         readingTimeLimit = practice.answers[qNum].readingTimeLimit
+    //         answerTimeLimit = Math.round(practice.answers[qNum].answerTimeLimit/60)
+    //         title = practice.title
+    //     }
+    // } 
     return (
         <div className="central-wrap">
             <Helmet>
@@ -57,7 +56,7 @@ export default class InterviewQuestion extends React.Component {
                             In the next page, you will be given <span>{readingTimeLimit}</span> seconds to read a Pratice Interview Question before your recording begins automatically.
                         </p>
                         <p>
-                            This is your <span>{number + nth(number)}</span> question and There is a total of <span>{session.answers.length}</span> questions to complete in this interview and you are given <span>{answerTimeLimit}</span> minutes for this question.
+                            This is your <span>{number + nth(number)}</span> question and There is a total of <span>{sessionData.answers.length}</span> questions to complete in this interview and you are given <span>{answerTimeLimit}</span> minutes for this question.
                         </p>
                         <p>
                             When you are ready, please click "Next"
