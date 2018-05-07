@@ -25,6 +25,10 @@ import {
   GET_NEW_PRACTICE,
   GET_NEW_PRACTICE_SUCCESS,
   GET_NEW_PRACTICE_FAILURE,
+  UPLOAD_REQUEST,
+  UPLOAD_PROGRESS,
+  UPLOAD_SUCCESS,
+  UPLOAD_FAILURE,
 } from './constants';
 
 /**
@@ -139,3 +143,23 @@ export function getNewPracticeFailure(error) {
     error: error
   };
 }
+
+
+export const uploadRequest = (file) => ({
+    type: UPLOAD_REQUEST,
+    file: file,
+});
+export const uploadProgress = (file, progress) => ({
+    type: UPLOAD_PROGRESS,
+    progress: progress,
+    meta: { file },
+});
+export const uploadSuccess = (file) => ({
+    type: UPLOAD_SUCCESS,
+    meta: { file },
+});
+export const uploadFailure = (file, err) => ({
+    type: UPLOAD_FAILURE,
+    error: err,
+    meta: { file },
+});

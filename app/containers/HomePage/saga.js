@@ -4,11 +4,11 @@
 
 import { call, put, select, takeLatest, all } from 'redux-saga/effects';
 import { BASE_API_URL } from 'containers/App/constants';
-import { GET_SESSION, GET_QUESTION, GET_NEW_PRACTICE } from './constants';
-import { getSessionSuccess, getSessionFailure, getQuestionFailure, getQuestionSuccess, getNewPracticeSuccess, getNewPracticeFailure } from './actions';
+import { GET_SESSION, GET_QUESTION, GET_NEW_PRACTICE, UPLOAD_REQUEST } from './constants';
+import { getSessionSuccess, getSessionFailure, getQuestionFailure, getQuestionSuccess, getNewPracticeSuccess, getNewPracticeFailure, uploadProgress, uploadSuccess, uploadFailure } from './actions';
 
 import request from 'utils/request';
-//import { makeSelectUsername } from 'containers/HomePage/selectors';
+import { createUploadFileChannel  } from 'utils/createUploadFileChannel';
 
 /**
  * Github repos request/response handler
@@ -53,6 +53,22 @@ export function* getNewPracticeData(action) {
   }
 }
 
+export function* uploadFileSaga(url, file) {
+    const channel = yield call(createUploadFileChannel, url, file);
+    while (true) {
+        const { progress = 0, err, success } = yield take(channel);
+        if (err) {
+            yield put(uploadFailure(file, err));
+            return;
+        }
+        if (success) {
+            yield put(uploadSuccess(file));
+            return;
+        }
+        yield put(uploadProgress(file, progress));
+    }
+}
+
 /**
  * Root saga manages watcher lifecycle
  */
@@ -65,5 +81,9 @@ export default function* root() {
     takeLatest(GET_SESSION, getSessionData),
     takeLatest(GET_QUESTION, getQuestionData),
     takeLatest(GET_NEW_PRACTICE, getNewPracticeData),
+    takeEvery(UPLOAD_REQUEST, function*(action) {
+        const file = action.file;
+        yield call(uploadFileSaga, file);
+    });
   ]);
 }

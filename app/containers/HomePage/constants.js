@@ -20,3 +20,8 @@ export const GET_QUESTION_FAILURE = 'iterviewSpost/Home/GET_QUESTION_FAILURE';
 export const GET_NEW_PRACTICE = 'iterviewSpost/Home/GET_NEW_PRACTICE';
 export const GET_NEW_PRACTICE_SUCCESS = 'iterviewSpost/Home/GET_NEW_PRACTICE_SUCCESS';
 export const GET_NEW_PRACTICE_FAILURE = 'iterviewSpost/Home/GET_NEW_PRACTICE_FAILURE';
+
+export const UPLOAD_REQUEST = 'iterviewSpost/Home/UPLOAD_REQUEST';
+export const UPLOAD_PROGRESS = 'iterviewSpost/Home/UPLOAD_PROGRESS';
+export const UPLOAD_SUCCESS = 'iterviewSpost/Home/UPLOAD_SUCCESS';
+export const UPLOAD_FAILURE = 'iterviewSpost/Home/UPLOAD_FAILURE';

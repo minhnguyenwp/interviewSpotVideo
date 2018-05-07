@@ -26,6 +26,11 @@ const makeSelectNewPractice = () => createSelector(
   (homeState) => homeState.get('practice')
 );
 
+const makeSelectUploadProgress = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('progress')
+);
+
 export {
   selectHome,
   makeSelectSession,

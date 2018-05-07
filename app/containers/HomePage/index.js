@@ -18,7 +18,7 @@ import AtPrefix from './AtPrefix';
 import reducer from './reducer';
 import saga from './saga';
 import { getSession, getQuestion, getNewPractice } from './actions';
-import { makeSelectSession, makeSelectSessionError, makeSelectQuestion, makeSelectNewPractice } from './selectors';
+import { makeSelectSession, makeSelectSessionError, makeSelectQuestion, makeSelectNewPractice, makeSelectUploadProgress } from './selectors';
 
 // comp interview
 import InterviewQuestion from 'components/Interview/Question';
@@ -203,6 +203,16 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.state.videoData[this.state.qNum] = videoData
   }
 
+  uploadFile(){
+    let videoData = this.state.videoData[this.state.qNum].video
+    if(videoData){
+      let formData = new FormData();
+          formData.append('answer', videoData);
+      let url = this.props.question.href
+      this.props.onUpload(url, formData)
+    }
+  }
+
   render() {
     const { error, question, getQuestion, session, practice } = this.props
     const { qNum, qStep, isPractice, videoData } = this.state
@@ -274,7 +284,10 @@ export function mapDispatchToProps(dispatch) {
     },
     getNewPractice: (url) => {
       dispatch(getNewPractice(url));
-    }
+    },
+    onUpload: (url, file) => {
+        dispatch(uploadRequest(url, file));
+    },
   };
 }
 
@@ -282,7 +295,8 @@ const mapStateToProps = createStructuredSelector({
   session: makeSelectSession(),
   error: makeSelectSessionError(),
   question: makeSelectQuestion(),
-  practice: makeSelectNewPractice()
+  practice: makeSelectNewPractice(),
+  progress: makeSelectUploadProgress()
 });
 
 
