@@ -5,7 +5,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Progress } from 'reactstrap';
 
-export default class UploadProgress extends React.Component { 
+export default class UploadProgress extends React.Component {
+    componentDidMount() {
+        if(typeof this.props.uploadFile == 'function'){
+            this.props.uploadFile()
+        }
+    }
   retryClick(e){
     e.preventDefault();
     if(typeof this.props.retryClick == 'function'){
@@ -14,7 +19,7 @@ export default class UploadProgress extends React.Component {
     }
   }
   render() {
-    const {isPractice} = this.props
+    const {isPractice, progress, question} = this.props
     return (
         <div className="central-wrap">
             <Helmet>
@@ -29,47 +34,8 @@ export default class UploadProgress extends React.Component {
                     </div>
                     <div className="upload-control">
                         <div className="upload-percent">
-                            <span className="num" style={{'left': '45%'}}>50%</span>
-                            <Progress value="50" />
-                        </div>
-
-                        <div className="upload-list">
-                            <div className="upload-item">
-                                <div className="row">
-                                    <div className="col-md-3 col-sm-4 col-xs-3 upload-ttl">
-                                        Question 1's Name
-                                    </div>
-                                    <div className="col-md-9 col-sm-8 col-xs-9 upload-col-right">
-                                        <div className="inner">
-                                            <Progress value="50" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="upload-item">
-                                <div className="row">
-                                    <div className="col-md-3 col-sm-4 col-xs-3 upload-ttl">
-                                        Question 2's Name
-                                    </div>
-                                    <div className="col-md-9 col-sm-8 col-xs-9 upload-col-right">
-                                        <div className="inner">
-                                            <Progress value="50" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="upload-item">
-                                <div className="row">
-                                    <div className="col-md-3 col-sm-4 col-xs-3 upload-ttl">
-                                        Question 3's Name
-                                    </div>
-                                    <div className="col-md-9 col-sm-8 col-xs-9 upload-col-right">
-                                        <div className="inner">
-                                            <Progress value="50" />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <span className="num" style={{'left': '45%'}}>{progress + '%'}</span>
+                            <Progress value={progress} />
                         </div>
                     </div>
                     {isPractice && 

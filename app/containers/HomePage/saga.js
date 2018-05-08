@@ -2,7 +2,7 @@
  * Gets the repositories of the user from Github
  */
 
-import { call, put, select, takeLatest, all } from 'redux-saga/effects';
+import { call, put, select, takeLatest, all, takeEvery } from 'redux-saga/effects';
 import { BASE_API_URL } from 'containers/App/constants';
 import { GET_SESSION, GET_QUESTION, GET_NEW_PRACTICE, UPLOAD_REQUEST } from './constants';
 import { getSessionSuccess, getSessionFailure, getQuestionFailure, getQuestionSuccess, getNewPracticeSuccess, getNewPracticeFailure, uploadProgress, uploadSuccess, uploadFailure } from './actions';
@@ -84,6 +84,6 @@ export default function* root() {
     takeEvery(UPLOAD_REQUEST, function*(action) {
         const file = action.file;
         yield call(uploadFileSaga, file);
-    });
+    })
   ]);
 }

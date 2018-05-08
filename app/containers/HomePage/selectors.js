@@ -36,5 +36,6 @@ export {
   makeSelectSession,
   makeSelectQuestion,
   makeSelectSessionError,
-  makeSelectNewPractice
+  makeSelectNewPractice,
+  makeSelectUploadProgress
 };

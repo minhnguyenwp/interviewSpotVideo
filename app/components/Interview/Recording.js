@@ -33,7 +33,7 @@ export default class InterviewRecording extends React.Component {
         plugins: {
             record: {
                 audio: true,
-                video: true,
+                video: false,
                 maxLength: question.answerTimeLimit,
                 debug: true,
                 timeSlice: 1000,

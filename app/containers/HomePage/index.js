@@ -162,7 +162,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   doneRecord(){
     if(this.state.isPractice){
       this.setState({
-        qStep : 'UploadSuccess'
+        qStep : 'UploadProgress'
       })
     }
   }
@@ -214,7 +214,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   render() {
-    const { error, question, getQuestion, session, practice } = this.props
+    const { error, question, getQuestion, session, practice, progress } = this.props
     const { qNum, qStep, isPractice, videoData } = this.state
     console.log(this.props)
     let sessionData = this.props.session
@@ -240,6 +240,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       }
       {
         qStep == 'Recording' && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} />
+      }
+      {
+        qStep == 'UploadProgress' && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={() => this.uploadFile()} progress={progress} />
       }
       {
         qStep == 'UploadSuccess' && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
