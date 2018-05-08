@@ -17,8 +17,8 @@ import { myFormatDate, parseQuery } from 'utils/helper';
 import AtPrefix from './AtPrefix';
 import reducer from './reducer';
 import saga from './saga';
-import { getSession, getQuestion, getNewPractice } from './actions';
-import { makeSelectSession, makeSelectSessionError, makeSelectQuestion, makeSelectNewPractice, makeSelectUploadProgress } from './selectors';
+import { getSession, getQuestion, getNewPractice, uploadRequest } from './actions';
+import { makeSelectSession, makeSelectSessionError, makeSelectQuestion, makeSelectNewPractice, makeSelectUploadProgress, makeSelectIsUploadFailure, makeSelectIsUploadSuccess } from './selectors';
 
 // comp interview
 import InterviewQuestion from 'components/Interview/Question';
@@ -203,18 +203,17 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     this.state.videoData[this.state.qNum] = videoData
   }
 
-  uploadFile(){
+  uploadFile(url){
     let videoData = this.state.videoData[this.state.qNum].video
     if(videoData){
       let formData = new FormData();
           formData.append('answer', videoData);
-      let url = this.props.question.href
       this.props.onUpload(url, formData)
     }
   }
 
   render() {
-    const { error, question, getQuestion, session, practice, progress } = this.props
+    const { error, question, getQuestion, session, practice, progress, isUploadFailure, isUploadSuccess } = this.props
     const { qNum, qStep, isPractice, videoData } = this.state
     console.log(this.props)
     let sessionData = this.props.session
@@ -242,10 +241,13 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         qStep == 'Recording' && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} />
       }
       {
-        qStep == 'UploadProgress' && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={() => this.uploadFile()} progress={progress} />
+        qStep == 'UploadProgress' && !isUploadFailure && !isUploadSuccess && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />
       }
       {
-        qStep == 'UploadSuccess' && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
+        qStep == 'UploadProgress' && !isUploadFailure && isUploadSuccess && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
+      }
+      {
+        qStep == 'UploadProgress' && isUploadFailure && !isUploadSuccess && <UploadFail isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} uploadFile={(url) => this.uploadFile(url)} />
       }
       {
         qStep == 'Finish' && <InterviewFinish isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
@@ -299,7 +301,9 @@ const mapStateToProps = createStructuredSelector({
   error: makeSelectSessionError(),
   question: makeSelectQuestion(),
   practice: makeSelectNewPractice(),
-  progress: makeSelectUploadProgress()
+  progress: makeSelectUploadProgress(),
+  isUploadSuccess: makeSelectIsUploadSuccess(),
+  isUploadFailure: makeSelectIsUploadFailure()
 });
 
 

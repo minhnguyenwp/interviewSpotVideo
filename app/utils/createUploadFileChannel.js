@@ -1,5 +1,5 @@
 import { buffers, eventChannel, END } from 'redux-saga';
-function createUploadFileChannel(url, file) {
+export function createUploadFileChannel(url, file) {
     return eventChannel(emitter => {
         const xhr = new XMLHttpRequest();
         const onProgress = (e: ProgressEvent) => {

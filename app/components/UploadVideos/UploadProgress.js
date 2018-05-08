@@ -8,7 +8,7 @@ import { Progress } from 'reactstrap';
 export default class UploadProgress extends React.Component {
     componentDidMount() {
         if(typeof this.props.uploadFile == 'function'){
-            this.props.uploadFile()
+            this.props.uploadFile(this.props.sessionData.answers[this.props.qNum].href)
         }
     }
   retryClick(e){
@@ -20,6 +20,7 @@ export default class UploadProgress extends React.Component {
   }
   render() {
     const {isPractice, progress, question} = this.props
+    let percent = Math.round(progress*100)
     return (
         <div className="central-wrap">
             <Helmet>
@@ -34,17 +35,10 @@ export default class UploadProgress extends React.Component {
                     </div>
                     <div className="upload-control">
                         <div className="upload-percent">
-                            <span className="num" style={{'left': '45%'}}>{progress + '%'}</span>
-                            <Progress value={progress} />
+                            <span className="num" style={{'left': '45%'}}>{percent + '%'}</span>
+                            <Progress value={percent} />
                         </div>
                     </div>
-                    {isPractice && 
-                        <div className="btn-wrap">
-                            <div className="text-center">
-                                <a onClick={(e) => this.retryClick(e)} className="btn btn-red uppercase w_auto">retry</a>
-                            </div>
-                        </div>
-                    }
                 </div>
             </div>
         </div>

@@ -145,8 +145,9 @@ export function getNewPracticeFailure(error) {
 }
 
 
-export const uploadRequest = (file) => ({
+export const uploadRequest = (url, file) => ({
     type: UPLOAD_REQUEST,
+    url: url,
     file: file,
 });
 export const uploadProgress = (file, progress) => ({
@@ -154,12 +155,14 @@ export const uploadProgress = (file, progress) => ({
     progress: progress,
     meta: { file },
 });
-export const uploadSuccess = (file) => ({
+export const uploadSuccess = (file, isUploadSuccess) => ({
     type: UPLOAD_SUCCESS,
+    isUploadSuccess: true,
     meta: { file },
 });
-export const uploadFailure = (file, err) => ({
+export const uploadFailure = (file, err, isUploadFailure) => ({
     type: UPLOAD_FAILURE,
     error: err,
+    isUploadFailure: true,
     meta: { file },
 });

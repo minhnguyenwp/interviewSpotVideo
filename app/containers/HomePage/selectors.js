@@ -31,11 +31,23 @@ const makeSelectUploadProgress = () => createSelector(
   (homeState) => homeState.get('progress')
 );
 
+const makeSelectIsUploadSuccess = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('isUploadSuccess')
+);
+
+const makeSelectIsUploadFailure = () => createSelector(
+  selectHome,
+  (homeState) => homeState.get('isUploadFailure')
+);
+
 export {
   selectHome,
   makeSelectSession,
   makeSelectQuestion,
   makeSelectSessionError,
   makeSelectNewPractice,
-  makeSelectUploadProgress
+  makeSelectUploadProgress,
+  makeSelectIsUploadSuccess,
+  makeSelectIsUploadFailure
 };

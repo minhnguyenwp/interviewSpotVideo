@@ -5,7 +5,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 export default class UploadFail extends React.Component { 
-
+    retryUpload(e){
+        console.log('retryUpload')
+        if(typeof this.props.uploadFile == 'function'){
+            this.props.uploadFile(this.props.sessionData.answers[this.props.qNum].href)
+        }
+    }
   render() {
     return (
         <div className="central-wrap">
@@ -26,7 +31,7 @@ export default class UploadFail extends React.Component {
                             </p>
                         </div>
                         <div className="text-center">
-                            <a href="#" className="btn btn-red uppercase w_auto">retry</a>
+                            <a onClick={(e) => this.retryUpload(e)} className="btn btn-red uppercase w_auto">retry</a>
                         </div>
                     </div>
                 </div>
