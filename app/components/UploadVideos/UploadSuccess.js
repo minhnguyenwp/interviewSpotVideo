@@ -56,10 +56,6 @@ export default class UploadSuccess extends React.Component {
                             </p>
                             <div>
                             {
-                                (!isPractice || !loadVideo || !videoData) && 
-                                <p><Img src={'assets/images/video-upload.jpg'} alt="" /></p>
-                            }
-                            {
                                 (isPractice && loadVideo && videoData) && 
                                 <VideojsRecordPlayer videoData={videoData[qNum].video} videoJsOptions={videoJsOptions}  />
                             }

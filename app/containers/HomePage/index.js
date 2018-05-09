@@ -48,6 +48,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   componentDidMount() {
     let qs = parseQuery(this.props.location.search)
     this.props.onPageLoad(qs['code'], qs['societe']);
+
+    window.addEventListener("beforeunload", (ev) => 
+    {  
+        ev.preventDefault();
+        return ev.returnValue = 'Are you sure you want to leave?';
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,6 +65,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       qStep : 'Question',
       isPractice : false
     })
+  }
+
+  onUnload(event) { // the method that will be used for both add and remove event
+      
   }
 
   startPractice() {
@@ -238,7 +248,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'Recording' && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} />
+        qStep == 'Recording' && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} />
       }
       {
         qStep == 'UploadProgress' && !isUploadFailure && !isUploadSuccess && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />

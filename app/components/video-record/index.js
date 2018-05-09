@@ -100,6 +100,20 @@ export default class VideojsRecordPlayer extends React.Component {
             
         }
     }
+    timeOut(){
+        console.log('videojs timeout')
+        if(this.player.record().isRecording()){
+            this.player.record().stop();
+            this.doneRecord();
+        } else {
+            this.nextQuestion()
+        }
+    }
+    nextQuestion(){
+        if(typeof this.props.nextQuestion == 'function'){
+            this.props.nextQuestion();
+        }
+   }
     // wrap the player in a div with a `data-vjs-player` attribute
     // so videojs won't create additional wrapper in the DOM
     // see https://github.com/videojs/video.js/pull/3856
