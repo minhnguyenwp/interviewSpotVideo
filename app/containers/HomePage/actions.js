@@ -29,6 +29,9 @@ import {
   UPLOAD_PROGRESS,
   UPLOAD_SUCCESS,
   UPLOAD_FAILURE,
+  POST_SESSION,
+  POST_SESSION_SUCCESS,
+  POST_SESSION_FAILURE,
 } from './constants';
 
 /**
@@ -166,3 +169,26 @@ export const uploadFailure = (file, err, isUploadFailure) => ({
     isUploadFailure: true,
     meta: { file },
 });
+
+
+export function postSession(url, data) {
+  return {
+    type: POST_SESSION,
+    url: url,
+    data: data
+  };
+}
+
+export function postSessionSuccess(session) {
+  return {
+    type: POST_SESSION_SUCCESS,
+    session: session
+  };
+}
+
+export function postSessionFailure(error) {
+  return {
+    type: POST_SESSION_FAILURE,
+    error: error
+  };
+}

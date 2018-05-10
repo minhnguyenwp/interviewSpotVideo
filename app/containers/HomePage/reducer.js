@@ -15,6 +15,9 @@ import {
   GET_SESSION,
   GET_SESSION_SUCCESS,
   GET_SESSION_FAILURE,
+  POST_SESSION,
+  POST_SESSION_SUCCESS,
+  POST_SESSION_FAILURE,
   GET_QUESTION,
   GET_QUESTION_SUCCESS,
   GET_QUESTION_FAILURE,
@@ -35,7 +38,6 @@ const initialState = fromJS({
   practice: false,
   progress: 0,
   isUploadSuccess: false,
-  isUploadFailure: false
 });
 
 function homeReducer(state = initialState, action) {
@@ -45,7 +47,6 @@ function homeReducer(state = initialState, action) {
         .set('error', false)
         .set('session', false)
         .set('isUploadSuccess', false)
-        .set('isUploadFailure', false)
     case GET_SESSION_SUCCESS:
       return state
         //.setIn(['userData', 'repositories'], action.repos) // for nested object
@@ -53,12 +54,23 @@ function homeReducer(state = initialState, action) {
     case GET_SESSION_FAILURE:
       return state
         .set('error', action.error)
+    case POST_SESSION:
+      return state
+        .set('error', false)
+        .set('session', false)
+        .set('isUploadSuccess', false)
+    case POST_SESSION_SUCCESS:
+      return state
+        //.setIn(['userData', 'repositories'], action.repos) // for nested object
+        .set('session', action.session)
+    case POST_SESSION_FAILURE:
+      return state
+        .set('error', action.error)
     case GET_QUESTION:
       return state
         .set('error', false)
         .set('question', false)
         .set('isUploadSuccess', false)
-        .set('isUploadFailure', false)
     case GET_QUESTION_SUCCESS:
       return state
         //.setIn(['userData', 'repositories'], action.repos) // for nested object
@@ -71,7 +83,6 @@ function homeReducer(state = initialState, action) {
         .set('error', false)
         .set('practice', false)
         .set('isUploadSuccess', false)
-        .set('isUploadFailure', false)
     case GET_NEW_PRACTICE_SUCCESS:
       return state
         //.setIn(['userData', 'repositories'], action.repos) // for nested object
@@ -83,22 +94,18 @@ function homeReducer(state = initialState, action) {
       return state
         .set('progress', 0)
         .set('isUploadSuccess', false)
-        .set('isUploadFailure', false)
         .set('error', false)
     case UPLOAD_PROGRESS:
       return state
         .set('progress', action.progress)
         .set('isUploadSuccess', false)
-        .set('isUploadFailure', false)
         .set('error', false)
     case UPLOAD_SUCCESS:
       return state
         .set('isUploadSuccess', true)
-        .set('isUploadFailure', false)
         .set('error', false)
     case UPLOAD_FAILURE:
       return state
-        .set('isUploadFailure', true)
         .set('isUploadSuccess', false)
         .set('error', false)
         .set('error', action.error)

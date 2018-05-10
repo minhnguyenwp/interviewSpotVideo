@@ -72,7 +72,7 @@ export default class InterviewRecording extends React.Component {
             <div className="container">
                 <div className="content-wrapper">
                     <div className="countdown-wrap">
-                      <ReactCountdownClock seconds={question.answerTimeLimit}
+                      <ReactCountdownClock seconds={question.answerTimeLimit/10}
                                                    color="#c52026"
                                                    alpha={1}
                                                    size={36}

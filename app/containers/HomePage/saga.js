@@ -4,8 +4,13 @@
 
 import { call, put, select, takeLatest, all, takeEvery, take } from 'redux-saga/effects';
 import { BASE_API_URL } from 'containers/App/constants';
-import { GET_SESSION, GET_QUESTION, GET_NEW_PRACTICE, UPLOAD_REQUEST } from './constants';
-import { getSessionSuccess, getSessionFailure, getQuestionFailure, getQuestionSuccess, getNewPracticeSuccess, getNewPracticeFailure, uploadProgress, uploadSuccess, uploadFailure } from './actions';
+import { GET_SESSION, GET_QUESTION, GET_NEW_PRACTICE, UPLOAD_REQUEST, POST_SESSION } from './constants';
+import { 
+          getSessionSuccess, getSessionFailure, getQuestionFailure, 
+          getQuestionSuccess, getNewPracticeSuccess, getNewPracticeFailure, 
+          uploadProgress, uploadSuccess, uploadFailure,
+          postSessionSuccess, postSessionFailure
+       } from './actions';
 
 import request from 'utils/request';
 import { createUploadFileChannel  } from 'utils/createUploadFileChannel';
@@ -26,6 +31,22 @@ export function* getSessionData(action) {
     yield put(getSessionSuccess(response));
   } catch (err) {
     yield put(getSessionFailure(err));
+  }
+}
+
+export function* postSessionData(action) {
+  const requestURL = `${BASE_API_URL}/${action.url}`;
+  const data = action.data
+  const opts = {
+    method: 'POST',
+    body: data
+  }
+  try {
+    // Call our request helper (see 'utils/request')
+    const response = yield call(request, requestURL, opts );
+    yield put(postSessionSuccess(response));
+  } catch (err) {
+    yield put(postSessionFailure(err));
   }
 }
 
@@ -89,6 +110,7 @@ export default function* root() {
     takeLatest(GET_SESSION, getSessionData),
     takeLatest(GET_QUESTION, getQuestionData),
     takeLatest(GET_NEW_PRACTICE, getNewPracticeData),
+    takeLatest(POST_SESSION, postSessionData),
     takeEvery(UPLOAD_REQUEST, uploadFileSaga )
   ]);
 }

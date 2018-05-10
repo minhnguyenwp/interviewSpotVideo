@@ -36,11 +36,6 @@ const makeSelectIsUploadSuccess = () => createSelector(
   (homeState) => homeState.get('isUploadSuccess')
 );
 
-const makeSelectIsUploadFailure = () => createSelector(
-  selectHome,
-  (homeState) => homeState.get('isUploadFailure')
-);
-
 export {
   selectHome,
   makeSelectSession,
@@ -49,5 +44,4 @@ export {
   makeSelectNewPractice,
   makeSelectUploadProgress,
   makeSelectIsUploadSuccess,
-  makeSelectIsUploadFailure
 };

@@ -12,6 +12,7 @@ export default class UploadFail extends React.Component {
         }
     }
   render() {
+    const {isPractice} = this.props
     return (
         <div className="central-wrap">
             <Helmet>
@@ -21,6 +22,7 @@ export default class UploadFail extends React.Component {
             <div className="container">
                 <div className="content-wrapper">
                     <h2 className="page-ttl">OOPS! This is embarrassing</h2>
+                    { isPractice && qStep=='UploadProgress' &&
                     <div className="btn-wrap">
                         <div className="page-desc">
                             <p>
@@ -34,6 +36,20 @@ export default class UploadFail extends React.Component {
                             <a onClick={(e) => this.retryUpload(e)} className="btn btn-red uppercase w_auto">retry</a>
                         </div>
                     </div>
+                    }
+                    {
+                        (!isPractice || qStep != 'UploadProgress') && 
+                    <div className="btn-wrap">
+                        <div className="page-desc">
+                            <p>
+                            There seems to be some error happened.
+                            </p>
+                            <p>
+                            Please check your Internet Connection and contact to <a href="maito:admin@system.com">admin@system.com</a> to get new test.
+                            </p>
+                        </div>
+                    </div>
+                    }
                 </div>
             </div>
         </div>

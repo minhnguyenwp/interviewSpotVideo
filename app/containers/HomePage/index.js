@@ -17,8 +17,8 @@ import { myFormatDate, parseQuery } from 'utils/helper';
 import AtPrefix from './AtPrefix';
 import reducer from './reducer';
 import saga from './saga';
-import { getSession, getQuestion, getNewPractice, uploadRequest } from './actions';
-import { makeSelectSession, makeSelectSessionError, makeSelectQuestion, makeSelectNewPractice, makeSelectUploadProgress, makeSelectIsUploadFailure, makeSelectIsUploadSuccess } from './selectors';
+import { getSession, getQuestion, getNewPractice, uploadRequest, postSession } from './actions';
+import { makeSelectSession, makeSelectSessionError, makeSelectQuestion, makeSelectNewPractice, makeSelectUploadProgress, makeSelectIsUploadSuccess } from './selectors';
 
 // comp interview
 import InterviewQuestion from 'components/Interview/Question';
@@ -65,10 +65,6 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       qStep : 'Question',
       isPractice : false
     })
-  }
-
-  onUnload(event) { // the method that will be used for both add and remove event
-      
   }
 
   startPractice() {
@@ -194,6 +190,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         qStep : 'Question',
         qNum : qNum
       })
+    } else {
+      this.finishTest()
     }
   }
 
@@ -204,6 +202,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   finishTest(){
+    if(!this.state.isPractice){
+      let url = this.props.session.href
+      let formData = new FormData();
+          formData.append('completed', true);
+      this.props.postSession(url, formData)
+    }
     this.setState({
         qStep : 'Finish'
       })
@@ -239,28 +243,28 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <article>
       {
-        qStep == 'Start' && sessionData && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
+        qStep == 'Start' && !error && sessionData && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
       }
       {
-        qStep == 'Question' && sessionData && <InterviewQuestion sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
+        qStep == 'Question' && !error && sessionData && <InterviewQuestion sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
       }
       {
-        qStep == 'Prepare' && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
+        qStep == 'Prepare' && !error && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'Recording' && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} />
+        qStep == 'Recording' && !error && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} />
       }
       {
-        qStep == 'UploadProgress' && !isUploadFailure && !isUploadSuccess && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />
+        qStep == 'UploadProgress' && !error && !isUploadSuccess && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />
       }
       {
-        qStep == 'UploadProgress' && !isUploadFailure && isUploadSuccess && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
+        qStep == 'UploadProgress'  && !error && isUploadSuccess && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
       }
       {
-        qStep == 'UploadProgress' && isUploadFailure && !isUploadSuccess && <UploadFail isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} uploadFile={(url) => this.uploadFile(url)} />
+        error && <UploadFail qStep={qStep} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} uploadFile={(url) => this.uploadFile(url)} />
       }
       {
-        qStep == 'Finish' && <InterviewFinish isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
+        qStep == 'Finish' && !error && <InterviewFinish isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
       }
       </article>
     );
@@ -303,6 +307,9 @@ export function mapDispatchToProps(dispatch) {
     onUpload: (url, file) => {
         dispatch(uploadRequest(url, file));
     },
+    postSession: (url, data) => {
+        dispatch(postSession(url, data));
+    },
   };
 }
 
@@ -312,8 +319,7 @@ const mapStateToProps = createStructuredSelector({
   question: makeSelectQuestion(),
   practice: makeSelectNewPractice(),
   progress: makeSelectUploadProgress(),
-  isUploadSuccess: makeSelectIsUploadSuccess(),
-  isUploadFailure: makeSelectIsUploadFailure()
+  isUploadSuccess: makeSelectIsUploadSuccess()
 });
 
 
