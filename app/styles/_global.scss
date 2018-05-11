@@ -87,3 +87,15 @@ h1, h2, h3, h4, h5, h6 {
     position: absolute;
     right: 10px;
 }
+
+.countdown-wrap-prepare{
+    position: relative;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.countdown-wrap-prepare .react-countdown-clock canvas{
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+}

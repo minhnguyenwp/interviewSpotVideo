@@ -13,9 +13,9 @@ export default class VideojsRecordPlayer extends React.Component {
             // instantiate Video.js
             this.player = videojs(this.videoNode, this.props.videoJsOptions, function onPlayerReady(){
                 // print version information at startup
-                videojs.log('Using video.js', videojs.VERSION,
-                    'with videojs-record', videojs.getPluginVersion('record'),
-                    'and recordrtc', RecordRTC.version);
+                // videojs.log('Using video.js', videojs.VERSION,
+                //     'with videojs-record', videojs.getPluginVersion('record'),
+                //     'and recordrtc', RecordRTC.version);
             });
             let me = this
             this.player.record().getDevice()
@@ -41,6 +41,10 @@ export default class VideojsRecordPlayer extends React.Component {
                 me.onDeviceReady()
             })
 
+            this.player.on('deviceError', function(){
+                me.onDeviceError()
+            })
+
             this.player.on('finishRecord', function() {
                 // show save as dialog
                 me.doneRecord()
@@ -48,7 +52,7 @@ export default class VideojsRecordPlayer extends React.Component {
         } else {
             let videoData = this.props.videoData
             this.player = videojs(this.videoNode, this.props.videoJsOptions, function onPlayerReady(){
-                console.log('videoData', videoData)
+                //console.log('videoData', videoData)
                 this.src({ type: 'video/webm', src: window.blobUtil.createObjectURL(videoData) });
                 this.load();
                
@@ -57,12 +61,19 @@ export default class VideojsRecordPlayer extends React.Component {
     }
 
     onDeviceReady(){
-        console.log('deviceReady')
+        //console.log('deviceReady')
         this.setState({ recordState: 'deviceReady', curentTime: 0 })
     }
 
+    onDeviceError(){
+        if(typeof this.props.onDeviceError == 'function'){
+            //console.log(this.player.recordedData)
+            this.props.onDeviceError();
+        }
+    }
+
     onTimeStamp(){
-        console.log(this.state)
+        //console.log(this.state)
         this.setState({curentTime: this.player.record().getCurrentTime()})
     }
 

@@ -37,10 +37,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     super(props);
     this.state = {
       qNum : 0,
-      qStep : 'Start',
+      qStep : 'TestDevice',
       question: false,
       practice: false,
       isPractice: false,
+      videoDemo: false,
+      deviceError: false,
       videoData: []
     }
   }
@@ -103,70 +105,18 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     })
   }
 
-  // initVideoPlayer(options){
-  //   console.log('before init', this.state.videoPlayer)
-  //   // instantiate Video.js
-  //   this.state.videoPlayer = videojs('myVideo', options, function onPlayerReady(){
-  //       // print version information at startup
-  //       videojs.log('Using video.js', videojs.VERSION,
-  //           'with videojs-record', videojs.getPluginVersion('record'),
-  //           'and recordrtc', RecordRTC.version);
-  //   });
-
-  //   console.log('init', this.state.videoPlayer)
-  //   // error handling
-  //   this.state.videoPlayer.on('error', function(error) {
-  //       console.warn(error);
-  //   });
-
-  //   console.log('after init', this.state.videoPlayer)
-  //   let videoPlayer = this.state.videoPlayer
-  //   this.state.videoPlayer.on('timestamp', function() {
-  //       console.log('timestamp', videoPlayer)
-  //       // timestamps
-  //       console.log('current timestamp: ', videoPlayer.currentTimestamp);
-  //       console.log('all timestamps: ', videoPlayer.allTimestamps);
-  //   });
-
-  //   this.state.videoPlayer.on('finishRecord', function() {
-  //       // show save as dialog
-  //       this.state.videoPlayer.record().saveAs({'video': 'my-video-file-name.webm'});
-  //   });
-  // }
-
-  // destroyVideoPlayer(){
-  //   if (this.state.videoPlayer) {
-  //       this.state.videoPlayer.dispose();
-  //   }
-  // }
-
-  // doneRecord(){
-  //   let qNum = this.state.qNum + 1
-  //   let answers = this.props.session.answers
-  //   if(this.state.isPractice){
-  //     if(practice){
-  //       answers = this.props.practice.answers
-  //     } else {
-  //       answers = this.props.session.practice.answers
-  //     }
-  //   }
-  //   if(qNum < answers.length){
-  //     let url = answers[qNum].href
-  //     this.props.getQuestion(url)
-  //     this.setState({
-  //       qStep : 'Question',
-  //       qNum : qNum
-  //     })
-  //   } else {
-  //     this.setState({
-  //       qStep : 'UploadProgress',
-  //     })
-  //   }
-    
-  // }
+  startTest(){
+    this.setState({
+      qStep : 'Start'
+    })
+  }
 
   doneRecord(){
-    if(this.state.isPractice){
+    if(this.state.qStep == 'TestDevice'){
+      this.setState({
+        qStep : 'TestDeviceSuccess'
+      })
+    } else {
       this.setState({
         qStep : 'UploadProgress'
       })
@@ -196,9 +146,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   retryClick(){
-    if (this.state.isPractice){
       window.location.reload();
-    }
   }
 
   finishTest(){
@@ -214,7 +162,11 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   saveVideoData(videoData){
-    this.state.videoData[this.state.qNum] = videoData
+    if(this.state.qStep == 'TestDevice'){
+      this.state.videoDemo = videoData
+    } else {
+      this.state.videoData[this.state.qNum] = videoData
+    }
   }
 
   uploadFile(url){
@@ -226,10 +178,14 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     }
   }
 
+  onDeviceError(){
+    this.setState({'deviceError': true})
+  }
+
   render() {
     const { error, question, getQuestion, session, practice, progress, isUploadFailure, isUploadSuccess } = this.props
-    const { qNum, qStep, isPractice, videoData } = this.state
-    console.log(this.props)
+    const { qNum, qStep, isPractice, videoData, deviceError, videoDemo } = this.state
+    //console.log(this.props)
     let sessionData = this.props.session
     if(isPractice){
       if(practice){
@@ -243,28 +199,34 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     return (
       <article>
       {
-        qStep == 'Start' && !error && sessionData && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
+        qStep == "TestDevice" && !error && !deviceError && <InterviewRecording qStep={qStep} saveVideoData={(videoData) => this.saveVideoData(videoData)} doneRecord={() => this.doneRecord()} onDeviceError={() => this.onDeviceError()} />
       }
       {
-        qStep == 'Question' && !error && sessionData && <InterviewQuestion sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
+        qStep == "TestDeviceSuccess" && !error && !deviceError && <UploadSuccess qStep={qStep} videoData={videoDemo} startTest={() => this.startTest()} />
       }
       {
-        qStep == 'Prepare' && !error && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
+        qStep == 'Start' && !error && !deviceError && sessionData && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
       }
       {
-        qStep == 'Recording' && !error && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} />
+        qStep == 'Question' && !error && !deviceError && sessionData && <InterviewQuestion sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
       }
       {
-        qStep == 'UploadProgress' && !error && !isUploadSuccess && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />
+        qStep == 'Prepare' && !error && !deviceError && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'UploadProgress'  && !error && isUploadSuccess && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
+        qStep == 'Recording' && !error && !deviceError && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} onDeviceError={() => this.onDeviceError()} />
       }
       {
-        error && <UploadFail qStep={qStep} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} uploadFile={(url) => this.uploadFile(url)} />
+        qStep == 'UploadProgress' && !error && !deviceError && !isUploadSuccess && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />
       }
       {
-        qStep == 'Finish' && !error && <InterviewFinish isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
+        qStep == 'UploadProgress'  && !error && !deviceError && isUploadSuccess && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
+      }
+      {
+        (error || deviceError) && <UploadFail deviceError={deviceError} qStep={qStep} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} uploadFile={(url) => this.uploadFile(url)} retryClick={() => this.retryClick()} />
+      }
+      {
+        qStep == 'Finish' && !error && !deviceError && <InterviewFinish isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
       }
       </article>
     );

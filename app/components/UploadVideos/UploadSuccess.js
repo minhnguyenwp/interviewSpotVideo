@@ -18,19 +18,26 @@ export default class UploadSuccess extends React.Component {
   nextQuestion(e){
     e.preventDefault()
     if(typeof this.props.nextQuestion == 'function'){
-        console.log('nextQuestion');
+        //console.log('nextQuestion');
         this.props.nextQuestion();
     }
   }
   finishTest(e){
     e.preventDefault()
     if(typeof this.props.finishTest == 'function'){
-        console.log('finishTest');
+        //console.log('finishTest');
         this.props.finishTest();
     }
   }
+  startTest(e){
+    e.preventDefault()
+    if(typeof this.props.startTest == 'function'){
+        //console.log('startTest');
+        this.props.startTest();
+    }
+  }
   render() {
-    const {qNum, question, sessionData, isPractice, videoData } = this.props
+    const {qNum, question, sessionData, isPractice, videoData, qStep } = this.props
     const { loadVideo } = this.state
     let number = qNum + 1
     const videoJsOptions = {
@@ -43,10 +50,38 @@ export default class UploadSuccess extends React.Component {
     return (
         <div className="central-wrap">
             <Helmet>
-                <title>Upload Success</title>
-                <meta name="description" content={sessionData.title} />
+                <title>{qStep == 'TestDeviceSuccess' ? 'Test Device Successfully' : 'Uploading Success'}</title>
+                <meta name="description" content={qStep == 'TestDeviceSuccess' ? 'Test Device Successfully' : (sessionData && sessionData.title)} />
             </Helmet>
             <div className="container">
+                {
+                  qStep == 'TestDeviceSuccess' && 
+                <div className="content-wrapper">
+                    <h2 className="page-ttl">Test Device Successfully!</h2>
+                    <div className="btn-wrap">
+                        <div className="page-desc">
+                            <p>
+                                You can review your recorded video by clicking 'Review' button.
+                            </p>
+                            <p>Or start doing test by clicking on 'Start' button</p>
+                            <div>
+                            {
+                                (loadVideo && videoData) && 
+                                <VideojsRecordPlayer videoData={videoData.video} videoJsOptions={videoJsOptions}  />
+                            }
+                            </div>
+                        </div>
+                        <div>
+                        {
+                            videoData && !loadVideo &&
+                            <div className="text-center" style={{'marginBottom': '15px'}}><a onClick={(e) => this.reviewVideo(e)} className="btn btn-red uppercase w_auto">Review</a></div>
+                        }    
+                        <div className="text-center"><a onClick={(e) => this.startTest(e)} className="btn btn-blue uppercase w_auto">Start</a></div>
+                        </div>
+                    </div>
+                </div>
+                }
+                { qStep != 'TestDeviceSuccess' &&
                 <div className="content-wrapper">
                     <h2 className="page-ttl">Answer <span>{number}</span> Successfully Uploaded</h2>
                     <div className="btn-wrap">
@@ -77,6 +112,7 @@ export default class UploadSuccess extends React.Component {
                         </div>
                     </div>
                 </div>
+                }
             </div>
         </div>
     );
