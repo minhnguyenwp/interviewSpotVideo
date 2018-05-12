@@ -91,7 +91,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
       }
     }
-    console.log('question url', url)
+    //console.log('question url', url)
 
     this.props.getQuestion(url)
     this.setState({

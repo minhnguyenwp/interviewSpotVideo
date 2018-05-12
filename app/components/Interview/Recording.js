@@ -11,20 +11,20 @@ export default class InterviewRecording extends React.Component {
 
     doneRecord(){
         if(typeof this.props.doneRecord == 'function'){
-            console.log('doneRecord');
+            //console.log('doneRecord');
             this.props.doneRecord();
         }
     }
 
    saveVideoData(videoData){
         if(typeof this.props.saveVideoData == 'function'){
-            console.log('saveVideoData');
+            //console.log('saveVideoData');
             this.props.saveVideoData(videoData);
         }
    }
 
    timeOut(){
-        console.log('record timeout')
+       // console.log('record timeout')
         // function from child
         this.child.timeOut();
    }
@@ -55,7 +55,7 @@ export default class InterviewRecording extends React.Component {
                 audio: true,
                 video: false,
                 maxLength: timeLimit,
-                debug: true,
+                debug: false,
                 timeSlice: 1000,
                 video: {
                     // video constraints: set resolution of camera

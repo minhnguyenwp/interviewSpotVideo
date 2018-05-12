@@ -8,7 +8,7 @@ export default class InterviewFinish extends React.Component {
   retryClick(e){
     e.preventDefault();
     if(typeof this.props.retryClick == 'function'){
-        console.log('retryClick');
+        //console.log('retryClick');
         this.props.retryClick();
     }
   }

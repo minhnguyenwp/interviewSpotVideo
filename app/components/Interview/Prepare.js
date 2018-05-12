@@ -11,14 +11,14 @@ export default class InterviewPrepare extends React.Component {
   startRecord(e){
     e.preventDefault();
     if(typeof this.props.startRecord == 'function'){
-        console.log('startRecord');
+        //console.log('startRecord');
         this.props.startRecord();
     }
   }
 
   timeOut(){
     if(typeof this.props.startRecord == 'function'){
-        console.log('startRecord');
+        //console.log('startRecord');
         this.props.startRecord();
     }
   }

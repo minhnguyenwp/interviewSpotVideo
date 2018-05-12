@@ -75,7 +75,7 @@ export function* getNewPracticeData(action) {
 }
 
 export function* uploadFileWatcher(url, file) {
-  console.log('uploadFileWatcher', url)
+  //console.log('uploadFileWatcher', url)
     const channel = yield call(createUploadFileChannel, url, file);
     while (true) {
         const { progress = 0, err, success } = yield take(channel);

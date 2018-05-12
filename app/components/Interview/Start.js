@@ -10,14 +10,14 @@ export default class InterviewStart extends React.Component {
   startInterview(e){
     e.preventDefault();
     if(typeof this.props.startInterview == 'function'){
-        console.log('startInterview');
+        //console.log('startInterview');
         this.props.startInterview();
     }
   }
   startPractice(e){
     e.preventDefault();
     if(typeof this.props.startPractice == 'function'){
-        console.log('startPractice');
+        //console.log('startPractice');
         this.props.startPractice();
     }
   }

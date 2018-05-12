@@ -99,11 +99,11 @@ export default class VideojsRecordPlayer extends React.Component {
 
     doneRecord(){
         if(typeof this.props.saveVideoData == 'function'){
-            console.log(this.player.recordedData)
+            //console.log(this.player.recordedData)
             this.props.saveVideoData(this.player.recordedData);
         }
         if(typeof this.props.doneRecord == 'function'){
-            console.log('doneRecord');
+            //console.log('doneRecord');
             let me = this
             setTimeout(function(){
                 me.props.doneRecord();
@@ -112,7 +112,7 @@ export default class VideojsRecordPlayer extends React.Component {
         }
     }
     timeOut(){
-        console.log('videojs timeout')
+        //console.log('videojs timeout')
         if(this.player.record().isRecording()){
             this.player.record().stop();
             this.doneRecord();
