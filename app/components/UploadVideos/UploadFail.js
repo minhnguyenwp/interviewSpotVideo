@@ -19,7 +19,7 @@ export default class UploadFail extends React.Component {
         }
     }
   render() {
-    const {isPractice, deviceError} = this.props
+    const {isPractice, deviceError, error} = this.props
     return (
         <div className="central-wrap">
             <Helmet>
@@ -32,12 +32,19 @@ export default class UploadFail extends React.Component {
                     { isPractice && qStep=='UploadProgress' && !deviceError &&
                     <div className="btn-wrap">
                         <div className="page-desc">
-                            <p>
-                            There seems to be some error in the background uploading of your videos.
-                            </p>
-                            <p>
-                            Please check your Internet Connection and Click RETRY to restart the progress.
-                            </p>
+                            {error &&
+                                <div>{error}</div>
+                            }
+                            {!error && 
+                            <div>
+                                <p>
+                                There seems to be some error in the background uploading of your videos.
+                                </p>
+                                <p>
+                                Please check your Internet Connection and Click RETRY to restart the progress.
+                                </p>
+                            </div>
+                            }
                         </div>
                         <div className="text-center">
                             <a onClick={(e) => this.retryUpload(e)} className="btn btn-red uppercase w_auto">retry</a>
@@ -48,12 +55,19 @@ export default class UploadFail extends React.Component {
                         (!isPractice || qStep != 'UploadProgress' ) && !deviceError &&
                     <div className="btn-wrap">
                         <div className="page-desc">
-                            <p>
-                            There seems to be some error happened.
-                            </p>
-                            <p>
-                            Please check your Internet Connection and contact to <a href="maito:admin@system.com">admin@system.com</a> to get new test.
-                            </p>
+                            {error &&
+                                <div>{error}</div>
+                            }
+                            {!error && 
+                            <div>
+                                <p>
+                                There seems to be some error happened.
+                                </p>
+                                <p>
+                                Please check your Internet Connection and contact to <a href="maito:admin@system.com">admin@system.com</a> to get new test.
+                                </p>
+                            </div>
+                            }
                         </div>
                     </div>
                     }
