@@ -32,12 +32,16 @@ import UploadProgress from 'components/UploadVideos/UploadProgress';
 import UploadSuccess from 'components/UploadVideos/UploadSuccess';
 import UploadFail from 'components/UploadVideos/UploadFail';
 
+// lang
+import messages from './messages';
+import { makeSelectLocale } from '../LanguageProvider/selectors';
+
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
       qNum : 0,
-      qStep : 'TestDevice',
+      qStep : 'Start',
       question: false,
       practice: false,
       isPractice: false,
@@ -95,7 +99,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     this.props.getQuestion(url)
     this.setState({
-      qStep : 'Prepare'
+      qStep : 'Question'
     })
   }
 
@@ -185,7 +189,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   render() {
     const { error, question, getQuestion, session, practice, progress, isUploadFailure, isUploadSuccess } = this.props
     const { qNum, qStep, isPractice, videoData, deviceError, videoDemo } = this.state
-    //console.log(this.props)
+    console.log(this.props)
     let sessionData = this.props.session
     if(isPractice){
       if(practice){
@@ -205,13 +209,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         qStep == "TestDeviceSuccess" && !error && !deviceError && <UploadSuccess qStep={qStep} videoData={videoDemo} startTest={() => this.startTest()} />
       }
       {
-        qStep == 'Start' && !error && !deviceError && sessionData && <InterviewStart sessionDesc={sessionDesc} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
+        qStep == 'Start' && !error && !deviceError && sessionData && <InterviewQuestion messages={messages} sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
       }
       {
-        qStep == 'Question' && !error && !deviceError && sessionData && <InterviewQuestion sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
-      }
-      {
-        qStep == 'Prepare' && !error && !deviceError && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
+        qStep == 'Question' && !error && !deviceError && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
       }
       {
         qStep == 'Recording' && !error && !deviceError && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} onDeviceError={() => this.onDeviceError()} />
@@ -281,7 +282,8 @@ const mapStateToProps = createStructuredSelector({
   question: makeSelectQuestion(),
   practice: makeSelectNewPractice(),
   progress: makeSelectUploadProgress(),
-  isUploadSuccess: makeSelectIsUploadSuccess()
+  isUploadSuccess: makeSelectIsUploadSuccess(),
+  locale: makeSelectLocale()
 });
 
 

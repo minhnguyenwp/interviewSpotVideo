@@ -5,6 +5,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { nth, myFormatDate } from 'utils/helper';
 import Img from 'components/Img';
+import { FormattedMessage } from 'react-intl';
 
 export default class InterviewQuestion extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ export default class InterviewQuestion extends React.Component {
     }
   }
   render() {
-    const {sessionData, qNum, isPractice} = this.props
+    const {sessionData, qNum, isPractice, messages} = this.props
     let number = qNum + 1
 
     let deadline = isPractice ? 'Not Applicable' : myFormatDate('dd-mm-yyyy', sessionData.deadline)
@@ -52,15 +53,21 @@ export default class InterviewQuestion extends React.Component {
                 <div className="content-wrapper">
                     <h2 className="page-ttl">{title}</h2>
                     <div className="page-desc">
-                        <p>
-                            In the next page, you will be given <span>{readingTimeLimit}</span> seconds to read a Pratice Interview Question before your recording begins automatically.
-                        </p>
-                        <p>
-                            This is your <span>{number + nth(number)}</span> question and There is a total of <span>{sessionData.answers.length}</span> questions to complete in this interview and you are given <span>{answerTimeLimit}</span> minutes for this question.
-                        </p>
-                        <p>
-                            When you are ready, please click "Next"
-                        </p>
+                        <p><FormattedMessage
+                            {...messages.questionStartMessage1}
+                            values={{
+                              readingTimeLimit: readingTimeLimit,
+                            }}
+                          /></p>
+                        <p><FormattedMessage
+                            {...messages.questionStartMessage2}
+                            values={{
+                              numQuestions: sessionData.answers.length,
+                              answerTimeLimit: answerTimeLimit,
+                            }}
+                          /></p>
+                        <p><FormattedMessage
+                            {...messages.questionStartMessage3}/></p>
                     </div>
                     <div className="btn-wrap">
                         <div className="time-submiss">

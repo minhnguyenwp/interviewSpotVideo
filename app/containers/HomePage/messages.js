@@ -6,24 +6,16 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  startProjectHeader: {
-    id: 'boilerplate.containers.HomePage.start_project.header',
-    defaultMessage: 'Start your next react project in seconds',
+  questionStartMessage1: {
+    id: 'boilerplate.containers.HomePage.questionStart1.message',
+    defaultMessage: 'In the next page, you will be given {readingTimeLimit} seconds to read a Pratice Interview Question before your recording begins automatically.',
   },
-  startProjectMessage: {
-    id: 'boilerplate.containers.HomePage.start_project.message',
-    defaultMessage: 'A highly scalable, offline-first foundation with the best DX and a focus on performance and best practices',
+  questionStartMessage2: {
+    id: 'boilerplate.containers.HomePage.questionStart2.message',
+    defaultMessage: 'There will be {numQuestions} questions to complete in this interview and you are given {answerTimeLimit} minutes per question.',
   },
-  trymeHeader: {
-    id: 'boilerplate.containers.HomePage.tryme.header',
-    defaultMessage: 'Try me!',
-  },
-  trymeMessage: {
-    id: 'boilerplate.containers.HomePage.tryme.message',
-    defaultMessage: 'Show Github repositories by',
-  },
-  trymeAtPrefix: {
-    id: 'boilerplate.containers.HomePage.tryme.atPrefix',
-    defaultMessage: '@',
+  questionStartMessage3: {
+    id: 'boilerplate.containers.HomePage.questionStart3.message',
+    defaultMessage: 'When you are ready, please click \"Next\" button.',
   },
 });

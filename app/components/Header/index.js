@@ -7,6 +7,7 @@ import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
 import Banner from './banner.jpg';
 import messages from './messages';
+import LocaleToggle from '../../containers/LocaleToggle'
 
 // AREA JS
 function showLang() {
@@ -71,6 +72,7 @@ class Header extends React.Component {
               <a href="#">Português (BR)</a>
             </li>
           </ul>
+          <LocaleToggle />
         </div>        
       </div>
     );

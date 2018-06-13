@@ -1,0 +1,7 @@
+{
+  "boilerplate.containers.HomePage.questionStart1.message": "Dans la page suivante, vous aurez {readingTimeLimit} secondes pour lire une question d'entrevue avant que votre enregistrement ne commence automatiquement.",
+  "boilerplate.containers.HomePage.questionStart2.message": "Il y aura {numQuestions} questions à compléter dans cette interview et vous aurez {answerTimeLimit} minutes par question.",
+  "boilerplate.containers.HomePage.questionStart3.message": "Lorsque vous êtes prêt, cliquez sur le bouton \"Suivant\".",
+  "boilerplate.containers.LocaleToggle.fr": "Français (FR)",
+  "boilerplate.containers.LocaleToggle.en": "English (US)"
+}
