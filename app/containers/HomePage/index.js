@@ -41,6 +41,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     super(props);
     this.state = {
       qNum : 0,
+      //qStep : 'TestDevice',
       qStep : 'Start',
       question: false,
       practice: false,
@@ -99,7 +100,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     this.props.getQuestion(url)
     this.setState({
-      qStep : 'Question'
+      qStep : 'Prepare'
     })
   }
 
@@ -141,7 +142,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       let url = answers[qNum].href
       this.props.getQuestion(url)
       this.setState({
-        qStep : 'Question',
+        qStep : 'Prepare',
         qNum : qNum
       })
     } else {
@@ -199,35 +200,37 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       }
     }
     
-    const sessionDesc = 'In an video interview, you would be given %%readingTimeLimit%% secs to read each question. When the countdown timer reaches "0", the system will automatically begin recording your response. And you\'ll be given a maximum of %%answerTimeLimit%% minutes per question to complete your response. Please note that there are no re-takes for Video Interviews and it will be  a one-time through recording.';
     return (
       <article>
       {
-        qStep == "TestDevice" && !error && !deviceError && <InterviewRecording qStep={qStep} saveVideoData={(videoData) => this.saveVideoData(videoData)} doneRecord={() => this.doneRecord()} onDeviceError={() => this.onDeviceError()} />
+        qStep == "TestDevice" && !error && !deviceError && <InterviewRecording messages={messages} qStep={qStep} saveVideoData={(videoData) => this.saveVideoData(videoData)} doneRecord={() => this.doneRecord()} onDeviceError={() => this.onDeviceError()} />
       }
       {
-        qStep == "TestDeviceSuccess" && !error && !deviceError && <UploadSuccess qStep={qStep} videoData={videoDemo} startTest={() => this.startTest()} />
+        qStep == "TestDeviceSuccess" && !error && !deviceError && <UploadSuccess messages={messages} qStep={qStep} videoData={videoDemo} startTest={() => this.startTest()} />
       }
       {
-        qStep == 'Start' && !error && !deviceError && sessionData && <InterviewQuestion messages={messages} sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
+        qStep == 'Start' && !error && !deviceError && sessionData && <InterviewStart  messages={messages} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
       }
       {
-        qStep == 'Question' && !error && !deviceError && question && <InterviewPrepare question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
+        qStep == 'Question' && !error && !deviceError && sessionData && <InterviewQuestion messages={messages} sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
       }
       {
-        qStep == 'Recording' && !error && !deviceError && question && <InterviewRecording saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} onDeviceError={() => this.onDeviceError()} />
+        qStep == 'Prepare' && !error && !deviceError && question && <InterviewPrepare messages={messages} question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'UploadProgress' && !error && !deviceError && !isUploadSuccess && <UploadProgress isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />
+        qStep == 'Recording' && !error && !deviceError && question && <InterviewRecording messages={messages} saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} onDeviceError={() => this.onDeviceError()} />
       }
       {
-        qStep == 'UploadProgress'  && !error && !deviceError && isUploadSuccess && <UploadSuccess isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
+        qStep == 'UploadProgress' && !error && !deviceError && !isPractice && !isUploadSuccess && <UploadProgress messages={messages} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />
       }
       {
-        (error || deviceError) && <UploadFail error={error} deviceError={deviceError} qStep={qStep} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} uploadFile={(url) => this.uploadFile(url)} retryClick={() => this.retryClick()} />
+        qStep == 'UploadProgress'  && !error && !deviceError && (isUploadSuccess || isPractice) && <UploadSuccess messages={messages} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} nextQuestion={() => this.nextQuestion()} finishTest={() => this.finishTest()} />
       }
       {
-        qStep == 'Finish' && !error && !deviceError && <InterviewFinish isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
+        (error || deviceError) && <UploadFail messages={messages} error={error} deviceError={deviceError} qStep={qStep} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} uploadFile={(url) => this.uploadFile(url)} retryClick={() => this.retryClick()} />
+      }
+      {
+        qStep == 'Finish' && !error && !deviceError && <InterviewFinish messages={messages} isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
       }
       </article>
     );

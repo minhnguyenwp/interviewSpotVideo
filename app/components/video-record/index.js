@@ -1,6 +1,7 @@
 import React from 'react';
 import { Progress } from 'reactstrap';
 import { toHHMMSS } from 'utils/helper';
+import { FormattedMessage } from 'react-intl';
 
 export default class VideojsRecordPlayer extends React.Component {
     constructor(props){
@@ -148,11 +149,13 @@ export default class VideojsRecordPlayer extends React.Component {
                 <div className="btn-wrap text-center">
                 { 
                     recordState == 'deviceReady' && 
-                    <a onClick={(e) => this.startRecord(e)} className="btn btn-red uppercase w_auto">start recording</a>
+                    <a onClick={(e) => this.startRecord(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
+                            {...messages.buttonStartRecording}/></a>
                 }
                 { 
                     recordState == 'Recording' && 
-                    <a onClick={(e) => this.stopRecord(e)} className="btn btn-red uppercase w_auto">done recording</a>
+                    <a onClick={(e) => this.stopRecord(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
+                            {...messages.buttonDoneRecording}/></a>
                 }
                 </div>
             </div>

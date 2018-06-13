@@ -5,6 +5,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Img from 'components/Img';
 import { myFormatDate } from 'utils/helper';
+import { FormattedMessage } from 'react-intl';
 
 export default class InterviewStart extends React.Component { 
   startInterview(e){
@@ -22,7 +23,7 @@ export default class InterviewStart extends React.Component {
     }
   }
   render() {
-    const {session, sessionDesc} = this.props
+    const {session, messages} = this.props
     return (
         <div className="central-wrap">
             <Helmet>
@@ -35,18 +36,30 @@ export default class InterviewStart extends React.Component {
             <h2 className="page-ttl uppercase">{session.title}</h2>
             <div className="page-desc">
               <p>
-              {sessionDesc.replace('%%readingTimeLimit%%', session.readingTimeLimit).replace('%%answerTimeLimit%%', Math.round(session.answerTimeLimit/60))}
+              <FormattedMessage
+                    {...messages.startInterviewMessage1}
+                    values={{
+                      readingTimeLimit: session.readingTimeLimit,
+                      answerTimeLimit: Math.round(session.answerTimeLimit/60),
+                    }}
+                  />
               </p>
               <p>
-              Your could try a Practice Interview before taking an actual interview.
+              <FormattedMessage
+                  {...messages.startInterviewMessage2}/>
               </p>
             </div>
             <div className="btn-wrap">
               <div className="time-submiss">
-                {'Submission Deadline: ' + myFormatDate('dd-mm-yyyy', session.deadline)} 
+                <FormattedMessage
+                    {...messages.questionStartDeadline}
+                    values={{
+                      deadline: myFormatDate('dd-mm-yyyy', session.deadline),
+                    }}
+                  />
               </div>
-              <a onClick={(e) => this.startPractice(e)} className="btn btn-blue">Try a Practice Interview</a>
-              <a onClick={(e) => this.startInterview(e)} className="btn btn-red">Begin Interview</a>
+              <a onClick={(e) => this.startPractice(e)} className="btn btn-blue"><FormattedMessage {...messages.buttonPractice}/></a>
+              <a onClick={(e) => this.startInterview(e)} className="btn btn-red"><FormattedMessage {...messages.buttonBegin}/></a>
             </div>
           </div>
           }

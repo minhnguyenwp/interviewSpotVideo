@@ -70,10 +70,18 @@ export default class InterviewQuestion extends React.Component {
                             {...messages.questionStartMessage3}/></p>
                     </div>
                     <div className="btn-wrap">
+                        { !isPractice &&
                         <div className="time-submiss">
-                            {'Submission Deadline: ' + deadline} 
+                            <FormattedMessage
+                                {...messages.questionStartDeadline}
+                                values={{
+                                  deadline: deadline,
+                                }}
+                              />
                         </div>
-                        <a onClick={(e) => this.doPrepare(e)} className="btn btn-green uppercase">next</a>
+                        }
+                        <a onClick={(e) => this.doPrepare(e)} className="btn btn-green uppercase"><FormattedMessage
+                            {...messages.questionStartButtonNext}/></a>
                     </div>
                 </div>
             </div>

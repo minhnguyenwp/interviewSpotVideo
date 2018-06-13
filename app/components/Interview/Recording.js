@@ -6,8 +6,9 @@ import { Helmet } from 'react-helmet';
 import Img from 'components/Img';
 import VideojsRecordPlayer from 'components/video-record'
 import ReactCountdownClock from 'components/react-countdown-clock'
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-export default class InterviewRecording extends React.Component { 
+class InterviewRecording extends React.Component { 
 
     doneRecord(){
         if(typeof this.props.doneRecord == 'function'){
@@ -42,7 +43,7 @@ export default class InterviewRecording extends React.Component {
    }
 
   render() {
-    const { question, qNum, sessionData, qStep } = this.props 
+    const { question, qNum, sessionData, qStep, messages } = this.props 
     let number = qNum + 1
     let timeLimit = qStep == 'TestDevice' ? 30 : question.answerTimeLimit
     const videoJsOptions = {
@@ -70,23 +71,30 @@ export default class InterviewRecording extends React.Component {
             }
         }
     };
+    let title = qStep == "TestDevice" ? this.props.intl.formatMessage(messages.recordCheckingTitle) : this.props.intl.formatMessage(messages.recordTitle)
+    let desc = qStep == "TestDevice" ? this.props.intl.formatMessage(messages.recordCheckingTitle) : sessionData.title
     return (
         <div className="central-wrap">
             <Helmet>
-                <title>{qStep == "TestDevice" ? 'Checking Record' : 'Recording'}</title>
-                <meta name="description" content={qStep == "TestDevice" ? 'Checking recording devices before doing test' : sessionData.title} />
+                <title>
+                    {title}
+                </title>
+                <meta name="description" content={desc} />
             </Helmet>
             <div className="container">
                 {
                 qStep == "TestDevice" &&
                 <div className="content-wrapper">
-                    <h2 className="page-ttl">Test Your Recording Devices</h2>
+                    <h2 className="page-ttl"><FormattedMessage
+                            {...messages.recordCheckingTitle}/></h2>
                     <div className="btn-wrap w600">
                         <div className="page-desc blk-question">
-                            <p>Please make sure camera and microphone on your pc work well before starting the test.</p>
-                            <p>Click "Start recording" to start testing.</p>
+                            <p><FormattedMessage
+                            {...messages.recordCheckingDesc1}/></p>
+                            <p><FormattedMessage
+                            {...messages.recordCheckingDesc2}/></p>
                         </div>
-                        <VideojsRecordPlayer ref={instance => { this.child = instance; }} isRecord={true} 
+                        <VideojsRecordPlayer messages={messages} ref={instance => { this.child = instance; }} isRecord={true} 
                                                 saveVideoData={(videoData) => this.saveVideoData(videoData)} onDeviceError={() => this.onDeviceError()}
                                                 doneRecord={() => this.doneRecord()} videoJsOptions={videoJsOptions} maxDuration={30} />
                         
@@ -105,14 +113,19 @@ export default class InterviewRecording extends React.Component {
                                                    fontColor="#fff"
                                                    onComplete={() => this.timeOut()} />
                     </div>
-                    <h2 className="page-ttl">Now Recording</h2>
+                    <h2 className="page-ttl"><FormattedMessage
+                            {...messages.recordTitle}/></h2>
                     <div className="btn-wrap w600">
                         <div className="page-desc blk-question">
-                            {
-                                'Question ' + number + ': ' + question.text
-                            }
+                            <FormattedMessage
+                            {...messages.question}
+                            values={{
+                              number: qNum+1,
+                              text: question.text,
+                            }}
+                          />
                         </div>
-                        <VideojsRecordPlayer ref={instance => { this.child = instance; }} isRecord={true} 
+                        <VideojsRecordPlayer messages={messages} ref={instance => { this.child = instance; }} isRecord={true} 
                                                 saveVideoData={(videoData) => this.saveVideoData(videoData)} 
                                                 doneRecord={() => this.doneRecord()} videoJsOptions={videoJsOptions}
                                                 onDeviceError={() => this.onDeviceError()}
@@ -127,3 +140,9 @@ export default class InterviewRecording extends React.Component {
     );
   }
 }
+
+InterviewRecording.propTypes = {
+  intl: intlShape.isRequired
+}
+
+export default injectIntl(InterviewRecording, {withRef: true});

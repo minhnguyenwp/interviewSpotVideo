@@ -5,8 +5,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Img from 'components/Img';
 import ReactCountdownClock from 'components/react-countdown-clock'
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-export default class InterviewPrepare extends React.Component { 
+class InterviewPrepare extends React.Component { 
 
   startRecord(e){
     e.preventDefault();
@@ -24,25 +25,30 @@ export default class InterviewPrepare extends React.Component {
   }
 
   render() {
-    const { question, qNum, sessionData } = this.props 
+    const { question, qNum, sessionData, messages } = this.props 
     return (
         <div className="central-wrap">
             <Helmet>
-                <title>Prepare</title>
+                <title>{this.props.intl.formatMessage(messages.prepareTitle)}</title>
                 <meta name="description" content={sessionData.title} />
             </Helmet>
             <div className="container">
                 <div className="content-wrapper">
-                    <h2 className="page-ttl">Prepare your answer</h2>
+                    <h2 className="page-ttl"><FormattedMessage
+                            {...messages.prepareTitle}/></h2>
                     <div className="btn-wrap w600">
                         <div className="page-desc blk-question">
-                            {
-                                'Question ' + qNum + ': ' + question.text
-                            }
-                            
+                          <FormattedMessage
+                            {...messages.question}
+                            values={{
+                              number: qNum,
+                              text: question.text,
+                            }}
+                          />
                         </div>
                         <div className="countdown-wrap-prepare">
-                          <p>Video Recorder will start in: </p>
+                          <p><FormattedMessage
+                            {...messages.startInText}/> </p>
                           <ReactCountdownClock seconds={question.readingTimeLimit}
                                                        color="#c52026"
                                                        alpha={1}
@@ -53,7 +59,8 @@ export default class InterviewPrepare extends React.Component {
                                                        onComplete={() => this.timeOut()} />
                         </div>
                         <div className="btn-wrap text-center">
-                            <a onClick={(e) => this.startRecord(e)} className="btn btn-red uppercase w_auto">start</a>
+                            <a onClick={(e) => this.startRecord(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
+                            {...messages.buttonStart}/></a>
                         </div>
                     </div>
                 </div>
@@ -62,3 +69,9 @@ export default class InterviewPrepare extends React.Component {
     );
   }
 }
+
+InterviewPrepare.propTypes = {
+  intl: intlShape.isRequired
+}
+
+export default injectIntl(InterviewPrepare, {withRef: true});
