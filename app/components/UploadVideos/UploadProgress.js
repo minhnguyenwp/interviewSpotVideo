@@ -4,8 +4,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Progress } from 'reactstrap';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-export default class UploadProgress extends React.Component {
+class UploadProgress extends React.Component {
     componentDidMount() {
         if(typeof this.props.uploadFile == 'function'){
             this.props.uploadFile(this.props.sessionData.answers[this.props.qNum].href)
@@ -19,19 +20,21 @@ export default class UploadProgress extends React.Component {
     }
   }
   render() {
-    const {isPractice, progress, question} = this.props
+    const {isPractice, progress, question, messages} = this.props
     let percent = Math.round(progress*100)
     return (
         <div className="central-wrap">
             <Helmet>
-                <title>Upload Progress</title>
+                <title>{this.props.intl.formatMessage(messages.uploadingTitle)}</title>
                 <meta name="description" content="Central Test" />
             </Helmet>
             <div className="container">
                 <div className="content-wrapper">
-                    <h2 className="page-ttl">Video Uploading in Progress</h2>
+                    <h2 className="page-ttl"><FormattedMessage
+                            {...messages.uploadingTitle}/></h2>
                     <div className="page-desc text-center">
-                        Please keep this page open while we are uploading your videos
+                        <FormattedMessage
+                            {...messages.uploadingMessage}/>
                     </div>
                     <div className="upload-control">
                         <div className="upload-percent">
@@ -45,3 +48,9 @@ export default class UploadProgress extends React.Component {
     );
   }
 }
+
+UploadProgress.propTypes = {
+  intl: intlShape.isRequired
+}
+
+export default injectIntl(UploadProgress, {withRef: true});

@@ -82,4 +82,36 @@ export default defineMessages({
     id: 'boilerplate.containers.HomePage.Record.Checking.desc2',
     defaultMessage: 'Click \"Start recording\" to start testing.',
   },
+  uploadingTitle: {
+    id: 'boilerplate.containers.HomePage.Record.Uploading.title',
+    defaultMessage: 'Video Uploading in Progress',
+  },
+  uploadingMessage: {
+    id: 'boilerplate.containers.HomePage.Record.Uploading.message',
+    defaultMessage: 'Please keep this page open while we are uploading your videos',
+  },
+  uploadingSuccess: {
+    id: 'boilerplate.containers.HomePage.Record.Uploading.success.message',
+    defaultMessage: 'Answer Successfully Recorded',
+  },
+  checkingSuccess: {
+    id: 'boilerplate.containers.HomePage.Record.Checking.success.message',
+    defaultMessage: 'Your Recording Devices Successfully Testing',
+  },
+  buttonReview: {
+    id: 'boilerplate.containers.HomePage.Record.Uploading.buttonReview.text',
+    defaultMessage: 'Review',
+  },
+  buttonNextQuestion: {
+    id: 'boilerplate.containers.HomePage.Record.Uploading.buttonNextQuestion.text',
+    defaultMessage: 'Next Question',
+  },
+  buttonFinishPractice: {
+    id: 'boilerplate.containers.HomePage.Record.Uploading.buttonFinishPractice.text',
+    defaultMessage: 'Finish Practice Test',
+  },
+  buttonFinishInterview: {
+    id: 'boilerplate.containers.HomePage.Record.Uploading.buttonFinishInterview.text',
+    defaultMessage: 'Finish The Interview',
+  },
 });

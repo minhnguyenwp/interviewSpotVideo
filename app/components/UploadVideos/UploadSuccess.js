@@ -5,8 +5,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Img from 'components/Img';
 import VideojsRecordPlayer from 'components/video-record'
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-export default class UploadSuccess extends React.Component { 
+class UploadSuccess extends React.Component { 
   constructor(props){
         super(props);
         this.state = { loadVideo: false };
@@ -37,7 +38,7 @@ export default class UploadSuccess extends React.Component {
     }
   }
   render() {
-    const {qNum, question, sessionData, isPractice, videoData, qStep } = this.props
+    const {qNum, question, sessionData, isPractice, videoData, qStep, messages, intl } = this.props
     const { loadVideo } = this.state
     let number = qNum + 1
     const videoJsOptions = {
@@ -50,20 +51,17 @@ export default class UploadSuccess extends React.Component {
     return (
         <div className="central-wrap">
             <Helmet>
-                <title>{qStep == 'TestDeviceSuccess' ? 'Test Device Successfully' : 'Uploading Success'}</title>
-                <meta name="description" content={qStep == 'TestDeviceSuccess' ? 'Test Device Successfully' : (sessionData && sessionData.title)} />
+                <title>{qStep == 'TestDeviceSuccess' ? intl.formatMessage(messages.checkingSuccess) : intl.formatMessage(messages.uploadingSuccess)}</title>
+                <meta name="description" content={qStep == 'TestDeviceSuccess' ? intl.formatMessage(messages.checkingSuccess) : (sessionData && sessionData.title)} />
             </Helmet>
             <div className="container">
                 {
                   qStep == 'TestDeviceSuccess' && 
                 <div className="content-wrapper">
-                    <h2 className="page-ttl">Test Device Successfully!</h2>
+                    <h2 className="page-ttl"><FormattedMessage
+                            {...messages.checkingSuccess}/></h2>
                     <div className="btn-wrap">
                         <div className="page-desc">
-                            <p>
-                                You can review your recorded video by clicking 'Review' button.
-                            </p>
-                            <p>Or start doing test by clicking on 'Start' button</p>
                             <div>
                             {
                                 (loadVideo && videoData) && 
@@ -74,21 +72,21 @@ export default class UploadSuccess extends React.Component {
                         <div>
                         {
                             videoData && !loadVideo &&
-                            <div className="text-center" style={{'marginBottom': '15px'}}><a onClick={(e) => this.reviewVideo(e)} className="btn btn-red uppercase w_auto">Review</a></div>
+                            <div className="text-center" style={{'marginBottom': '15px'}}><a onClick={(e) => this.reviewVideo(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
+                            {...messages.buttonReview}/></a></div>
                         }    
-                        <div className="text-center"><a onClick={(e) => this.startTest(e)} className="btn btn-blue uppercase w_auto">Start</a></div>
+                        <div className="text-center"><a onClick={(e) => this.startTest(e)} className="btn btn-blue uppercase w_auto"><FormattedMessage
+                            {...messages.buttonStart}/></a></div>
                         </div>
                     </div>
                 </div>
                 }
                 { qStep != 'TestDeviceSuccess' &&
                 <div className="content-wrapper">
-                    <h2 className="page-ttl">Answer <span>{number}</span> Successfully Uploaded</h2>
+                    <h2 className="page-ttl"><FormattedMessage
+                            {...messages.uploadingSuccess}/></h2>
                     <div className="btn-wrap">
                         <div className="page-desc">
-                            <p>
-                                You can review your Practice Interview by clicking on this text
-                            </p>
                             <div>
                             {
                                 (isPractice && loadVideo && videoData) && 
@@ -99,15 +97,23 @@ export default class UploadSuccess extends React.Component {
                         <div>
                         {
                             isPractice && videoData && !loadVideo &&
-                            <div className="text-center" style={{'marginBottom': '15px'}}><a onClick={(e) => this.reviewVideo(e)} className="btn btn-red uppercase w_auto">Review</a></div>
+                            <div className="text-center" style={{'marginBottom': '15px'}}><a onClick={(e) => this.reviewVideo(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
+                            {...messages.buttonReview}/></a></div>
                         }
                         {
                             number < sessionData.answers.length && 
-                            <div className="text-center"><a onClick={(e) => this.nextQuestion(e)} className="btn btn-blue uppercase w_auto">Next Question</a></div>
+                            <div className="text-center"><a onClick={(e) => this.nextQuestion(e)} className="btn btn-blue uppercase w_auto"><FormattedMessage
+                            {...messages.buttonNextQuestion}/></a></div>
                         }
                         {
-                            number >= sessionData.answers.length && 
-                            <div className="text-center"><a onClick={(e) => this.finishTest(e)} className="btn btn-blue uppercase w_auto">Finish Test</a></div>
+                            number >= sessionData.answers.length && isPractice &&
+                            <div className="text-center"><a onClick={(e) => this.finishTest(e)} className="btn btn-blue uppercase w_auto"><FormattedMessage
+                            {...messages.buttonFinishPractice}/></a></div>
+                        }
+                        {
+                            number >= sessionData.answers.length && !isPractice &&
+                            <div className="text-center"><a onClick={(e) => this.finishTest(e)} className="btn btn-blue uppercase w_auto"><FormattedMessage
+                            {...messages.buttonFinishInterview}/></a></div>
                         }
                         </div>
                     </div>
@@ -118,3 +124,9 @@ export default class UploadSuccess extends React.Component {
     );
   }
 }
+
+UploadSuccess.propTypes = {
+  intl: intlShape.isRequired
+}
+
+export default injectIntl(UploadSuccess, {withRef: true});

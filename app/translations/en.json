@@ -16,9 +16,17 @@
   "boilerplate.containers.HomePage.Record.title": "Now Recording",
   "boilerplate.containers.HomePage.Record.buttonStartRecording.text": "Start Recording",
   "boilerplate.containers.HomePage.Record.buttonDoneRecording.text": "Done Recording",
-  "boilerplate.containers.HomePage.Record.Checking.title": "Test Your Recording Devices",
+  "boilerplate.containers.HomePage.Record.Uploading.title": "Video Uploading in Progress",
+  "boilerplate.containers.HomePage.Record.Uploading.message": "Please keep this page open while we are uploading your videos",
+  "boilerplate.containers.HomePage.Record.Uploading.success.message": "Answer Successfully Recorded",
+  "boilerplate.containers.HomePage.Record.Uploading.buttonReview.text": "Review",
+  "boilerplate.containers.HomePage.Record.Uploading.buttonNextQuestion.text": "Next question",
+  "boilerplate.containers.HomePage.Record.Uploading.buttonFinishPractice.text": "Finish Practice Test",
+  "boilerplate.containers.HomePage.Record.Uploading.buttonFinishInterview.text": "Finish The Interview",
+  "boilerplate.containers.HomePage.Record.Checking.title": "Testing Your Recording Devices",
   "boilerplate.containers.HomePage.Record.Checking.desc1": "Please make sure camera and microphone on your pc work well before starting the test.",
   "boilerplate.containers.HomePage.Record.Checking.desc2": "Click \"Start recording\" to start testing.",
+  "boilerplate.containers.HomePage.Record.Checking.success.message": "Your Recording Devices Successfully Testing",
   "boilerplate.containers.LocaleToggle.fr": "Français (FR)",
   "boilerplate.containers.LocaleToggle.en": "English (US)"
 }
