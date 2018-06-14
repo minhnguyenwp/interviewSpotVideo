@@ -35,8 +35,12 @@ export default defineMessages({
     defaultMessage: 'When you are ready, please click \"Next\" button.',
   },
   questionStartDeadline: {
-    id: 'boilerplate.containers.HomePage.deadline.message',
+    id: 'boilerplate.containers.HomePage.questionStart.dealine.message',
     defaultMessage: 'Submission Deadline: {deadline}',
+  },
+  questionStartDeadlineInvalid: {
+    id: 'boilerplate.containers.HomePage.questionStart.dealine.invalid.message',
+    defaultMessage: 'Not Applicable',
   },
   questionStartButtonNext: {
     id: 'boilerplate.containers.HomePage.questionStart.buttonNext.text',
@@ -114,4 +118,64 @@ export default defineMessages({
     id: 'boilerplate.containers.HomePage.Record.Uploading.buttonFinishInterview.text',
     defaultMessage: 'Finish The Interview',
   },
+  finishTitle: {
+    id: 'boilerplate.containers.HomePage.Finish.title',
+    defaultMessage: 'Congratulations!'
+  },
+  finishPracticeMessage1: {
+    id: 'boilerplate.containers.HomePage.Finish.Practice.message1',
+    defaultMessage: 'You have finished the practice interview.'
+  },
+  finishPracticeMessage2: {
+    id: 'boilerplate.containers.HomePage.Finish.Practice.message2',
+    defaultMessage: 'You can now start the real interview.'
+  },
+  finishPracticeMessage3: {
+    id: 'boilerplate.containers.HomePage.Finish.Practice.message3',
+    defaultMessage: 'Once ready, click on "Begin Interview"'
+  },
+  buttonBegin: {
+    id: 'boilerplate.containers.HomePage.Finish.Practice.buttonBegin',
+    defaultMessage: 'Begin Interview'
+  },
+  finishInterviewMessage1: {
+    id: 'boilerplate.containers.HomePage.Finish.Interview.message1',
+    defaultMessage: 'You have finished the interview.'
+  },
+  finishInterviewMessage2: {
+    id: 'boilerplate.containers.HomePage.Finish.Interview.message2',
+    defaultMessage: 'Thank you for your participation.'
+  },
+  buttonMyAccount: {
+    id: 'boilerplate.containers.HomePage.Finish.Interview.buttonMyAccount',
+    defaultMessage: 'Access My Account'
+  },
+  errorTitle: {
+    id: 'boilerplate.containers.HomePage.Error.title',
+    defaultMessage: 'OOPS! This is embarrassing'
+  },
+  errorDefaultMessage1: {
+    id: 'boilerplate.containers.HomePage.Error.default.message1',
+    defaultMessage: 'There seems to be some error in the background uploading of your videos.'
+  },
+  errorDefaultMessage2: {
+    id: 'boilerplate.containers.HomePage.Error.default.message1',
+    defaultMessage: 'Please check your Internet Connection and contact to <a href=\"maito:admin@system.com\">admin@system.com</a> to get new test.'
+  },
+  errorCheckingMessage1: {
+    id: 'boilerplate.containers.HomePage.Error.Checking.message1',
+    defaultMessage: 'Your camera and microphone seem not to work. Please check!'
+  },
+  errorCheckingMessage2: {
+    id: 'boilerplate.containers.HomePage.Error.Checking.message2',
+    defaultMessage: 'If you are sure your devices work well. Please also check if you blocked them on your browser.'
+  },
+  errorCheckingMessage3: {
+    id: 'boilerplate.containers.HomePage.Error.Checking.message3',
+    defaultMessage: 'Please make sure you allow your camera and microphone to work on your browser, follow below instruction image then try again:'
+  },
+  buttonRetry: {
+    id: "boilerplate.containers.HomePage.Error.Checking.buttonRetry",
+    defaultMessage: "Retry"
+  }
 });

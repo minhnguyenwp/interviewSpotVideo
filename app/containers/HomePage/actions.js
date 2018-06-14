@@ -39,11 +39,12 @@ import {
  *
  * @return {object} An action object with a type of GET_SESSION
  */
-export function getSession(code, societe) {
+export function getSession(code, societe, locale) {
   return {
     type: GET_SESSION,
     code: code,
-    societe: societe
+    societe: societe,
+    locale: locale
   };
 }
 

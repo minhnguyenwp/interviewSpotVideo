@@ -3,44 +3,81 @@
  */
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-export default class InterviewFinish extends React.Component { 
-  retryClick(e){
+class InterviewFinish extends React.Component { 
+  startInterview(e){
     e.preventDefault();
-    if(typeof this.props.retryClick == 'function'){
+    if(typeof this.props.startInterview == 'function'){
         //console.log('retryClick');
-        this.props.retryClick();
+        this.props.startInterview();
     }
   }
   render() {
-    const {isPractice, sessionData} = this.props
+    const {isPractice, sessionData, messages, intl} = this.props
     return (
         <div className="central-wrap">
             <Helmet>
-                <title>Finish</title>
+                <title>{intl.formatMessage(messages.finishTitle)}</title>
                 <meta name="description" content={sessionData.title} />
             </Helmet>
             <div className="container">
                 <div className="content-wrapper">
-                    <h2 className="page-ttl">Congratulation! You finish the test.</h2>
+                    <h2 className="page-ttl"><FormattedMessage
+                            {...messages.finishTitle}/></h2>
+                    { isPractice && 
                     <div className="btn-wrap">
                         <div className="page-desc text-center">
                             <p>
-                            You have been answered all questions.
+                            <FormattedMessage
+                            {...messages.finishPracticeMessage1}/>
                             </p>
                             <p>
-                            Thank you for participating.
+                            <FormattedMessage
+                            {...messages.finishPracticeMessage2}/>
+                            </p>
+                            <p>
+                            <FormattedMessage
+                            {...messages.finishPracticeMessage3}/>
                             </p>
                         </div>
                         <div className="text-center">
                             { isPractice &&
-                                <a onClick={(e) => this.retryClick(e)} className="btn btn-red uppercase w_auto">retry</a>
+                                <a onClick={(e) => this.startInterview(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
+                            {...messages.buttonBegin}/></a>
                             }
                         </div>
                     </div>
+                    }
+                    {  !isPractice && 
+                    <div className="btn-wrap">
+                        <div className="page-desc text-center">
+                            <p>
+                            <FormattedMessage
+                            {...messages.finishInterviewMessage1}/>
+                            </p>
+                            <p>
+                            <FormattedMessage
+                            {...messages.finishInterviewMessage2}/>
+                            </p>
+                        </div>
+                        <div className="text-center">
+                            { isPractice &&
+                                <a className="btn btn-red uppercase w_auto"><FormattedMessage
+                            {...messages.buttonMyAccount}/></a>
+                            }
+                        </div>
+                    </div>
+                    }
                 </div>
             </div>
         </div>
     );
   }
 }
+
+InterviewFinish.propTypes = {
+  intl: intlShape.isRequired
+}
+
+export default injectIntl(InterviewFinish, {withRef: true});

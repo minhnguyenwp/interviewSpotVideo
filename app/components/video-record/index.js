@@ -131,7 +131,7 @@ export default class VideojsRecordPlayer extends React.Component {
     // see https://github.com/videojs/video.js/pull/3856
     render() {
         let { recordState, curentTime } = this.state
-        let { maxDuration, isRecord } = this.props
+        let { maxDuration, isRecord, messages } = this.props
         let progress = Math.round(curentTime/maxDuration*100)
         return (
             <div>

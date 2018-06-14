@@ -4,6 +4,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import Img from 'components/Img';
+import { FormattedMessage } from 'react-intl';
 
 export default class UploadFail extends React.Component { 
     retryUpload(e){
@@ -19,7 +20,8 @@ export default class UploadFail extends React.Component {
         }
     }
   render() {
-    const {isPractice, deviceError, error} = this.props
+    const {isPractice, deviceError, error, qStep, messages} = this.props
+    console.log("error", error);
     return (
         <div className="central-wrap">
             <Helmet>
@@ -28,43 +30,24 @@ export default class UploadFail extends React.Component {
             </Helmet>
             <div className="container">
                 <div className="content-wrapper">
-                    <h2 className="page-ttl">OOPS! This is embarrassing</h2>
-                    { isPractice && qStep=='UploadProgress' && !deviceError &&
-                    <div className="btn-wrap">
-                        <div className="page-desc">
-                            {error &&
-                                <div>{error}</div>
-                            }
-                            {!error && 
-                            <div>
-                                <p>
-                                There seems to be some error in the background uploading of your videos.
-                                </p>
-                                <p>
-                                Please check your Internet Connection and Click RETRY to restart the progress.
-                                </p>
-                            </div>
-                            }
-                        </div>
-                        <div className="text-center">
-                            <a onClick={(e) => this.retryUpload(e)} className="btn btn-red uppercase w_auto">retry</a>
-                        </div>
-                    </div>
-                    }
+                    <h2 className="page-ttl"><FormattedMessage
+                            {...messages.errorTitle}/></h2>
                     {
                         (!isPractice || qStep != 'UploadProgress' ) && !deviceError &&
                     <div className="btn-wrap">
                         <div className="page-desc">
                             {error &&
-                                <div>{error}</div>
+                                <div>{error.message}</div>
                             }
                             {!error && 
                             <div>
                                 <p>
-                                There seems to be some error happened.
+                                <FormattedMessage
+                                    {...messages.errorDefaultMessage1}/>
                                 </p>
                                 <p>
-                                Please check your Internet Connection and contact to <a href="maito:admin@system.com">admin@system.com</a> to get new test.
+                                <FormattedMessage
+                                    {...messages.errorDefaultMessage2}/>
                                 </p>
                             </div>
                             }
@@ -76,18 +59,22 @@ export default class UploadFail extends React.Component {
                     <div className="btn-wrap">
                         <div className="page-desc">
                             <p>
-                            Your camera and microphone seem not to work. Please check!
+                            <FormattedMessage
+                                {...messages.errorCheckingMessage1}/>
                             </p>
                             <p>
-                            If you are sure your devices work well. Please also check if you blocked them on your browser.
+                            <FormattedMessage
+                            {...messages.errorCheckingMessage2}/>
                             </p>
                             <p>
-                            Please make sure you allow your camera and microphone to work on your browser, follow below instruction image then try again:
+                            <FormattedMessage
+                            {...messages.errorCheckingMessage3}/>
                             </p>
                             <p><Img src={'assets/images/allow-device.jpg'} alt="" /></p>
                         </div>
                         <div className="text-center">
-                            <a onClick={(e) => this.retryClick(e)} className="btn btn-red uppercase w_auto">retry</a>
+                            <a onClick={(e) => this.retryClick(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
+                            {...messages.buttonRetry}/></a>
                         </div>
                     </div>
                     }

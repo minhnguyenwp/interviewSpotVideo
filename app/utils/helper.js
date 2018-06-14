@@ -1,8 +1,10 @@
-export function myFormatDate(strFormat, strDate){
-    if(strDate == '0000-00-00 00:00:00') return 'Not Applicable';
+import { createBrowserHistory } from 'history';
+
+export function myFormatDate(strFormat, strDate, invalidStr){
+    if(strDate == '0000-00-00 00:00:00') return invalidStr;
 	var dateFormat = require('dateformat');
 	var now = new Date(strDate);
-	if(now == 'Invalid Date' || now == '01-01-1970') return 'Not Applicable';
+	if(now == 'Invalid Date' || now == '01-01-1970') return invalidStr;
 	return dateFormat(now, strFormat);
 }
 
@@ -31,4 +33,18 @@ export function toHHMMSS(sec){
     if(h == '00') // h == 0
     str = str.substr(3, 5)
     return str
+}
+
+/**
+ * @param {Object} query
+ */
+export function updateQueryStringParameter(uri, key, value) {
+  var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+  var separator = uri.indexOf('?') !== -1 ? "&" : "?";
+  if (uri.match(re)) {
+    return uri.replace(re, '$1' + key + "=" + value + '$2');
+  }
+  else {
+    return uri + separator + key + "=" + value;
+  }
 }

@@ -5,9 +5,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import Img from 'components/Img';
 import { myFormatDate } from 'utils/helper';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-export default class InterviewStart extends React.Component { 
+class InterviewStart extends React.Component { 
   startInterview(e){
     e.preventDefault();
     if(typeof this.props.startInterview == 'function'){
@@ -23,7 +23,7 @@ export default class InterviewStart extends React.Component {
     }
   }
   render() {
-    const {session, messages} = this.props
+    const {session, messages, intl} = this.props
     return (
         <div className="central-wrap">
             <Helmet>
@@ -54,7 +54,7 @@ export default class InterviewStart extends React.Component {
                 <FormattedMessage
                     {...messages.questionStartDeadline}
                     values={{
-                      deadline: myFormatDate('dd-mm-yyyy', session.deadline),
+                      deadline: myFormatDate('dd-mm-yyyy', session.deadline, intl.formatMessage(messages.questionStartDeadlineInvalid)),
                     }}
                   />
               </div>
@@ -68,3 +68,9 @@ export default class InterviewStart extends React.Component {
     );
   }
 }
+
+InterviewStart.propTypes = {
+  intl: intlShape.isRequired
+}
+
+export default injectIntl(InterviewStart, {withRef: true});

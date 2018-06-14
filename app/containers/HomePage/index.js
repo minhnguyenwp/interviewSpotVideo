@@ -35,6 +35,7 @@ import UploadFail from 'components/UploadVideos/UploadFail';
 // lang
 import messages from './messages';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
+import { appLocales } from '../../i18n';
 
 export class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -54,7 +55,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   componentDidMount() {
     let qs = parseQuery(this.props.location.search)
-    this.props.onPageLoad(qs['code'], qs['societe']);
+    let locale = 'en'
+    if(qs['locale'] && qs['locale'] != '' && appLocales.indexOf(qs['locale']) != -1) locale = qs['locale']
+    this.props.onPageLoad(qs['code'], qs['societe'], locale);
 
     window.addEventListener("beforeunload", (ev) => 
     {  
@@ -230,7 +233,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         (error || deviceError) && <UploadFail messages={messages} error={error} deviceError={deviceError} qStep={qStep} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} videoData={videoData} uploadFile={(url) => this.uploadFile(url)} retryClick={() => this.retryClick()} />
       }
       {
-        qStep == 'Finish' && !error && !deviceError && <InterviewFinish messages={messages} isPractice={isPractice} sessionData={sessionData} retryClick={() => this.retryClick()} />
+        qStep == 'Finish' && !error && !deviceError && <InterviewFinish messages={messages} isPractice={isPractice} sessionData={sessionData} startInterview={() => this.startInterview()} />
       }
       </article>
     );
@@ -261,8 +264,8 @@ HomePage.propTypes = {
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onPageLoad: (code, societe) => {
-      dispatch(getSession(code, societe));
+    onPageLoad: (code, societe, locale) => {
+      dispatch(getSession(code, societe, locale));
     },
     getQuestion: (url) => {
       dispatch(getQuestion(url));

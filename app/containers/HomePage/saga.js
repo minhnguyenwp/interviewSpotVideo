@@ -24,7 +24,10 @@ export function* getSessionData(action) {
   // const societe = 1;
   let code = action.code;
   let societe = action.societe;
-  const requestURL = `${BASE_API_URL}/centraltest/vim/videoInterview/api?code=${code}&object=session&societe=${societe}`;
+  let requestURL = `${BASE_API_URL}/centraltest/vim/videoInterview/api?code=${code}&object=session`;
+  if (societe != '') requestURL = requestURL + '&societe=' + societe
+  let locale = action.locale
+  if(locale != 'en') requestURL = requestURL + '&locale=' + locale
   try {
     // Call our request helper (see 'utils/request')
     const response = yield call(request, requestURL);

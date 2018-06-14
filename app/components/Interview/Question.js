@@ -5,9 +5,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { nth, myFormatDate } from 'utils/helper';
 import Img from 'components/Img';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
 
-export default class InterviewQuestion extends React.Component {
+class InterviewQuestion extends React.Component {
   constructor(props) {
     super(props)
     
@@ -26,7 +26,7 @@ export default class InterviewQuestion extends React.Component {
     const {sessionData, qNum, isPractice, messages} = this.props
     let number = qNum + 1
 
-    let deadline = isPractice ? 'Not Applicable' : myFormatDate('dd-mm-yyyy', sessionData.deadline)
+    let deadline = myFormatDate('dd-mm-yyyy', sessionData.deadline, intl.formatMessage(messages.questionStartDeadlineInvalid))
     let readingTimeLimit = sessionData.answers[qNum].readingTimeLimit
     let answerTimeLimit = Math.round(sessionData.answers[qNum].answerTimeLimit/60)
     let title = sessionData.title
@@ -89,3 +89,9 @@ export default class InterviewQuestion extends React.Component {
     );
   }
 }
+
+InterviewQuestion.propTypes = {
+  intl: intlShape.isRequired
+}
+
+export default injectIntl(InterviewQuestion, {withRef: true});

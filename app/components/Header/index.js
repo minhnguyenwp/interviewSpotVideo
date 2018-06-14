@@ -50,30 +50,7 @@ class Header extends React.Component {
         <A href="/" className="hd-logo">
           <Img src={'assets/images/logo.png'} alt="" />
         </A>
-        <div className="blk-lang">
-          <div className="lang-choose">
-            <span className="ttl">English (US)</span>
-            <i className="fa fa-caret-down"></i>
-          </div>
-          <ul className="lang-list">
-            <li>
-              <a href="#">Français (FR)</a>
-            </li>
-            <li>
-              <a href="#">Русский (RU)</a>
-            </li>
-            <li>
-              <a href="#">Español (ES)</a>
-            </li>
-            <li>
-              <a href="#">Deutsch (DE)</a>
-            </li>
-            <li>
-              <a href="#">Português (BR)</a>
-            </li>
-          </ul>
-          <LocaleToggle />
-        </div>        
+        <LocaleToggle />     
       </div>
     );
   }

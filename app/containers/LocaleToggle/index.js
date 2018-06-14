@@ -15,14 +15,48 @@ import messages from './messages';
 import { appLocales } from '../../i18n';
 import { changeLocale } from '../LanguageProvider/actions';
 import { makeSelectLocale } from '../LanguageProvider/selectors';
+import { FormattedMessage } from 'react-intl';
+import { withRouter } from 'react-router';
+import { updateQueryStringParameter, parseQuery } from 'utils/helper';
 
-export class LocaleToggle extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class LocaleToggle extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  
+  componentDidMount() {
+    // load locale from query
+    let lang = 'en'
+    let qs = parseQuery(this.props.location.search)
+    if(qs['locale'] && qs['locale'] != '' && appLocales.indexOf(qs['locale']) != -1) lang = qs['locale']
+    this.props.onLocaleToggle(lang)
+  }
+
+  changeLang(e, lang){
+    e.preventDefault();
+    this.props.onLocaleToggle(lang)
+
+    // update locale query
+    let query = this.props.location.search
+    query = updateQueryStringParameter(query, 'locale', lang)
+    this.props.history.push('/' + query)
+  }
+
   render() {
-    console.log("appLocales", appLocales)
+    console.log("this.props", this.props)
     return (
-      <Wrapper>
-        <Toggle value={this.props.locale} values={appLocales} messages={messages} onToggle={this.props.onLocaleToggle} />
-      </Wrapper>
+      <div className="blk-lang">
+          <div className="lang-choose">
+            <span className="ttl"><FormattedMessage
+                            {...messages[this.props.locale]}/></span>
+            <i className="fa fa-caret-down"></i>
+          </div>
+          <ul className="lang-list">
+            {appLocales && appLocales.map((itm, i) => (
+              <li key={i}>
+                <a href="#" onClick={(e) => this.changeLang(e, itm)}><FormattedMessage
+                            {...messages[itm]}/></a>
+              </li>
+            ))}
+          </ul>
+        </div>
     );
   }
 }
@@ -39,9 +73,9 @@ const mapStateToProps = createSelector(
 
 export function mapDispatchToProps(dispatch) {
   return {
-    onLocaleToggle: (evt) => dispatch(changeLocale(evt.target.value)),
+    onLocaleToggle: (lang) => dispatch(changeLocale(lang)),
     dispatch,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LocaleToggle);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(LocaleToggle));
