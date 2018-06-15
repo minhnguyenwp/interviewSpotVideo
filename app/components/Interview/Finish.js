@@ -42,7 +42,7 @@ class InterviewFinish extends React.Component {
                             </p>
                         </div>
                         <div className="text-center">
-                            { isPractice &&
+                            {
                                 <a onClick={(e) => this.startInterview(e)} className="btn btn-green uppercase w_auto"><FormattedMessage
                             {...messages.buttonBegin}/></a>
                             }
@@ -62,9 +62,9 @@ class InterviewFinish extends React.Component {
                             </p>
                         </div>
                         <div className="text-center">
-                            { isPractice &&
+                            {
                                 <a className="btn btn-green uppercase w_auto"><FormattedMessage
-                            {...messages.buttonMyAccount}/></a>
+                                {...messages.buttonMyAccount}/></a>
                             }
                         </div>
                     </div>

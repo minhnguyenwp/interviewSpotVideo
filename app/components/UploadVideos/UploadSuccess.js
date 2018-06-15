@@ -89,14 +89,14 @@ class UploadSuccess extends React.Component {
                         <div className="page-desc">
                             <div>
                             {
-                                (isPractice && loadVideo && videoData) && 
+                                (loadVideo && videoData) && 
                                 <VideojsRecordPlayer videoData={videoData[qNum].video} videoJsOptions={videoJsOptions}  />
                             }
                             </div>
                         </div>
                         <div>
                         {
-                            isPractice && videoData && !loadVideo &&
+                            videoData && !loadVideo &&
                             <div className="text-center" style={{'marginBottom': '15px'}}><a onClick={(e) => this.reviewVideo(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
                             {...messages.buttonReview}/></a></div>
                         }

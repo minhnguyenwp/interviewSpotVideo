@@ -40,7 +40,7 @@ class LocaleToggle extends React.PureComponent { // eslint-disable-line react/pr
   }
 
   render() {
-    console.log("this.props", this.props)
+    //console.log("this.props", this.props)
     return (
       <div className="blk-lang">
           <div className="lang-choose">

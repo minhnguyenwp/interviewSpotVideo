@@ -42,8 +42,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     super(props);
     this.state = {
       qNum : 0,
-      //qStep : 'TestDevice',
-      qStep : 'Start',
+      qStep : 'TestDevice',
+      //qStep : 'Start',
       question: false,
       practice: false,
       isPractice: false,
@@ -73,7 +73,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   startInterview() {
     this.setState({
       qStep : 'Question',
-      isPractice : false
+      isPractice : false,
+      qNum : 0,
     })
   }
 
@@ -84,7 +85,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
     this.setState({
       qStep : 'Question',
-      isPractice : true
+      isPractice : true,
+      qNum : 0,
     })
   }
 
@@ -193,7 +195,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   render() {
     const { error, question, getQuestion, session, practice, progress, isUploadFailure, isUploadSuccess } = this.props
     const { qNum, qStep, isPractice, videoData, deviceError, videoDemo } = this.state
-    console.log(this.props)
+    //console.log(this.props)
     let sessionData = this.props.session
     if(isPractice){
       if(practice){
