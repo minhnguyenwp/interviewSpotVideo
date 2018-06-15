@@ -112,7 +112,7 @@ class UploadSuccess extends React.Component {
                         }
                         {
                             number >= sessionData.answers.length && !isPractice &&
-                            <div className="text-center"><a onClick={(e) => this.finishTest(e)} className="btn btn-blue uppercase w_auto"><FormattedMessage
+                            <div className="text-center"><a onClick={(e) => this.finishTest(e)} className="btn btn-green uppercase w_auto"><FormattedMessage
                             {...messages.buttonFinishInterview}/></a></div>
                         }
                         </div>

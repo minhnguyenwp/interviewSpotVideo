@@ -23,7 +23,7 @@ class InterviewQuestion extends React.Component {
     }
   }
   render() {
-    const {sessionData, qNum, isPractice, messages} = this.props
+    const {sessionData, qNum, isPractice, messages, intl} = this.props
     let number = qNum + 1
 
     let deadline = myFormatDate('dd-mm-yyyy', sessionData.deadline, intl.formatMessage(messages.questionStartDeadlineInvalid))
@@ -80,8 +80,17 @@ class InterviewQuestion extends React.Component {
                               />
                         </div>
                         }
-                        <a onClick={(e) => this.doPrepare(e)} className="btn btn-green uppercase"><FormattedMessage
+                        {
+                          isPractice &&
+                          <a onClick={(e) => this.doPrepare(e)} className="btn btn-blue uppercase"><FormattedMessage
                             {...messages.questionStartButtonNext}/></a>
+                        }
+                        {
+                          !isPractice &&
+                          <a onClick={(e) => this.doPrepare(e)} className="btn btn-green uppercase"><FormattedMessage
+                            {...messages.questionStartButtonNext}/></a>
+                        }
+                        
                     </div>
                 </div>
             </div>

@@ -3,7 +3,6 @@
   "boilerplate.containers.HomePage.startInterview.message2": "Your could try a Practice Interview before taking an actual interview.",
   "boilerplate.containers.HomePage.startInterview.buttonPractice.text": "Try a Practice Interview",
   "boilerplate.containers.HomePage.startInterview.buttonBegin.text": "Begin Interview",
-  "boilerplate.containers.HomePage.startInterview.message2": "Your could try a Practice Interview before taking an actual interview.",
   "boilerplate.containers.HomePage.questionStart.message1": "In the next page, you will be given {readingTimeLimit} seconds to read a Pratice Interview Question before your recording begins automatically.",
   "boilerplate.containers.HomePage.questionStart.message2": "There will be {numQuestions} questions to complete in this interview and you are given {answerTimeLimit} minutes per question.",
   "boilerplate.containers.HomePage.questionStart.message3": "When you are ready, please click \"Next\" button.",

@@ -43,7 +43,7 @@ class InterviewFinish extends React.Component {
                         </div>
                         <div className="text-center">
                             { isPractice &&
-                                <a onClick={(e) => this.startInterview(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
+                                <a onClick={(e) => this.startInterview(e)} className="btn btn-green uppercase w_auto"><FormattedMessage
                             {...messages.buttonBegin}/></a>
                             }
                         </div>
@@ -63,7 +63,7 @@ class InterviewFinish extends React.Component {
                         </div>
                         <div className="text-center">
                             { isPractice &&
-                                <a className="btn btn-red uppercase w_auto"><FormattedMessage
+                                <a className="btn btn-green uppercase w_auto"><FormattedMessage
                             {...messages.buttonMyAccount}/></a>
                             }
                         </div>
