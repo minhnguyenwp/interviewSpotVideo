@@ -138,7 +138,7 @@ export default class VideojsRecordPlayer extends React.Component {
             { isRecord && 
             <div className="video-player">
                 <div className="upload-percent bt30">
-                    <span className="num" style={{'left': '39%'}}><span>{toHHMMSS(curentTime)}</span>/<span>{toHHMMSS(maxDuration)}</span></span>
+                    <span className="num"><span>{toHHMMSS(curentTime)}</span>/<span>{toHHMMSS(maxDuration)}</span></span>
                     <Progress value={progress} />
                 </div>
                 <div className="interview-video">

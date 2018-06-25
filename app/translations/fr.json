@@ -27,6 +27,7 @@
   "boilerplate.containers.HomePage.Record.Checking.desc1": "Veuillez vous assurer que l'appareil photo et le microphone de votre ordinateur fonctionnent bien avant de commencer le test.",
   "boilerplate.containers.HomePage.Record.Checking.desc2": "Cliquez sur \"Démarrer l'enregistrement \" pour lancer le test.",
   "boilerplate.containers.HomePage.Record.Checking.success.message": "Vos Périphériques D'enregistrement Testent Avec Succès",
+  "boilerplate.containers.HomePage.Record.Checking.success.message.p1": "Une fois que vous êtes prêt, vous pouvez cliquer sur le bouton \"Démarrer\".",
   "boilerplate.containers.HomePage.Finish.title": "Félicitations!",
   "boilerplate.containers.HomePage.Finish.Practice.message1": "Vous avez terminé l'entretien d'entraînement.",
   "boilerplate.containers.HomePage.Finish.Practice.message2": "Vous pouvez maintenant commencer la vraie interview.",

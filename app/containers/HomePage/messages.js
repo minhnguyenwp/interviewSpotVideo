@@ -102,6 +102,10 @@ export default defineMessages({
     id: 'boilerplate.containers.HomePage.Record.Checking.success.message',
     defaultMessage: 'Your Recording Devices Successfully Testing',
   },
+  checkingSuccessP1: {
+    id: 'boilerplate.containers.HomePage.Record.Checking.success.message.p1',
+    defaultMessage: 'Once you are ready, you can click on the "Start" button.',
+  },
   buttonReview: {
     id: 'boilerplate.containers.HomePage.Record.Uploading.buttonReview.text',
     defaultMessage: 'Review',

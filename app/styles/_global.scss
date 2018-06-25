@@ -76,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .progress{
-    background-color: #ccc;
+    background-color: #aaa;
 }
 
 .countdown-wrap{
@@ -98,4 +98,11 @@ h1, h2, h3, h4, h5, h6 {
     left: 0;
     right: 0;
     margin: 0 auto;
+}
+
+.upload-percent .num{
+    left: 0;
+    right: 0;
+    margin: auto;
+    text-align: center;
 }

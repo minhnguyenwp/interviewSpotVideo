@@ -27,6 +27,7 @@
   "boilerplate.containers.HomePage.Record.Checking.desc1": "Please make sure your camera and microphone are working properly before starting the test.",
   "boilerplate.containers.HomePage.Record.Checking.desc2": "Click on \"Start recording\" to start testing.",
   "boilerplate.containers.HomePage.Record.Checking.success.message": "Test Device Successfully!",
+  "boilerplate.containers.HomePage.Record.Checking.success.message.p1": "Once you are ready, you can click on the \"Start\" button.",
   "boilerplate.containers.HomePage.Finish.title": "Congratulations!",
   "boilerplate.containers.HomePage.Finish.Practice.message1": "You have finished the practice interview.",
   "boilerplate.containers.HomePage.Finish.Practice.message2": "You can now start the real interview.",
