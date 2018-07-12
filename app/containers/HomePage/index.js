@@ -195,7 +195,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   render() {
     const { error, question, getQuestion, session, practice, progress, isUploadFailure, isUploadSuccess } = this.props
     const { qNum, qStep, isPractice, videoData, deviceError, videoDemo } = this.state
-    //console.log(this.props)
+    console.log(this.props)
     let sessionData = this.props.session
     if(isPractice){
       if(practice){

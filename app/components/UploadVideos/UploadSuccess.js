@@ -62,8 +62,18 @@ class UploadSuccess extends React.Component {
                             {...messages.checkingSuccess}/></h2>
                     <div className="btn-wrap">
                         <div className="page-desc">
-                            <p><FormattedMessage
-                            {...messages.checkingSuccessP1}/></p>
+                            {   loadVideo &&
+                                <p><FormattedMessage
+                                {...messages.checkingSuccessP3}/></p>
+                            }
+                            {   !loadVideo &&
+                                <div>
+                                <p><FormattedMessage
+                                {...messages.checkingSuccessP1}/></p>
+                                <p><FormattedMessage
+                                {...messages.checkingSuccessP2}/></p>
+                                </div>
+                            }
                             <div>
                             {
                                 (loadVideo && videoData) && 

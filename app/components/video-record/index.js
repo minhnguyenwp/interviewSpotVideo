@@ -50,6 +50,7 @@ export default class VideojsRecordPlayer extends React.Component {
                 // show save as dialog
                 me.doneRecord()
             });
+            //me.doneRecord()
         } else {
             let videoData = this.props.videoData
             this.player = videojs(this.videoNode, this.props.videoJsOptions, function onPlayerReady(){

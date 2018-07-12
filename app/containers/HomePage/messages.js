@@ -100,10 +100,18 @@ export default defineMessages({
   },
   checkingSuccess: {
     id: 'boilerplate.containers.HomePage.Record.Checking.success.message',
-    defaultMessage: 'Your Recording Devices Successfully Testing',
+    defaultMessage: 'Test Device Successfully!',
   },
   checkingSuccessP1: {
     id: 'boilerplate.containers.HomePage.Record.Checking.success.message.p1',
+    defaultMessage: 'You can review your recorded video by clicking on the  "Review" button.',
+  },
+  checkingSuccessP2: {
+    id: 'boilerplate.containers.HomePage.Record.Checking.success.message.p2',
+    defaultMessage: 'Or starting the interview by clicking on the "Start" button.',
+  },
+  checkingSuccessP3: {
+    id: 'boilerplate.containers.HomePage.Record.Checking.success.message.p3',
     defaultMessage: 'Once you are ready, you can click on the "Start" button.',
   },
   buttonReview: {
