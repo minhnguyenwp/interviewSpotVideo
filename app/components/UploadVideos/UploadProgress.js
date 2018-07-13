@@ -4,7 +4,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Progress } from 'reactstrap';
-import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 
 class UploadProgress extends React.Component {
     componentDidMount() {
@@ -33,12 +33,12 @@ class UploadProgress extends React.Component {
                     <h2 className="page-ttl"><FormattedMessage
                             {...messages.uploadingTitle}/></h2>
                     <div className="page-desc text-center">
-                        <FormattedMessage
+                        <FormattedHTMLMessage
                             {...messages.uploadingMessage}/>
                     </div>
                     <div className="upload-control">
                         <div className="upload-percent">
-                            <span className="num" style={{'left': '45%'}}>{percent + '%'}</span>
+                            <span className="num">{percent + '%'}</span>
                             <Progress value={percent} />
                         </div>
                     </div>

@@ -104,7 +104,7 @@ class InterviewRecording extends React.Component {
                 { qStep != "TestDevice" &&
                 <div className="content-wrapper">
                     <div className="countdown-wrap">
-                      <ReactCountdownClock seconds={question.answerTimeLimit}
+                      <ReactCountdownClock seconds={question.answerTimeLimit + 2}
                                                    color="#c52026"
                                                    alpha={1}
                                                    size={36}
@@ -130,7 +130,7 @@ class InterviewRecording extends React.Component {
                                                 doneRecord={() => this.doneRecord()} videoJsOptions={videoJsOptions}
                                                 onDeviceError={() => this.onDeviceError()}
                                                 nextQuestion={() => this.nextQuestion()}
-                                                maxDuration={question.answerTimeLimit} />
+                                                maxDuration={question.answerTimeLimit} qStep={qStep} />
                         
                     </div>
                 </div>

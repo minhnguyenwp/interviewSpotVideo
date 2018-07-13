@@ -52,6 +52,7 @@ class InterviewQuestion extends React.Component {
             <div className="container">
                 <div className="content-wrapper">
                     <h2 className="page-ttl">{title}</h2>
+                    { !isPractice &&
                     <div className="page-desc">
                         <p><FormattedMessage
                             {...messages.questionStartMessage1}
@@ -69,6 +70,26 @@ class InterviewQuestion extends React.Component {
                         <p><FormattedMessage
                             {...messages.questionStartMessage3}/></p>
                     </div>
+                    }
+                    { isPractice &&
+                    <div className="page-desc">
+                        <p><FormattedMessage
+                            {...messages.questionStartPracticeMessage1}
+                            values={{
+                              readingTimeLimit: readingTimeLimit,
+                            }}
+                          /></p>
+                        <p><FormattedMessage
+                            {...messages.questionStartPracticeMessage2}
+                            values={{
+                              numQuestions: sessionData.answers.length,
+                              answerTimeLimit: answerTimeLimit,
+                            }}
+                          /></p>
+                        <p><FormattedMessage
+                            {...messages.questionStartPracticeMessage3}/></p>
+                    </div>
+                    }
                     <div className="btn-wrap">
                         { !isPractice &&
                         <div className="time-submiss">

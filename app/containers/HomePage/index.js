@@ -223,7 +223,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         qStep == 'Prepare' && !error && !deviceError && question && <InterviewPrepare messages={messages} question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />
       }
       {
-        qStep == 'Recording' && !error && !deviceError && question && <InterviewRecording messages={messages} saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} onDeviceError={() => this.onDeviceError()} />
+        qStep == 'Recording' && !error && !deviceError && question && <InterviewRecording messages={messages} saveVideoData={(videoData) => this.saveVideoData(videoData)} question={question} qNum={qNum} isPractice={isPractice} sessionData={sessionData} doneRecord={() => this.doneRecord()} nextQuestion={() => this.nextQuestion()} onDeviceError={() => this.onDeviceError()} qStep={qStep} />
       }
       {
         qStep == 'UploadProgress' && !error && !deviceError && !isPractice && !isUploadSuccess && <UploadProgress messages={messages} isPractice={isPractice} sessionData={sessionData} question={question} qNum={qNum} uploadFile={(url) => this.uploadFile(url)} progress={progress} />

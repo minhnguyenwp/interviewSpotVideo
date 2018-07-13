@@ -24,15 +24,27 @@ export default defineMessages({
   },
   questionStartMessage1: {
     id: 'boilerplate.containers.HomePage.questionStart.message1',
-    defaultMessage: 'In the next page, you will be given {readingTimeLimit} seconds to read a Pratice Interview Question before your recording begins automatically.',
+    defaultMessage: 'In the next page, you will be given {readingTimeLimit} seconds to read each question before your recording begins automatically.',
   },
   questionStartMessage2: {
     id: 'boilerplate.containers.HomePage.questionStart.message2',
-    defaultMessage: 'There will be {numQuestions} questions to complete in this interview and you are given {answerTimeLimit} minutes per question.',
+    defaultMessage: 'There will be {numQuestions} questions to complete this interview and you are given {answerTimeLimit} minutes per question.',
   },
   questionStartMessage3: {
     id: 'boilerplate.containers.HomePage.questionStart.message3',
-    defaultMessage: 'When you are ready, please click \"Next\" button.',
+    defaultMessage: 'When you are ready, please click \"Next\".',
+  },
+  questionStartPracticeMessage1: {
+    id: 'boilerplate.containers.HomePage.questionStart.practiceMessage1',
+    defaultMessage: 'In the next page, you will be given {readingTimeLimit} seconds to read each practic question before your recording begins automatically.',
+  },
+  questionStartPracticeMessage2: {
+    id: 'boilerplate.containers.HomePage.questionStart.practiceMessage2',
+    defaultMessage: 'There will be {numQuestions} questions to complete this practice interview and you are given {answerTimeLimit} minutes per question.',
+  },
+  questionStartPracticeMessage3: {
+    id: 'boilerplate.containers.HomePage.questionStart.practiceMessage3',
+    defaultMessage: 'When you are ready, please click on \"Next\" button.',
   },
   questionStartDeadline: {
     id: 'boilerplate.containers.HomePage.questionStart.dealine.message',

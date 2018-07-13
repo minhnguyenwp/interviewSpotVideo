@@ -64,7 +64,14 @@ export default class VideojsRecordPlayer extends React.Component {
 
     onDeviceReady(){
         //console.log('deviceReady')
-        this.setState({ recordState: 'deviceReady', curentTime: 0 })
+        this.setState({ recordState: 'deviceReady', curentTime: 0 });
+        console.log(this.props)
+        if(this.props.qStep == 'Recording'){
+            this.player.record().start();
+            this.setState({
+                recordState: 'Recording'
+            })
+        }
     }
 
     onDeviceError(){
