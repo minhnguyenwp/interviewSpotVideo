@@ -48,6 +48,7 @@ class UploadSuccess extends React.Component {
         fluid: false,
         autoplay: true
     };
+
     return (
         <div className="central-wrap">
             <Helmet>
@@ -77,7 +78,7 @@ class UploadSuccess extends React.Component {
                             <div>
                             {
                                 (loadVideo && videoData) && 
-                                <VideojsRecordPlayer videoData={videoData.video} videoJsOptions={videoJsOptions}  />
+                                <VideojsRecordPlayer videoData={videoData} videoJsOptions={videoJsOptions}  />
                             }
                             </div>
                         </div>
@@ -102,7 +103,7 @@ class UploadSuccess extends React.Component {
                             <div>
                             {
                                 (loadVideo && videoData) && 
-                                <VideojsRecordPlayer videoData={videoData[qNum].video} videoJsOptions={videoJsOptions}  />
+                                <VideojsRecordPlayer videoData={videoData[qNum]} videoJsOptions={videoJsOptions}  />
                             }
                             </div>
                         </div>

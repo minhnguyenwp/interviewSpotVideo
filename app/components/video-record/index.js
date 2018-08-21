@@ -52,10 +52,9 @@ export default class VideojsRecordPlayer extends React.Component {
             });
             //me.doneRecord()
         } else {
-            let videoData = this.props.videoData
+            let videoData = this.props.videoData.video ? this.props.videoData.video : this.props.videoData
             this.player = videojs(this.videoNode, this.props.videoJsOptions, function onPlayerReady(){
-                //console.log('videoData', videoData)
-                this.src({ type: 'video/webm', src: window.blobUtil.createObjectURL(videoData) });
+                this.src({ type: 'video/webm', src: window.URL.createObjectURL(videoData) });
                 this.load();
                
             });
@@ -108,7 +107,6 @@ export default class VideojsRecordPlayer extends React.Component {
 
     doneRecord(){
         if(typeof this.props.saveVideoData == 'function'){
-            //console.log(this.player.recordedData)
             this.props.saveVideoData(this.player.recordedData);
         }
         if(typeof this.props.doneRecord == 'function'){
