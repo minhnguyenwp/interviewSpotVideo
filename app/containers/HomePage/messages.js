@@ -201,7 +201,7 @@ export default defineMessages({
   errorUnsupportedBrowser:{
     id: 'boilerplate.containers.HomePage.Error.UnsupportedBrowser',
     defaultMessage: ''
-  }
+  },
   buttonRetry: {
     id: "boilerplate.containers.HomePage.Error.Checking.buttonRetry",
     defaultMessage: "Unsupported Browser! Please try again on another browser."
