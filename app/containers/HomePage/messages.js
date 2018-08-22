@@ -198,8 +198,12 @@ export default defineMessages({
     id: 'boilerplate.containers.HomePage.Error.Checking.message3',
     defaultMessage: 'Please make sure you allow your camera and microphone to work on your browser, follow below instruction image then try again:'
   },
+  errorUnsupportedBrowser:{
+    id: 'boilerplate.containers.HomePage.Error.UnsupportedBrowser',
+    defaultMessage: ''
+  }
   buttonRetry: {
     id: "boilerplate.containers.HomePage.Error.Checking.buttonRetry",
-    defaultMessage: "Retry"
+    defaultMessage: "Unsupported Browser! Please try again on another browser."
   }
 });

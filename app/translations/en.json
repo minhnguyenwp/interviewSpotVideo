@@ -48,6 +48,7 @@
   "boilerplate.containers.HomePage.Error.Checking.message2": "If you are sure your devices work well. Please also check if you blocked them on your browser.",
   "boilerplate.containers.HomePage.Error.Checking.message3": "Please make sure you allow your camera and microphone to work on your browser, follow below instruction image then try again:",
   "boilerplate.containers.HomePage.Error.Checking.buttonRetry": "Retry",
+  "boilerplate.containers.HomePage.Error.UnsupportedBrowser": "Unsupported Browser! Please try again on another browser.",
   "boilerplate.containers.LocaleToggle.fr": "Français (FR)",
   "boilerplate.containers.LocaleToggle.en": "English (US)"
 }

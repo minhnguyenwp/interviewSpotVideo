@@ -48,6 +48,7 @@
   "boilerplate.containers.HomePage.Error.Checking.message2": "Si vous êtes sûr que vos appareils fonctionnent bien. Veuillez également vérifier si vous les avez bloqués sur votre navigateur.",
   "boilerplate.containers.HomePage.Error.Checking.message3": "Veuillez vous assurer que vous autorisez votre caméra et votre microphone à fonctionner sur votre navigateur, suivez les instructions ci-dessous, puis réessayez:",
   "boilerplate.containers.HomePage.Error.Checking.buttonRetry": "Recommencez",
+  "boilerplate.containers.HomePage.Error.UnsupportedBrowser": "Navigateur non supporté! Veuillez réessayer sur un autre navigateur.",
   "boilerplate.containers.LocaleToggle.fr": "Français (FR)",
   "boilerplate.containers.LocaleToggle.en": "English (US)"
 }

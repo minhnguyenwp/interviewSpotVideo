@@ -54,6 +54,12 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
   }
 
   componentDidMount() {
+    // detect IE8 and above, and edge
+    if (document.documentMode || /Edge/.test(navigator.userAgent)) {
+        this.setState({
+          qStep: 'UnsupportedBrowser'
+        })
+    }
     let qs = parseQuery(this.props.location.search)
     let locale = 'en'
     if(qs['locale'] && qs['locale'] != '' && appLocales.indexOf(qs['locale']) != -1) locale = qs['locale']
@@ -235,6 +241,9 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       }
       {
         qStep == 'Finish' && !error && !deviceError && <InterviewFinish messages={messages} isPractice={isPractice} sessionData={sessionData} startInterview={() => this.startInterview()} />
+      }
+      {
+        qStep == "UnsupportedBrowser" && !error && !deviceError && <UploadFail messages={messages} />
       }
       </article>
     );

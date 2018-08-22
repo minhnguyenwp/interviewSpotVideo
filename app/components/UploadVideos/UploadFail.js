@@ -33,7 +33,7 @@ export default class UploadFail extends React.Component {
                     <h2 className="page-ttl"><FormattedMessage
                             {...messages.errorTitle}/></h2>
                     {
-                        (!isPractice || qStep != 'UploadProgress' ) && !deviceError &&
+                        (!isPractice || qStep != 'UploadProgress' ) && !deviceError && qStep != 'UnsupportedBrowser' &&
                     <div className="btn-wrap">
                         <div className="page-desc">
                             {error &&
@@ -55,7 +55,7 @@ export default class UploadFail extends React.Component {
                     </div>
                     }
                     {
-                    deviceError && 
+                    deviceError && qStep != 'UnsupportedBrowser' &&
                     <div className="btn-wrap">
                         <div className="page-desc">
                             <p>
@@ -75,6 +75,17 @@ export default class UploadFail extends React.Component {
                         <div className="text-center">
                             <a onClick={(e) => this.retryClick(e)} className="btn btn-red uppercase w_auto"><FormattedMessage
                             {...messages.buttonRetry}/></a>
+                        </div>
+                    </div>
+                    }
+                    {
+                    qStep == 'UnsupportedBrowser' &&
+                    <div className="btn-wrap">
+                        <div className="page-desc">
+                            <p>
+                            <FormattedMessage
+                                {...messages.errorUnsupportedBrowser}/>
+                            </p>
                         </div>
                     </div>
                     }
