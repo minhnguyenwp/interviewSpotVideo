@@ -1,6 +1,6 @@
 {
-  "boilerplate.containers.HomePage.startInterview.message1": "In an video interview, you would be given {readingTimeLimit} secs to read each question. When the countdown timer reaches \"0\", the system will automatically begin recording your response. And you'll be given a maximum of {answerTimeLimit} minutes per question to complete your response. Please note that there are no re-takes for Video Interviews and it will be a one-time through recording.",
-  "boilerplate.containers.HomePage.startInterview.message2": "Your could try a Practice Interview before taking an actual interview.",
+  "boilerplate.containers.HomePage.startInterview.message1": "In an video interview, you will be given {readingTimeLimit} secs to read each question. When the countdown timer reaches \"0\", the system will automatically begin recording your response. And you'll be given a maximum of {answerTimeLimit} minutes per question to complete your response. Please note that it will be a one-time through recording, You won't be able to record twice a response for the same question.",
+  "boilerplate.containers.HomePage.startInterview.message2": "You could try a Practice Interview before begining the real one.",
   "boilerplate.containers.HomePage.startInterview.buttonPractice.text": "Try a Practice Interview",
   "boilerplate.containers.HomePage.startInterview.buttonBegin.text": "Begin Interview",
   "boilerplate.containers.HomePage.questionStart.message1": "In the next page, you will be given {readingTimeLimit} seconds to read each question before your recording begins automatically.",

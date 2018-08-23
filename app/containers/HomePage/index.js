@@ -49,7 +49,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
       isPractice: false,
       videoDemo: false,
       deviceError: false,
-      videoData: []
+      videoData: [],
+      locale: 'en'
     }
   }
 
@@ -63,6 +64,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     let qs = parseQuery(this.props.location.search)
     let locale = 'en'
     if(qs['locale'] && qs['locale'] != '' && appLocales.indexOf(qs['locale']) != -1) locale = qs['locale']
+    this.state.locale = locale
     this.props.onPageLoad(qs['code'], qs['societe'], locale);
 
     window.addEventListener("beforeunload", (ev) => 
@@ -190,6 +192,8 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
     if(videoData){
       let formData = new FormData();
           formData.append('answer', videoData);
+          formData.append('extension', 'webm');
+      //console.log(formData);
       this.props.onUpload(url, formData)
     }
   }
@@ -200,7 +204,7 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
 
   render() {
     const { error, question, getQuestion, session, practice, progress, isUploadFailure, isUploadSuccess } = this.props
-    const { qNum, qStep, isPractice, videoData, deviceError, videoDemo } = this.state
+    const { qNum, qStep, isPractice, videoData, deviceError, videoDemo, locale } = this.state
     let sessionData = this.props.session
     if(isPractice){
       if(practice){
@@ -219,10 +223,10 @@ export class HomePage extends React.PureComponent { // eslint-disable-line react
         qStep == "TestDeviceSuccess" && !error && !deviceError && <UploadSuccess messages={messages} qStep={qStep} videoData={videoDemo} startTest={() => this.startTest()} />
       }
       {
-        qStep == 'Start' && !error && !deviceError && sessionData && <InterviewStart  messages={messages} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
+        qStep == 'Start' && !error && !deviceError && sessionData && <InterviewStart locale={locale}  messages={messages} session={session} startInterview={() => this.startInterview()} startPractice={() => this.startPractice()} />
       }
       {
-        qStep == 'Question' && !error && !deviceError && sessionData && <InterviewQuestion messages={messages} sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
+        qStep == 'Question' && !error && !deviceError && sessionData && <InterviewQuestion locale={locale} messages={messages} sessionData={sessionData} isPractice={isPractice} qNum={qNum} practice={practice} doPrepare={() => this.doPrepare()} />
       }
       {
         qStep == 'Prepare' && !error && !deviceError && question && <InterviewPrepare messages={messages} question={question} qNum={qNum + 1} isPractice={isPractice} sessionData={sessionData} startRecord={() => this.startRecord()} />

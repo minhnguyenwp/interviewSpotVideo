@@ -23,10 +23,14 @@ class InterviewStart extends React.Component {
     }
   }
   render() {
-    const {session, messages, intl} = this.props
+    const {session, messages, intl, locale} = this.props;
+    let deadline = myFormatDate('dd-mm-yyyy', session.deadline, intl.formatMessage(messages.questionStartDeadlineInvalid))
+    if(locale == 'en'){
+      deadline = myFormatDate('yyyy-mm-dd', session.deadline, intl.formatMessage(messages.questionStartDeadlineInvalid))
+    } 
     return (
         <div className="central-wrap">
-            <Helmet>
+        <Helmet>
           <title>Dashboard</title>
           <meta name="description" content="Central Test" />
         </Helmet>
@@ -54,12 +58,12 @@ class InterviewStart extends React.Component {
                 <FormattedMessage
                     {...messages.questionStartDeadline}
                     values={{
-                      deadline: myFormatDate('dd-mm-yyyy', session.deadline, intl.formatMessage(messages.questionStartDeadlineInvalid)),
+                      deadline: deadline,
                     }}
                   />
               </div>
               <a onClick={(e) => this.startPractice(e)} className="btn btn-blue"><FormattedMessage {...messages.buttonPractice}/></a>
-              <a onClick={(e) => this.startInterview(e)} className="btn btn-red"><FormattedMessage {...messages.buttonBegin}/></a>
+              <a onClick={(e) => this.startInterview(e)} className="btn btn-green"><FormattedMessage {...messages.buttonBegin}/></a>
             </div>
           </div>
           }

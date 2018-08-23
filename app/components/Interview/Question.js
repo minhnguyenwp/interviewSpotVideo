@@ -23,10 +23,12 @@ class InterviewQuestion extends React.Component {
     }
   }
   render() {
-    const {sessionData, qNum, isPractice, messages, intl} = this.props
+    const {sessionData, qNum, isPractice, messages, intl, locale} = this.props
     let number = qNum + 1
-    console.log(sessionData)
     let deadline = myFormatDate('dd-mm-yyyy', sessionData.deadline, intl.formatMessage(messages.questionStartDeadlineInvalid))
+    if(locale == 'en'){
+       deadline = myFormatDate('yyyy-mm-dd', sessionData.deadline, intl.formatMessage(messages.questionStartDeadlineInvalid))
+    }
     let readingTimeLimit = sessionData.answers[qNum].readingTimeLimit
     let answerTimeLimit = Math.round(sessionData.answers[qNum].answerTimeLimit/60)
     let title = sessionData.title
