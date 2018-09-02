@@ -105,7 +105,7 @@ class InterviewQuestion extends React.Component {
                         }
                         {
                           isPractice &&
-                          <a onClick={(e) => this.doPrepare(e)} className="btn btn-blue uppercase"><FormattedMessage
+                          <a onClick={(e) => this.doPrepare(e)} className="btn btn-green uppercase"><FormattedMessage
                             {...messages.questionStartButtonNext}/></a>
                         }
                         {

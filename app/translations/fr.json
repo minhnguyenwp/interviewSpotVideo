@@ -1,7 +1,7 @@
 {
   "boilerplate.containers.HomePage.startInterview.message1": "Dans une interview vidéo, vous aurez {readingTimeLimit} secondes pour lire chaque question. Lorsque le compte à rebours atteint \"0\", le système commencera automatiquement à enregistrer votre réponse. Et vous aurez un maximum de {answerTimeLimit} minutes par question pour compléter votre réponse. Veuillez noter qu'il s'agira d'un enregistrement unique, vous ne pourrez pas enregistrer deux fois une réponse pour la même question.",
   "boilerplate.containers.HomePage.startInterview.message2": "Vous pouvez essayer un entretien pratique avant de commencer le vrai.",
-  "boilerplate.containers.HomePage.startInterview.buttonPractice.text": "Essayez une Entrevue Pratique",
+  "boilerplate.containers.HomePage.startInterview.buttonPractice.text": "Essayez Une Entrevue Pratique",
   "boilerplate.containers.HomePage.startInterview.buttonBegin.text": "Commencer l'entrevue",
   "boilerplate.containers.HomePage.questionStart.message1": "Dans la page suivante, vous aurez {readingTimeLimit} secondes pour lire chaque question avant que votre enregistrement commence automatiquement.",
   "boilerplate.containers.HomePage.questionStart.message2": "Il y aura des questions {numQuestions} pour compléter cette interview et on vous donnera {answerTimeLimit} minutes par question.",
